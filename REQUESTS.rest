@@ -3,7 +3,16 @@ GET http://enigmatic-tundra-49064.herokuapp.com/api/users
   
 GET http://localhost:8080/SERvicesAPI/public/api/articles
 ###
-GET http://localhost:8080/SERvicesAPI/public/api/empresas
+POST http://127.0.0.1:8000/api/auth/register HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "name":"massas",
+    "email":"test23@email.com",
+    "password":"test123",
+    "password_confirmation":"test123"
+}
 ###
 
 POST http://127.0.0.1:8000/api/auth/login HTTP/1.1
