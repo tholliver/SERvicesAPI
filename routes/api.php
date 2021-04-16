@@ -16,7 +16,7 @@ Route::group([
 
     
     //POST and Get methods for roles
-    Route::post('roles', 'RolController@index');
+    Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
 
     //POST and Get methods for Items

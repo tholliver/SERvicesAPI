@@ -1,7 +1,7 @@
 GET http://127.0.0.1:8000/api/auth/users
 ###
 
-POST http://127.0.0.1:8000/api/auth/roles HTTP/1.1
+POST https://apiser-vicios.herokuapp.com/api/auth/roles HTTP/1.1
 Content-type: application/json
 Accept: application/json
 
@@ -10,7 +10,7 @@ Accept: application/json
     "descrip":"Encargado de tales consas"
 }  
 ###
-POST http://127.0.0.1:8000/api/auth/items HTTP/1.1
+POST https://apiser-vicios.herokuapp.com/api/auth/items HTTP/1.1
 Content-type: application/json
 Accept: application/json
 
@@ -22,7 +22,7 @@ Accept: application/json
 }  
 
 ###
-POST http://127.0.0.1:8000/api/auth/register HTTP/1.1
+POST https://apiser-vicios.herokuapp.com/api/auth/register HTTP/1.1
 content-type: application/json
 Accept: application/json
 
@@ -37,12 +37,12 @@ Accept: application/json
 }
 ###
 
-POST http://127.0.0.1:8000/api/auth/login HTTP/1.1
+POST https://apiser-vicios.herokuapp.com/api/auth/login HTTP/1.1
 content-type: application/json
 Accept: application/json
 
 {
-    "email": "test24@email.com",
+    "email": "juanitasaa@gmail.com",
     "password": "test123"
 }
 ####
