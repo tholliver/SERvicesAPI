@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class AuthController extends Controller
 {
@@ -15,6 +20,8 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login']]);
     }
+    
+    
 
     /**
      * Get a JWT via given credentials.
@@ -63,6 +70,24 @@ class AuthController extends Controller
     {
         return $this->respondWithToken(auth()->refresh());
     }
+
+    
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function createNewToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
+    }
+
 
     /**
      * Get the token array structure.

@@ -1,17 +1,39 @@
-GET http://enigmatic-tundra-49064.herokuapp.com/api/users
+GET http://127.0.0.1:8000/api/auth/users
 ###
-  
-GET http://localhost:8080/SERvicesAPI/public/api/articles
+
+POST http://127.0.0.1:8000/api/auth/roles HTTP/1.1
+Content-type: application/json
+Accept: application/json
+
+{
+    "rolnom":"Cotizador",
+    "descrip":"Encargado de tales consas"
+}  
+###
+POST http://127.0.0.1:8000/api/auth/items HTTP/1.1
+Content-type: application/json
+Accept: application/json
+
+{
+    "nomitem":"Tintas en polvo",
+    "descrip":"Tintas en polvo para impresoras lazer",
+    "montoasig":"500.999",
+    "periodo":"1/2021"
+}  
+
 ###
 POST http://127.0.0.1:8000/api/auth/register HTTP/1.1
 content-type: application/json
 Accept: application/json
 
 {
-    "name":"massas",
-    "email":"test23@email.com",
+    "name":"Juan",
+    "lastname":"Marinos",    
+    "email":"juanitoman@gmail.com",
     "password":"test123",
-    "password_confirmation":"test123"
+    "password_confirmation":"test123",
+    "cellphone":"77776666",
+    "rol":"Jefe"
 }
 ###
 
