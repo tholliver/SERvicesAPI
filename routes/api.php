@@ -21,7 +21,10 @@ Route::group([
 
     //POST and Get methods for Items
     Route::get('items', 'ItemController@index');
-    Route::post('items', 'ItemController@nuevoitem');
+    Route::post('items', 'ItemController@store');
+    Route::put('items', 'ItemController@update');
+    Route::get('items', 'ItemController@show');
+    Route::delete('items', 'ItemController@destroy');
 
     //Autentica cion de usuarios
     Route::get('users', 'UserController@getusers');
