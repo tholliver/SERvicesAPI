@@ -6,6 +6,7 @@ use App\Http\Controller\AuthController;
 use App\Http\Controller\UserController;
 use App\Http\Controller\RolController;
 use App\Http\Controller\ItemController;
+use App\Http\Controller\SolicitudController;
 
 Route::group([
 
@@ -13,8 +14,54 @@ Route::group([
     'prefix' => 'auth'
 
 ], function () {
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
+
+
+
+
+
     //POST and Get methods for roles
     Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
