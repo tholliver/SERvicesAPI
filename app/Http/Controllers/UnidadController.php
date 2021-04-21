@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UnidadController extends Controller
 {
@@ -15,7 +17,7 @@ class UnidadController extends Controller
     {
         $unidades = Unidad::latest()->paginate(10);
         
-        return response()->json('unidades', ['message' => 'unidades encontrados'], 200);
+        return response()->json(['unidades' => $unidades, 'message' => 'unidades encontrados'], 200);
     }
 
     /**
@@ -40,7 +42,7 @@ class UnidadController extends Controller
         }
 
         $unidad = Unidad::create($data);
-        return response()->json('unidad', ['message' => 'unidad guardada con exito'],201);
+        return response()->json(['unidad' => $unidad, 'message' => 'unidad guardada con exito'],201);
     }
 
     /**
@@ -57,7 +59,7 @@ class UnidadController extends Controller
             return response()->json(['message' => 'unidad no encontrado']);
         }
 
-        return response()->json('unidad', ['message' => 'unidad encontrado'], 200);
+        return response()->json(['unidad' => $unidad, 'message' => 'unidad encontrado'], 200);
     }
 
     /**
@@ -91,7 +93,7 @@ class UnidadController extends Controller
         $unidad->user_id = $data['user_id'];
         $unidad->save();
 
-        return response()->json('unidad', ['message' => 'unidad actualizada con exito'], 200);
+        return response()->json(['unidad' => $unidad,'message' => 'unidad actualizada con exito'], 200);
     }
 
     /**

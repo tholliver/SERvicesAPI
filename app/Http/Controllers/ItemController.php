@@ -16,10 +16,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::latest()->paginate(10);
+        $items = Item::latest()->paginate(50);
         
 
-        return response()->json('items', ['message' => 'items encontrados'], 200);
+        return response()->json(['items' => $items, 'message' => 'items encontrados'], 200);
     }
 
     /**
@@ -43,7 +43,7 @@ class ItemController extends Controller
         }
 
         $item = Item::create($data);
-        return response()->json('item', ['message' => 'item guardado con exito'],201);
+        return response()->json(['items' => $item, 'message' => 'item guardado con exito'],201);
     }
 
 
@@ -61,7 +61,7 @@ class ItemController extends Controller
             return response()->json(['message' => 'item no encontrado']);
         }
 
-        return response()->json('item', ['message' => 'item encontrado'], 200);
+        return response()->json(['items' => $items, 'message' => 'item encontrado'], 200);
     }
 
     /**
@@ -93,7 +93,7 @@ class ItemController extends Controller
         $item->periodo = $data['periodo'];
         $item->save();
 
-        return response()->json('item', ['message' => 'item actualizado con exito'], 200);
+        return response()->json(['items' => $items, 'message' => 'item actualizado con exito'], 200);
     }
 
     /**

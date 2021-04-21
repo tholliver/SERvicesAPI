@@ -1,7 +1,7 @@
 <?php
 
-namespace App;
-
+namespace App\Models;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Unidad extends Model
