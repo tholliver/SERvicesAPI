@@ -19,7 +19,7 @@ class ItemController extends Controller
         $items = Item::latest()->paginate(10);
         
 
-        return response()->json('item', ['message' => 'items encontrados'], 200);
+        return response()->json('items', ['message' => 'items encontrados'], 200);
     }
 
     /**
