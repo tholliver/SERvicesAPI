@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ItemController extends Controller
 {
@@ -14,7 +16,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        $items = Item::latest()->paginate(10);
+        
+
+        return response()->json('items', ['message' => 'items encontrados'], 200);
     }
 
     /**
@@ -22,40 +27,25 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function nuevoitem(Request $request)
-    {
-        
-        if($request->has('nomitem')){
-
-            $item = Item::create([
-                'nomitem' => $request->get('nomitem'),
-                'descrip' => $request->get('descrip'),
-                'montoasig' => $request->get('montoasig'),
-                'periodo' => $request->get('periodo'),
-            ]);
-    
-           return response()->json(compact('item'),201);
-                
-           }
-    
-        $returnData = array(
-            'status' => 'error',
-            'message' => 'An error occurred!'
-        );
-        //response()->json($returnData, 400);
-        return $request->all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'nomitem' => 'required|max:255',
+            'descrip' => 'required|max:500',
+            'montoasig' => 'required|numeric| max:255',
+            'periodo' => 'required| max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return  response()->json(['error' => 'Error de validación', $validator->errors()]);
+        }
+
+        $item = Item::create($data);
+        return response()->json('item', ['message' => 'item guardado con exito'],201);
     }
+
 
     /**
      * Display the specified resource.
@@ -63,20 +53,15 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
-        //
-    }
+        $item = Item::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Item $item)
-    {
-        //
+        if (is_null($item)) {
+            return response()->json(['message' => 'item no encontrado']);
+        }
+
+        return response()->json('item', ['message' => 'item encontrado'], 200);
     }
 
     /**
@@ -88,7 +73,27 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'nomitem' => 'required|max:255',
+            'descrip' => 'required|max:500',
+            'montoasig' => 'required|numeric| max:255',
+            'periodo' => 'required| max:255'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);       
+        }
+        
+        $item = Item::find($request->id);
+        $item->nomitem = $data['nomitem'];
+        $item->descrip = $data['descrip'];
+        $item->montoasig = $data['montoasig'];
+        $item->periodo = $data['periodo'];
+        $item->save();
+
+        return response()->json('item', ['message' => 'item actualizado con exito'], 200);
     }
 
     /**
@@ -97,8 +102,11 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+
+        return response()->json(['message' => 'item eliminado']);
     }
 }

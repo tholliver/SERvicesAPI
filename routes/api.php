@@ -66,9 +66,19 @@ Route::group([
     Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
 
-    //POST and Get methods for Items
+    // Rutas items
     Route::get('items', 'ItemController@index');
-    Route::post('items', 'ItemController@nuevoitem');
+    Route::post('items', 'ItemController@store');
+    Route::put('items', 'ItemController@update');
+    Route::get('items', 'ItemController@show');
+    Route::delete('items', 'ItemController@destroy');
+    
+    // Rutas unidades 
+    Route::get('unidades', 'UnidadController@index');
+    Route::post('unidades', 'UnidadController@store');
+    Route::put('unidades', 'UnidadController@update');
+    Route::get('unidades', 'UnidadController@show');
+    Route::delete('unidades', 'UnidadController@destroy');
 
     //Autentica cion de usuarios
     Route::get('users', 'UserController@getusers');
