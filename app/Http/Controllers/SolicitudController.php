@@ -29,37 +29,31 @@ class SolicitudController extends Controller
     {
         //
     }
-    public function nuevasolicitud (Request $request){
-        $data = $request->json()->all();
-        /*
-        $solicitud=$data[0];
-        $items=$data[1];
+    public function nuevasolicitud (Request $request){       
+        $incomingdata = $request->json()->all();
+               
+        $items = $incomingdata["items"];
+        //Verify if exits all the items
+        $results = Item::whereIn('id', $items )->count();
+
+        if($results !== count($items)){            
+            $datas = [
+                'status'=>"Items no encotrados",
+                'message' => "Items no encotrados"
+            ];
+            //throw new Exception("All records don't exist");
+            return response()->json(compact('datas'),201);
+        }
 
         $newsolicitud = Solicitud::create([
-            'responsable' => $solicitud->get('responsable'),
-            'montoestimado' => $solicitud->get('montoestimado'),       
-            'estado' => $solicitud->get('estado'),     
+            'responsable' => $request->get('responsable'),
+            'montoestimado' => $request->get('montoestimado'),       
+            'estado' => $request->get('estado'),     
         ]);
          
         $newsolicitud->items()->attach($items);
-       */
-
-        return response()->json(compact('data'),201);
-        //Here create a new solicitud
-        //$last3 = DB::table('solicituds')->latest('id')->first();
-        
-        /*
-        if($request->has('')){
-            $rol = Rol::create([
-                'rolnom' => $request->get('rolnom'),
-                'descrip' => $request->get('descrip'),            
-            ]);
-    
-           return response()->json(compact('rol'),201);
-                
-           }
-       */
-                 
+       
+        return response()->json(compact('newsolicitud'),201);              
         
     }
     

@@ -25,6 +25,8 @@ Route::group([
     Route::post('roles', 'RolController@nuevorol');
 
     // Rutas items
+    
+    Route::get('/solicituditems/{id}', 'ItemController@solicitudItems');
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
     Route::put('items', 'ItemController@update');

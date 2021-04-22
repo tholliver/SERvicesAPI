@@ -9,9 +9,9 @@ class Solicitud extends Model
 
 use Notifiable;
 
-protected $fillable=[
+    protected $fillable=[
     'responsable','montoestimado','estado'
-];
+    ];
     public function items()
     {
         return $this->belongsToMany(Item::class);

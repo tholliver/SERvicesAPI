@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,7 +47,23 @@ class ItemController extends Controller
         return response()->json('item', ['message' => 'item guardado con exito'],201);
     }
 
-
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function solicitudItems($id)
+    {
+        //console_log('massa');
+        
+        $solicitud = Solicitud::find($id);
+        $items = $solicitud->items()->get();        
+          
+        return response()->json(compact('items'),201);
+    } 
+    
     /**
      * Display the specified resource.
      *
@@ -55,6 +72,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
+
         $item = Item::find($id);
 
         if (is_null($item)) {
