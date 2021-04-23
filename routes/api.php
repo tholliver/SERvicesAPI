@@ -18,6 +18,7 @@ Route::group([
 //POST and Get methods for solicitudes
     Route::get('solicitudes', 'SolicitudController@index');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
+    Route::put('solicitudes', 'SolicitudController@update');
 
 
     //POST and Get methods for roles

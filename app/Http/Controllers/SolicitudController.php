@@ -99,7 +99,15 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, Solicitud $solicitud)
     {
-        //
+        
+        $solicitud = Solicitud::find($request->id);
+        $solicitud->estado = $request->estado;
+        $result = $solicitud->save();
+        if($result){
+            return ["result"=>"Success, data is updated"];
+        } else {
+            return ["result"=>"Error, data didnt update"];
+        }        
     }
 
     /**
