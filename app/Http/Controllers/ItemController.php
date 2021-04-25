@@ -47,23 +47,6 @@ class ItemController extends Controller
         return response()->json('item', ['message' => 'item guardado con exito'],201);
     }
 
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function solicitudItems($id)
-    {
-        //console_log('massa');
-        
-        $solicitud = Solicitud::find($id);
-        $items = $solicitud->items()->get();        
-          
-        return response()->json(compact('items'),201);
-    } 
-    
     /**
      * Display the specified resource.
      *

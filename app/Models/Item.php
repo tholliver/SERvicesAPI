@@ -16,5 +16,5 @@ class Item extends Model
         'nomitem', 'descrip', 'montoasig', 'periodo', 
     ];
 
-    
+       
 }

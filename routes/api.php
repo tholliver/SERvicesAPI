@@ -16,6 +16,7 @@ Route::group([
 ], function () {
     
 //POST and Get methods for solicitudes
+    Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
     Route::put('solicitudes', 'SolicitudController@update');
@@ -27,7 +28,7 @@ Route::group([
 
     // Rutas items
     
-    Route::get('/solicituditems/{id}', 'ItemController@solicitudItems');
+
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
     Route::put('items', 'ItemController@update');
