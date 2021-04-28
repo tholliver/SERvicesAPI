@@ -7,10 +7,10 @@ use App\Http\Controller\UserController;
 use App\Http\Controller\RolController;
 use App\Http\Controller\ItemController;
 use App\Http\Controller\UnidadController;
+use App\Http\Controller\SolicitudController;
 
 
  Route::group([
-
      'middleware' => 'api',
      'prefix' => 'auth'
 
@@ -20,13 +20,24 @@ use App\Http\Controller\UnidadController;
      //POST and Get methods for roles
      Route::get('roles', 'RolController@index');
      Route::post('roles', 'RolController@nuevorol');
+    
+//POST and Get methods for solicitudes
+    Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
+    Route::get('solicitudes', 'SolicitudController@index');
+    Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
+    Route::put('solicitudes', 'SolicitudController@update');
 
-     // Rutas items
-     Route::get('items', 'ItemController@index');
-     Route::post('items', 'ItemController@store');
-     Route::put('items/{id}', 'ItemController@update');
-     Route::get('items/{id}', 'ItemController@show');
-     Route::delete('items', 'ItemController@destroy');
+
+    //POST and Get methods for roles
+    Route::get('roles', 'RolController@index');
+    Route::post('roles', 'RolController@nuevorol');
+
+    // Rutas items
+    Route::get('items', 'ItemController@index');
+    Route::post('items', 'ItemController@store');
+    Route::put('items', 'ItemController@update');
+    Route::get('items', 'ItemController@show');
+    Route::delete('items', 'ItemController@destroy');
     
      // Rutas unidades 
      Route::get('unidades', 'UnidadController@index');

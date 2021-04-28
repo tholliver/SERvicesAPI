@@ -15,4 +15,6 @@ class Item extends Model
     protected $fillable = [
         'nomitem', 'descrip', 'montoasig', 'periodo', 
     ];
+
+       
 }
