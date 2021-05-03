@@ -40,6 +40,8 @@ class UserController extends Controller
                 'password' => 'required|string|min:6|confirmed',
                 'cellphone' => 'required|string|max:20',
                 'rol' => 'required|string|max:50',
+                'unidaddegasto' => 'required|string|max:100',
+                'facultad' => 'required|string|max:100',
             ]);
 
             if($validator->fails()){
@@ -55,6 +57,8 @@ class UserController extends Controller
                 'password' => Hash::make($request->get('password')),
                 'cellphone' => $request->get('cellphone'),
                 'rol' => $request->get('rol'),
+                'unidaddegasto' => $request->get('unidaddegasto'),
+                'facultad' => $request->get('facultad'),
             ]);
 
             $token = JWTAuth::fromUser($user);
