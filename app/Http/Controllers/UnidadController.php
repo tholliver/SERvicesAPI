@@ -15,7 +15,8 @@ class UnidadController extends Controller
      */
     public function index()
     {
-        $unidades = Unidad::latest()->paginate(10);
+        $unidades = Unidad::all();
+        // $unidades = Unidad::latest()->paginate(10);
         
         return response()->json(['unidades' => $unidades, 'message' => 'unidades encontrados'], 200);
     }
@@ -28,19 +29,18 @@ class UnidadController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $validator = Validator::make($data, [
             'nombre' => 'required|max:255',
             'facultad' => 'required|max:500',
-            'presupuesto' => 'required|numeric| max:255',
+            'presupuesto' => 'required|numeric',
             'telefono' => 'required| max:255',
-            'user_id' => 'required| max:255'
-        ]);
-
+            'user_id' => 'required| max:255',
+            'secret_id' => 'required| max:255'
+            ]);
+            
         if ($validator->fails()) {
             return  response()->json(['error' => 'Error de validación', $validator->errors()]);
         }
-
         $unidad = Unidad::create($data);
         return response()->json(['unidad' => $unidad, 'message' => 'unidad guardada con exito'],201);
     }
@@ -78,7 +78,8 @@ class UnidadController extends Controller
             'facultad' => 'required|max:500',
             'presupuesto' => 'required|numeric| max:255',
             'telefono' => 'required| max:255',
-            'user_id' => 'required| max:255'
+            'user_id' => 'required| max:255',
+            'secret_id' => 'required| max:255'
         ]);
 
         if($validator->fails()){

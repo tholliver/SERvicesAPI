@@ -35,16 +35,16 @@ use App\Http\Controller\SolicitudController;
     // Rutas items
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
-    Route::put('items', 'ItemController@update');
-    Route::get('items', 'ItemController@show');
-    Route::delete('items', 'ItemController@destroy');
+    Route::put('items/{id}', 'ItemController@update');
+    Route::get('items/{id}', 'ItemController@show');
+    Route::delete('items/{id}', 'ItemController@destroy');
     
      // Rutas unidades 
      Route::get('unidades', 'UnidadController@index');
      Route::post('unidades', 'UnidadController@store');
      Route::put('unidades/{id}', 'UnidadController@update');
      Route::get('unidades/{id}', 'UnidadController@show');
-     Route::delete('unidades', 'UnidadController@destroy');
+     Route::delete('unidades/{id}', 'UnidadController@destroy');
 
      //Autentica cion de usuarios
      Route::get('users', 'UserController@getusers');

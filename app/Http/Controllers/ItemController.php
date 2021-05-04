@@ -17,9 +17,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::latest()->paginate(50);
         
-
+        $items = Item::all();
+        // $items = Item::latest()->paginate(50);
+        
         return response()->json(['items' => $items, 'message' => 'items encontrados'], 200);
     }
 
@@ -105,6 +106,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        echo($item);
         $item = Item::find($id);
         $item->delete();
 
