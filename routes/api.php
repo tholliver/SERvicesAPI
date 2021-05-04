@@ -6,6 +6,7 @@ use App\Http\Controller\AuthController;
 use App\Http\Controller\UserController;
 use App\Http\Controller\RolController;
 use App\Http\Controller\ItemController;
+use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 
 Route::group([
@@ -14,7 +15,7 @@ Route::group([
     'prefix' => 'auth'
 
 ], function () {
-    
+
 //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
@@ -27,19 +28,18 @@ Route::group([
     Route::post('roles', 'RolController@nuevorol');
 
     // Rutas items
-    
 
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
     Route::put('items', 'ItemController@update');
     Route::get('items', 'ItemController@show');
     Route::delete('items', 'ItemController@destroy');
-    
-    // Rutas unidades 
+
+    // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
     Route::post('unidades', 'UnidadController@store');
     Route::put('unidades', 'UnidadController@update');
-    Route::get('unidades', 'UnidadController@show');
+    //Route::get('unidades', 'UnidadController@show');
     Route::delete('unidades', 'UnidadController@destroy');
 
     //Autentica cion de usuarios
@@ -51,4 +51,3 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
 });
-

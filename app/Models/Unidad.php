@@ -1,7 +1,7 @@
 <?php
 
-namespace App;
-
+namespace App\Models;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Unidad extends Model
@@ -13,11 +13,11 @@ class Unidad extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'facultad', 'presupuesto', 'telefono', 'user_id' 
+        'nombre', 'facultad', 'presupuesto', 'telefono', 'user_id'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'user_id');
-    }
+  //  public function user()
+    //{
+      //  return $this->belongsTo('App\Models\User', 'user_id');
+    //}
 }

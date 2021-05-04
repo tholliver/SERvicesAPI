@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unidad;
 use Illuminate\Http\Request;
 
 class UnidadController extends Controller
@@ -11,11 +12,10 @@ class UnidadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     ///////////////////
     public function index()
     {
-        $unidades = Unidad::latest()->paginate(10);
-        
-        return response()->json('unidades', ['message' => 'unidades encontrados'], 200);
+        return Unidad::all();
     }
 
     /**
@@ -80,9 +80,9 @@ class UnidadController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);       
+            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);
         }
-        
+
         $unidad = Unidad::find($request->id);
         $unidad->nombre = $data['nombre'];
         $unidad->facultad = $data['facultad'];
