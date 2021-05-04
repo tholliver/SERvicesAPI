@@ -20,7 +20,7 @@ use App\Http\Controller\SolicitudController;
      //POST and Get methods for roles
      Route::get('roles', 'RolController@index');
      Route::post('roles', 'RolController@nuevorol');
-    
+
 //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
@@ -57,4 +57,3 @@ use App\Http\Controller\SolicitudController;
  });
 
 
-   
