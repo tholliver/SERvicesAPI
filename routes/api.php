@@ -16,7 +16,7 @@ use App\Http\Controller\SolicitudController;
 
  ], function () {
 
-    
+
      //POST and Get methods for roles
      Route::get('roles', 'RolController@index');
      Route::post('roles', 'RolController@nuevorol');
@@ -38,8 +38,8 @@ use App\Http\Controller\SolicitudController;
     Route::put('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
     Route::delete('items/{id}', 'ItemController@destroy');
-    
-     // Rutas unidades 
+
+     // Rutas unidades
      Route::get('unidades', 'UnidadController@index');
      Route::post('unidades', 'UnidadController@store');
      Route::put('unidades/{id}', 'UnidadController@update');
@@ -52,8 +52,6 @@ use App\Http\Controller\SolicitudController;
      Route::post('login', 'AuthController@login');
      Route::post('logout', 'AuthController@logout');
      Route::post('refresh', 'AuthController@refresh');
-     Route::post('me', 'AuthController@me');
+     Route::get('me', 'AuthController@me');
 
  });
-
-
