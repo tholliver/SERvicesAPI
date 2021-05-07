@@ -9,7 +9,7 @@ class ItemSuperior extends Model
     use Notifiable;
     /**
      * The attributes that are mass assignable.
-     *
+     *aqui se esta guardando
      * @var array
      */
     protected $fillable = [
