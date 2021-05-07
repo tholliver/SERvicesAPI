@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class ItemSuperior extends Model
 {
     use Notifiable;
     /**
@@ -13,7 +13,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'nomitem', 'descrip', 'montoasig', 'periodo', 'unidaddegasto',
+        'nomitemSup', 'descripSup',
     ];
 
 

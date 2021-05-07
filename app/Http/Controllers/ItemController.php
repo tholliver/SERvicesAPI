@@ -17,10 +17,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        
+
         $items = Item::all();
         // $items = Item::latest()->paginate(50);
-        
+
         return response()->json(['items' => $items, 'message' => 'items encontrados'], 200);
     }
 
@@ -34,10 +34,12 @@ class ItemController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
+
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
-            'montoasig' => 'required|numeric| max:255',
-            'periodo' => 'required| max:255'
+            'montoasig' => 'required|numeric| max:10000000',
+            'periodo' => 'required| max:255',
+            'unidaddegasto' => 'required|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -80,19 +82,21 @@ class ItemController extends Controller
         $validator = Validator::make($data, [
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
-            'montoasig' => 'required|numeric| max:255',
-            'periodo' => 'required| max:255'
+            'montoasig' => 'required|numeric| max:10000000',
+            'periodo' => 'required| max:255',
+            'unidaddegasto' => 'required| max:255'
         ]);
 
         if($validator->fails()){
-            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);       
+            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);
         }
-        
+
         $item = Item::find($request->id);
         $item->nomitem = $data['nomitem'];
         $item->descrip = $data['descrip'];
         $item->montoasig = $data['montoasig'];
         $item->periodo = $data['periodo'];
+        $item->unidaddegasto = $data['unidaddegasto'];
         $item->save();
 
         return response()->json(['items' => $items, 'message' => 'item actualizado con exito'], 200);

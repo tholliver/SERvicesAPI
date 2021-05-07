@@ -38,7 +38,9 @@ use App\Http\Controller\SolicitudController;
     Route::put('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
     Route::delete('items/{id}', 'ItemController@destroy');
-
+    // Rutas ItemSuperior
+    Route::get('itemSup', 'ItemSuperiorController@index');
+    Route::post('itemSup', 'ItemSuperiorController@store');
      // Rutas unidades
      Route::get('unidades', 'UnidadController@index');
      Route::post('unidades', 'UnidadController@store');
