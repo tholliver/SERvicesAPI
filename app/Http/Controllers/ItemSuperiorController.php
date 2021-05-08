@@ -21,7 +21,7 @@ class ItemSuperiorController extends Controller
         return ItemSuperior::all();
         // $items = Item::latest()->paginate(50);
 
-        
+
     }
 
     /**
@@ -61,5 +61,12 @@ class ItemSuperiorController extends Controller
      * @param  \App\ItemSuperior  $item
      * @return \Illuminate\Http\Response
      */
+     public function destroy($id)
+     {
+         echo($item);
+         $item = ItemSuperior::find($id);
+         $item->delete();
 
+         return response()->json(['message' => 'item eliminado']);
+     }
 }
