@@ -26,6 +26,9 @@ use App\Http\Controller\SolicitudController;
     Route::get('solicitudes', 'SolicitudController@index');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
     Route::put('solicitudes', 'SolicitudController@update');
+    Route::get('solicitudes-aceptadas', 'SolicitudController@solicitudesAceptadas');
+    Route::get('solicitudes-rechazadas', 'SolicitudController@solicitudesRechazadas');
+    Route::get('solicitudes-pendientes', 'SolicitudController@solicitudesPendientes');
 
 
     //POST and Get methods for roles

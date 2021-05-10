@@ -6,7 +6,7 @@ use App\Models\Solicitud;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use DB;
 class SolicitudController extends Controller
 {
     /**
@@ -15,8 +15,7 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
         return Solicitud::all();
     }
 
@@ -126,6 +125,40 @@ class SolicitudController extends Controller
         } else {
             return ["result"=>"Error, data didnt update"];
         }        
+    }
+
+    /**
+     * Show a list of all of the application's users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function solicitudesAceptadas()
+    {
+        $solicitudes = DB::table('solicituds')
+                ->where('estado', '=', 'Aceptada')        
+                ->get();
+        return response()->json($solicitudes); 
+    }
+
+    /**
+     * Show a list of all of the application's users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function solicitudesRechazadas()
+    {
+        $solicitudes = DB::table('solicituds')
+                ->where('estado', '=', 'Rechazada')        
+                ->get();
+        return response()->json($solicitudes); 
+    }
+
+    public function solicitudesPendientes()
+    {
+        $solicitudes = DB::table('solicituds')
+                ->where('estado', '=', 'Pendiente')        
+                ->get();
+        return response()->json($solicitudes); 
     }
 
     /**
