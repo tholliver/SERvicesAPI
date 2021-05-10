@@ -17,27 +17,33 @@ class ItemSuperiorController extends Controller
      */
     public function index()
     {
-
         return ItemSuperior::all();
         // $items = Item::latest()->paginate(50);
-
-
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $data = $request->all();
+     public function store(Request $request)
+     {
+        if($request->has('nomitemSup')){
+         $itemsitoSup = ItemSuperior::create([
+             'nomitemSup' => $request->get('nomitemSup'),
+             'descripSup' => $request->get('descripSup'),
+         ]);
 
-        $validator = Validator::make($data, [
-            'nomitemSup' => 'required|max:255',
-            'descripSup' => 'required|max:500',
-        ]);
-    }
+        return response()->json(compact('itemsitoSup'),201);
+
+        }
+
+        $returnData = array(
+         'status' => 'error',
+         'message' => 'An error occurred!'
+     );
+        return response()->json($returnData, 400);
+     }
+
 
     /**
      * Display the specified resource.
@@ -61,12 +67,5 @@ class ItemSuperiorController extends Controller
      * @param  \App\ItemSuperior  $item
      * @return \Illuminate\Http\Response
      */
-     public function destroy($id)
-     {
-         echo($item);
-         $item = ItemSuperior::find($id);
-         $item->delete();
 
-         return response()->json(['message' => 'item eliminado']);
-     }
 }
