@@ -37,14 +37,11 @@ class SolicitudController extends Controller
      */
     public function solicitudItems($id)
     {
-        //console_log('massa');        
         $solicitud = Solicitud::find($id);
         $items = $solicitud->items;      
           
         return response()->json(compact('items'),201);
     }
-
-
 
     public function nuevasolicitud (Request $request){       
         $incomingdata = $request->json()->all();
@@ -56,7 +53,7 @@ class SolicitudController extends Controller
         if($results !== count($items)){            
             $datas = [
                 'status'=>"Items no encotrados",
-                'message' => "Items no encotrados en la DB deben estar registrados"
+                'message' => "Items no encotrados en la DB, deben estar registrados"
             ];
             //throw new Exception("All records don't exist");
             return response()->json(compact('datas'),201);

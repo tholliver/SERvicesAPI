@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,11 @@ class UserController extends Controller
                # $validator->errors()->toJson(), 400;
                 return response()->json($validator->errors()->toJson(), 400);
             }
+            //So before insert get the UD, belongs the user
+            /*
+            $idUnidad = $request->get('unidaddegasto');
+            Unidad::where('nombre',$idUnidad) -> first();
+            */
 
             $user = User::create([
                 'name' => $request->get('name'),
