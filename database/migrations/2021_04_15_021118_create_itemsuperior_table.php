@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateItemSuperiorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('item_superiors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nomitem');
-            $table->string('descrip');
+            $table->string('nomitemSup')->unique();
+            $table->string('descripSup');                 
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_superiors');
     }
 }

@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('cellphone');
             $table->string('rol');
-            $table->string('unidaddegasto');
-            $table->string('facultad');
+            $table->string('unidaddegasto',100)->nullable();
+            $table->string('facultad',100)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

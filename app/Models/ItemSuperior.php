@@ -16,5 +16,4 @@ class ItemSuperior extends Model
         'nomitemSup', 'descripSup',
     ];
 
-
 }

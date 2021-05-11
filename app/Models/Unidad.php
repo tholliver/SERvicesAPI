@@ -16,8 +16,15 @@ class Unidad extends Model
         'nombre', 'facultad', 'presupuesto', 'telefono', 'user_id' , 'secret_id'
     ];
 
-    // public function user()
-    // {
-    //     return $this->belongsTo('App\Models\User', 'user_id');
-    // }
+    /*
+     public function users()
+    {
+       return $this->hasMany(User::class,'unidad_id', 'id');
+    }
+    */
+
+    public function asignaciones()
+    {
+        return $this->belongsToMany(Unidad::class,'unidadasignacionitems','unidad_id','itemsuperior_id');
+    }
 }
