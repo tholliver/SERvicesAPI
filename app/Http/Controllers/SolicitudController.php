@@ -43,12 +43,12 @@ class SolicitudController extends Controller
         return response()->json(compact('items'),201);
     }
 
-    public function nuevasolicitud (Request $request){       
+    public function nuevasolicitud(Request $request){       
         $incomingdata = $request->json()->all();
                
         $items = $incomingdata["items"];
         //Verify if exits all the items
-        $results = Item::whereIn('id', $items )->count();
+        $results = Item::whereIn('id', $items)->count();
 
         if($results !== count($items)){            
             $datas = [

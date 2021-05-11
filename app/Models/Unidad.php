@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,8 +24,9 @@ class Unidad extends Model
     }
     */
 
-    public function asignaciones()
+    public function assign()
     {
-        return $this->belongsToMany(Unidad::class,'unidadasignacionitems','unidad_id','itemsuperior_id');
+        return $this->belongsToMany(ItemSuperior::class,'unidadasignacionitems','unidad_id','itemsuperior_id')
+        ->withPivot(['montoasig','periodo']);
     }
 }

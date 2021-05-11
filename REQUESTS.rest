@@ -1,8 +1,18 @@
 GET http://127.0.0.1:8000/api/auth/roles
 ###
-GET https://apiser-vicios.herokuapp.com/api/auth/items
+GET http://127.0.0.1:8000/api/auth/unidaditemsuper/1
 ###
 
+GET https://apiser-vicios.herokuapp.com/api/auth/items
+
+###
+GET http://127.0.0.1:8000/api/auth/unidadunica HTTP/1.1
+Content-type: application/json
+Accept: application/json
+
+{
+   "nombreUD": "Labos 3"
+} 
 POST http://127.0.0.1:8000/api/auth/solicitudes HTTP/1.1
 Content-type: application/json
 Accept: application/json
@@ -11,7 +21,7 @@ Accept: application/json
     "rolnom":"Cotizador",
     "descrip":"Encargado de tales consas"
 } 
-
+###
 POST https://apiser-vicios.herokuapp.com/api/auth/roles HTTP/1.1
 Content-type: application/json
 Accept: application/json

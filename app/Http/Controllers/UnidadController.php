@@ -98,6 +98,28 @@ class UnidadController extends Controller
         return response()->json(['unidad' => $unidad,'message' => 'unidad actualizada con exito'], 200);
     }
 
+      /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unidad  
+     * @return \Illuminate\Http\Response
+     */
+    public function unidadItemsSuperiores($id)
+    {
+        $unidad = Unidad::find($id);
+        $itemSuperiores = $unidad->assign;      
+          
+        return response()->json(compact('itemSuperiores'),201);
+    }
+
+    public function getUnidadByName(Request $request)
+    {   
+        $nombreUD = $request->get('nombreUD');
+        $unidad = Unidad::where('nombre',$nombreUD)->first();
+        $idUnidad = $unidad->id;                
+        return response()->json(compact('idUnidad'),201);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

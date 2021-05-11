@@ -20,6 +20,7 @@ class CreateUnidadesTable extends Migration
             $table->decimal('presupuesto',9,2);
             $table->string('telefono');
             // $table->integer('user_id')->unsigned();
+            
             $table->string('user_id');
             $table->string('secret_id');
 

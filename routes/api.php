@@ -44,12 +44,17 @@ use App\Http\Controller\SolicitudController;
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::post('itemSup', 'ItemSuperiorController@store');
+
+    
      // Rutas unidades
      Route::get('unidades', 'UnidadController@index');
      Route::post('unidades', 'UnidadController@store');
      Route::put('unidades/{id}', 'UnidadController@update');
      Route::get('unidades/{id}', 'UnidadController@show');
      Route::delete('unidades/{id}', 'UnidadController@destroy');
+     Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
+     Route::get('unidadunica', 'UnidadController@getUnidadByName');
+     
 
      //Autentica cion de usuarios
      Route::get('users', 'UserController@getusers');
