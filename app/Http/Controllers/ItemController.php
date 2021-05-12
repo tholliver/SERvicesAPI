@@ -17,11 +17,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-
         $items = Item::all();
         // $items = Item::latest()->paginate(50);
-
-        return response()->json(['items' => $items, 'message' => 'items encontrados'], 200);
+        //Cambiando la respuesta a solo un array 
+        return response()->json($items, 200);
     }
 
     /**

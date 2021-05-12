@@ -16,4 +16,9 @@ class ItemSuperior extends Model
         'nomitemSup', 'descripSup',
     ];
 
+    public function items()
+    {
+        return $this->hasMany(Item::class,'item_general_id');
+    }
+
 }

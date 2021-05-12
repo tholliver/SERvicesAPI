@@ -43,6 +43,7 @@ use App\Http\Controller\SolicitudController;
     Route::delete('items/{id}', 'ItemController@destroy');
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
+    Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
     Route::post('itemSup', 'ItemSuperiorController@store');
 
     
