@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UnidadController extends Controller
 {
@@ -107,9 +108,23 @@ class UnidadController extends Controller
     public function unidadItemsSuperiores($id)
     {
         $unidad = Unidad::find($id);
-        $itemSuperiores = $unidad->assign;      
+        $itemSuperiores = $unidad->assign;   
           
         return response()->json(compact('itemSuperiores'),201);
+    }
+
+      /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\DB  
+     * @return \Illuminate\Http\Response
+     */
+    public function allUnidadItems()
+    {
+       $unidadAsings = DB::table('unidads')
+            ->join('unidadasignacionitems', 'unidads.id', '=', 'unidadasignacionitems.unidad_id' )
+            ->get();
+            return response()->json($unidadAsings,201);
     }
 
     public function getUnidadByName(Request $request)

@@ -45,7 +45,7 @@ use App\Http\Controller\SolicitudController;
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
     Route::post('itemSup', 'ItemSuperiorController@store');
-
+ 
     
      // Rutas unidades
      Route::get('unidades', 'UnidadController@index');
@@ -54,6 +54,7 @@ use App\Http\Controller\SolicitudController;
      Route::get('unidades/{id}', 'UnidadController@show');
      Route::delete('unidades/{id}', 'UnidadController@destroy');
      Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
+     Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');     
      Route::get('unidadunica', 'UnidadController@getUnidadByName');
      
 
