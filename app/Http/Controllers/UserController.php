@@ -51,11 +51,11 @@ class UserController extends Controller
                 return response()->json($validator->errors()->toJson(), 400);
             }
             //So before insert get the UD, belongs the user
-            /*
-            $idUnidad = $request->get('unidaddegasto');
-            Unidad::where('nombre',$idUnidad) -> first();
-            */
-
+            
+            $unidadName = $request->get('unidaddegasto');
+            $unidadId = Unidad::where('nombre',$unidadName)->first()->id;
+            //Aqui quiza verificar si no pertenece a ninguna unidad
+         /*
             $user = User::create([
                 'name' => $request->get('name'),
                 'lastname' => $request->get('lastname'),                
@@ -65,8 +65,22 @@ class UserController extends Controller
                 'rol' => $request->get('rol'),
                 'unidaddegasto' => $request->get('unidaddegasto'),
                 'facultad' => $request->get('facultad'),
+                'unidad_id' => $unidadId->id,
             ]);
-
+*/
+            $user = new User;
+            $user->name = $request->name;
+            $user->lastname = $request->lastname; 
+            $user->email = $request->email;   
+            $user->password = Hash::make($request->password);
+            $user->cellphone = $request->cellphone;             
+            $user->rol = $request->rol;
+            $user->unidaddegasto = $request->unidaddegasto;  
+            $user->facultad = $request->facultad;  
+            $user->unidad_id = $unidadId; 
+            $user->save();
+            
+            
             $token = JWTAuth::fromUser($user);
 
             return response()->json(compact('user','token'),201);

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Unidad;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'email', 'password', 'cellphone', 'rol','unidaddegasto','facultad',
+        'name', 'lastname', 'email', 'password', 'cellphone', 'rol','unidaddegasto','facultad','unidad_id',
     ];
 
     /**
@@ -51,5 +51,7 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    
+    public function unidad() {
+        return $this->belongsTo(Unidad::class);
+    }    
 }

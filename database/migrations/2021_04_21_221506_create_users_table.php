@@ -23,8 +23,11 @@ class CreateUsersTable extends Migration
             $table->string('rol');
             $table->string('unidaddegasto',100)->nullable();
             $table->string('facultad',100)->nullable();
+            $table->integer('unidad_id')->nullable()->unsigned(); 
+            $table->foreign('unidad_id')->references('id')->on('unidads');           
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps();            
+            
         });
     }
 

@@ -29,4 +29,9 @@ class Unidad extends Model
         return $this->belongsToMany(ItemSuperior::class,'unidadasignacionitems','unidad_id','itemsuperior_id')
         ->withPivot(['montoasig','periodo']);
     }
+    public function usuarios()
+    {
+        return $this->hasMany(User::class,'unidad_id');
+    }
+
 }

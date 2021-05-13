@@ -110,7 +110,7 @@ class UnidadController extends Controller
         $unidad = Unidad::find($id);
         $itemSuperiores = $unidad->assign;   
           
-        return response()->json(compact('itemSuperiores'),201);
+        return response()->json($itemSuperiores,201);
     }
 
       /**
