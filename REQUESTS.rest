@@ -13,6 +13,7 @@ Accept: application/json
 {
    "nombreUD": "Labos 3"
 } 
+###
 POST http://127.0.0.1:8000/api/auth/solicitudes HTTP/1.1
 Content-type: application/json
 Accept: application/json
@@ -31,15 +32,14 @@ Accept: application/json
     "descrip":"Encargado de tales consas"
 }  
 ###
-POST https://apiser-vicios.herokuapp.com/api/auth/items HTTP/1.1
+POST http://127.0.0.1:8000/api/auth/items HTTP/1.1
 Content-type: application/json
 Accept: application/json
 
 {
     "nomitem":"Tintas en polvo",
     "descrip":"Tintas en polvo para impresoras lazer",
-    "montoasig":"500.999",
-    "periodo":"1/2021"
+    "itemsuperior":"Material de escritorio"
 }  
 
 ###

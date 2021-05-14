@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\ItemSuperior;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,24 +29,30 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)    
     {
-        $data = $request->all();
-
-        $validator = Validator::make($data, [
+        $validator = Validator::make($request->all(), [
 
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
-            'montoasig' => 'required|numeric| max:10000000',
-            'periodo' => 'required| max:255',
-            'unidaddegasto' => 'required|max:255'
+            'itemsuperior' => 'required|max:5000'
+                      
         ]);
 
         if ($validator->fails()) {
             return  response()->json(['error' => 'Error de validación', $validator->errors()]);
         }
 
-        $item = Item::create($data);
+        $unidadName = $request->get('itemsuperior');
+        $itemsuperior = ItemSuperior::where('nomitemSup',$unidadName)->first()->id;
+
+        $item = Item::create([
+            'nomitem' => $request->get('nomitem'),
+            'descrip' => $request->get('descrip'),           
+            'item_general_id' => $itemsuperior,
+        ]);
+
+
         return response()->json(['items' => $item, 'message' => 'item guardado con exito'],201);
     }
 
