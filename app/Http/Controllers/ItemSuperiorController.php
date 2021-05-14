@@ -47,7 +47,7 @@ class ItemSuperiorController extends Controller
              'descripSup' => $request->get('descripSup'),
          ]);
 
-        return response()->json(compact('itemsitoSup'),201);
+        return response()->json($itemsitoSup,201);
 
         }
 
