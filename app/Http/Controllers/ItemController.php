@@ -20,7 +20,7 @@ class ItemController extends Controller
     {
         $items = Item::all();
         // $items = Item::latest()->paginate(50);
-        //Cambiando la respuesta a solo un array 
+        //Cambiando la respuesta a solo un array
         return response()->json($items, 200);
     }
 
@@ -29,14 +29,14 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)    
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
 
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
             'itemsuperior' => 'required|max:5000'
-                      
+
         ]);
 
         if ($validator->fails()) {
@@ -48,7 +48,7 @@ class ItemController extends Controller
 
         $item = Item::create([
             'nomitem' => $request->get('nomitem'),
-            'descrip' => $request->get('descrip'),           
+            'descrip' => $request->get('descrip'),
             'item_general_id' => $itemsuperior,
         ]);
 
