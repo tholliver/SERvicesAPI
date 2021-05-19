@@ -6,6 +6,7 @@ use App\Http\Controller\AuthController;
 use App\Http\Controller\UserController;
 use App\Http\Controller\RolController;
 use App\Http\Controller\ItemController;
+use App\Http\Controller\ItemPresController;
 use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 
@@ -45,8 +46,10 @@ use App\Http\Controller\SolicitudController;
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
     Route::post('itemSup', 'ItemSuperiorController@store');
- 
-    
+    // Rutas ItemPres
+    Route::get('itemPres', 'ItemPresController@index');
+    Route::post('itemPres', 'ItemPresController@store');
+
      // Rutas unidades
      Route::get('unidades', 'UnidadController@index');
      Route::post('unidades', 'UnidadController@store');
@@ -54,9 +57,9 @@ use App\Http\Controller\SolicitudController;
      Route::get('unidades/{id}', 'UnidadController@show');
      Route::delete('unidades/{id}', 'UnidadController@destroy');
      Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
-     Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');     
+     Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');
      Route::get('unidadunica', 'UnidadController@getUnidadByName');
-     
+
 
      //Autentica cion de usuarios
      Route::get('users', 'UserController@getusers');
