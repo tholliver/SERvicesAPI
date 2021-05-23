@@ -81,5 +81,12 @@ class ItemSuperiorController extends Controller
      * @param  \App\ItemSuperior  $item
      * @return \Illuminate\Http\Response
      */
+    public function destroy($id)
+    {
+        $item = Item::find($id);
+        $item->delete();
+
+        return response()->json(['message' => 'item eliminado']);
+    }
 
 }

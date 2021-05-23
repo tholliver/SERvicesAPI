@@ -36,7 +36,6 @@ class ItemController extends Controller
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
             'itemsuperior' => 'required|max:5000'
-                      
         ]);
 
         if ($validator->fails()) {
@@ -53,7 +52,7 @@ class ItemController extends Controller
         ]);
 
 
-        return response()->json(['items' => $item, 'message' => 'item guardado con exito'],201);
+        return response()->json(['item' => $item, 'message' => 'item guardado con exito'],201);
     }
 
     /**
