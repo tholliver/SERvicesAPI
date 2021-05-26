@@ -16,7 +16,16 @@ class CreateItemSolicitudTable extends Migration
         Schema::create('item_solicitud', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id')->unsigned();
-            $table->integer('solicitud_id')->unsigned();           
+            $table->integer('solicitud_id')->unsigned();   
+            
+            //New addts
+            $table->string('nombre'); 
+            $table->string('descrip');      
+            $table->integer('cantidad');       
+            $table->decimal('precio',9,2);
+            
+            //
+
             $table->timestamps();
 
             //References

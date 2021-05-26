@@ -47,6 +47,7 @@ class SolicitudController extends Controller
         $incomingdata = $request->json()->all();
                
         $items = $incomingdata["items"];
+        $itemsobs = $incomingdata["itemsobs"];
         //Verify if exits all the items
         $results = Item::whereIn('id', $items)->count();
 
@@ -67,7 +68,7 @@ class SolicitudController extends Controller
             'supera' => $request->get('supera'),    
         ]);
          
-        $newsolicitud->items()->attach($items);       
+        $newsolicitud->items()->attach($itemsobs);       
         return response()->json(compact('newsolicitud'),201);         
     }
     
