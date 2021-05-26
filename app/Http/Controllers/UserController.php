@@ -27,13 +27,13 @@ class UserController extends Controller
             return response()->json(compact('token'));
         }
         public function getusers()
-        {           
+        {
             #response()->json(compact('token')
            return User::all();
         }
 
         public function register(Request $request)
-        {                        
+        {
                 $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'lastname' => 'required|string|max:255',
@@ -42,23 +42,22 @@ class UserController extends Controller
                 'cellphone' => 'required|string|max:20',
                 'rol' => 'required|string|max:50',
                 'unidaddegasto' => 'required|string|max:100',
-                'facultad' => 'required|string|max:100',
             ]);
 
             if($validator->fails()){
-                
+
                # $validator->errors()->toJson(), 400;
                 return response()->json($validator->errors()->toJson(), 400);
             }
             //So before insert get the UD, belongs the user
-            
+
             $unidadName = $request->get('unidaddegasto');
             $unidadId = Unidad::where('nombre',$unidadName)->first()->id;
             //Aqui quiza verificar si no pertenece a ninguna unidad
          /*
             $user = User::create([
                 'name' => $request->get('name'),
-                'lastname' => $request->get('lastname'),                
+                'lastname' => $request->get('lastname'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
                 'cellphone' => $request->get('cellphone'),
@@ -70,17 +69,16 @@ class UserController extends Controller
 */
             $user = new User;
             $user->name = $request->name;
-            $user->lastname = $request->lastname; 
-            $user->email = $request->email;   
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->cellphone = $request->cellphone;             
+            $user->cellphone = $request->cellphone;
             $user->rol = $request->rol;
-            $user->unidaddegasto = $request->unidaddegasto;  
-            $user->facultad = $request->facultad;  
-            $user->unidad_id = $unidadId; 
+            $user->unidaddegasto = $request->unidaddegasto;
+            $user->unidad_id = $unidadId;
             $user->save();
-            
-            
+
+
             $token = JWTAuth::fromUser($user);
 
             return response()->json(compact('user','token'),201);

@@ -19,7 +19,7 @@ class UnidadController extends Controller
     {
         $unidades = Unidad::all();
         // $unidades = Unidad::latest()->paginate(10);
-        
+
         return response()->json(['unidades' => $unidades, 'message' => 'unidades encontrados'], 200);
     }
 
@@ -32,14 +32,12 @@ class UnidadController extends Controller
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'nombre' => 'required|max:255',
+            'nombre' => 'required|max:255|unique:unidads',
             'facultad' => 'required|max:500',
             'presupuesto' => 'required|numeric',
-            'telefono' => 'required| max:255',
-            'user_id' => 'required| max:255',
-            'secret_id' => 'required| max:255'
+            'telefono' => 'required| max:255'
             ]);
-            
+
         if ($validator->fails()) {
             return  response()->json(['error' => 'Error de validación', $validator->errors()]);
         }
@@ -79,9 +77,7 @@ class UnidadController extends Controller
             'nombre' => 'required|max:255',
             'facultad' => 'required|max:500',
             'presupuesto' => 'required|numeric| max:255',
-            'telefono' => 'required| max:255',
-            'user_id' => 'required| max:255',
-            'secret_id' => 'required| max:255'
+            'telefono' => 'required| max:255'
         ]);
 
         if($validator->fails()){
@@ -102,21 +98,21 @@ class UnidadController extends Controller
       /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Unidad  
+     * @param  \App\Models\Unidad
      * @return \Illuminate\Http\Response
      */
     public function unidadItemsSuperiores($id)
     {
         $unidad = Unidad::find($id);
-        $itemSuperiores = $unidad->assign;   
-          
+        $itemSuperiores = $unidad->assign;
+
         return response()->json($itemSuperiores,201);
     }
 
       /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DB  
+     * @param  \App\Models\DB
      * @return \Illuminate\Http\Response
      */
     public function allUnidadItems()
@@ -128,10 +124,10 @@ class UnidadController extends Controller
     }
 
     public function getUnidadByName(Request $request)
-    {   
+    {
         $nombreUD = $request->get('nombreUD');
         $unidad = Unidad::where('nombre',$nombreUD)->first();
-        $idUnidad = $unidad->id;                
+        $idUnidad = $unidad->id;
         return response()->json(compact('idUnidad'),201);
     }
 
