@@ -9,6 +9,7 @@ use App\Http\Controller\ItemController;
 use App\Http\Controller\ItemPresController;
 use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
+use App\Http\Controller\FechaController;
 
 
  Route::group([
@@ -18,11 +19,17 @@ use App\Http\Controller\SolicitudController;
  ], function () {
 
 
-     //POST and Get methods for roles
+
+    //POST and Get methods for roles
+    Route::get('fechas', 'FechaController@index');
+    Route::post('fechas', 'FechaController@store');
+
+
+    //POST and Get methods for roles
      Route::get('roles', 'RolController@index');
      Route::post('roles', 'RolController@nuevorol');
 
-//POST and Get methods for solicitudes
+    //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
