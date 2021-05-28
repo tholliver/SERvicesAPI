@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fecha;
 use Illuminate\Http\Request;
+use DB;
 
 class FechaController extends Controller
 {
@@ -51,6 +52,8 @@ class FechaController extends Controller
            return response()->json($returnData, 400);
     }
 
+    
+
     /**
      * Display the specified resource.
      *
@@ -61,6 +64,19 @@ class FechaController extends Controller
     {
         //
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Fecha  $fecha
+     * @return \Illuminate\Http\Response
+     */
+    public function getUltimaFecha()
+    {
+//        return DB::table('fechas')->orderBy('created_at', 'desc')->first();
+        return Fecha::latest()->first();
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

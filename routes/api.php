@@ -22,6 +22,7 @@ use App\Http\Controller\FechaController;
 
     //POST and Get methods for roles
     Route::get('fechas', 'FechaController@index');
+    Route::get('ultimafecha', 'FechaController@getUltimaFecha');
     Route::post('fechas', 'FechaController@store');
 
 
