@@ -72,7 +72,6 @@ class FechaController extends Controller
      */
     public function getUltimaFecha()
     {
-//        return DB::table('fechas')->orderBy('created_at', 'desc')->first();
         return Fecha::latest()->first();
     }
 

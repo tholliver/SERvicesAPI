@@ -10,6 +10,7 @@ use App\Http\Controller\ItemPresController;
 use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 use App\Http\Controller\FechaController;
+use App\Http\Controller\PresupuestoUnidadController;
 
 
  Route::group([
@@ -20,10 +21,14 @@ use App\Http\Controller\FechaController;
 
 
 
-    //POST and Get methods for roles
+    //POST and Get methods for fechas
     Route::get('fechas', 'FechaController@index');
     Route::get('ultimafecha', 'FechaController@getUltimaFecha');
     Route::post('fechas', 'FechaController@store');
+
+    //POST and Get methods for presupuestos
+    Route::get('presupuestounidad', 'PresupuestoUnidadController@index');    
+    Route::post('presupuestounidad', 'PresupuestoUnidadController@create');
 
 
     //POST and Get methods for roles
