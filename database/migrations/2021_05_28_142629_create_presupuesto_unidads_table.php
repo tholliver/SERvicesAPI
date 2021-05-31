@@ -17,7 +17,7 @@ class CreatePresupuestoUnidadsTable extends Migration
             $table->increments('id');                     
             $table->integer('id_unidad')->unsigned();
             $table->decimal('presupuesto',9,2);
-            $table->integer('gestion');   
+            $table->string('gestion');   
             $table->timestamps();   
             
             //References

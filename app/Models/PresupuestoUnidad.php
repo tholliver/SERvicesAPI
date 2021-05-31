@@ -12,6 +12,6 @@ class PresupuestoUnidad extends Model
      * @var array
      */
     protected $fillable = [
-        'id_unidad', 'presupuesto', "gestion"
+        'id_unidad', 'presupuesto', 'gestion'
     ];
 }

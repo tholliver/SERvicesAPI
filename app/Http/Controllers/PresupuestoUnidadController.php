@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PresupuestoUnidad;
+use App\Models\Unidad;
 use Illuminate\Http\Request;
 
 class PresupuestoUnidadController extends Controller
@@ -24,8 +25,7 @@ class PresupuestoUnidadController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->has('gestion') && $request->has('presupuesto') && $request->has('id_unidad') ){
-            $presupuestoUnidad = PresupuestoUnidad::create([
+           /* $presupuestoUnidad = PresupuestoUnidad::create([
                 'id_unidad' => $request->get('id_unidad'),
                 'presupuesto' => $request->get('presupuesto'),
                 'gestion' => $request->get('gestion'),
@@ -33,13 +33,40 @@ class PresupuestoUnidadController extends Controller
     
            return response()->json(compact('presupuestoUnidad'),201);
                 
-           }
     
            $returnData = array(
             'status' => 'error',
             'message' => 'An error occurred!'
         );
-           return response()->json($returnData, 400);
+           return response()->json($returnData, 400);*/
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function nuevoPresupuesto(Request $request)
+    {
+        if (Unidad::where('id', '=', $request->get('id_unidad'))->exists()) {
+            // user found
+            if($request->has('presupuesto')){
+                 $pres = PresupuestoUnidad::create([
+                     'id_unidad' => $request->get('id_unidad'),
+                     'presupuesto' => $request->get('presupuesto'),
+                     'gestion' => $request->get('gestion'),                   
+                 ]);
+                 return response()->json(compact('pres'),201);            
+            }            
+         } else {
+             $returnData = array(
+                  'status' => 'error',
+                  'message' => 'Unidad no encontrada',
+                  'code' => '404'
+              );
+             return response()->json($returnData, 404);
+         }
+
     }
 
     /**
