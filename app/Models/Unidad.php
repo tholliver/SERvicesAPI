@@ -14,7 +14,7 @@ class Unidad extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'facultad', 'presupuesto', 'telefono', 'user_id' , 'secret_id'
+        'nombre', 'facultad', 'presupuesto', 'telefono'
     ];
 
     /*

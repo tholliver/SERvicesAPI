@@ -15,6 +15,7 @@ use Notifiable;
     ];
     public function items()
     {
-        return $this->belongsToMany(Item::class,'item_solicitud','solicitud_id','item_id');
+        return $this->belongsToMany(Item::class,'item_solicitud','solicitud_id','item_id')->withPivot('nombre','descrip','cantidad','precio');
+        
     }
 }

@@ -15,15 +15,11 @@ class CreateUnidadesTable extends Migration
     {
         Schema::create('unidads', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('nombre')->unique();;
             $table->string('facultad');
             $table->decimal('presupuesto',9,2);
             $table->string('telefono');
             // $table->integer('user_id')->unsigned();
-            
-            $table->string('user_id');
-            $table->string('secret_id');
-
             $table->timestamps();
 
             // $table->foreign('user_id')->references('id')->on('users');
