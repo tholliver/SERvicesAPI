@@ -40,7 +40,7 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::find($id);
         $items = $solicitud->items;      
           
-        return response()->json($items,201);
+        return response()->json(compact('items'),201);
     }
 
     public function nuevasolicitud(Request $request){       

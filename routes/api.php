@@ -12,7 +12,6 @@ use App\Http\Controller\SolicitudController;
 use App\Http\Controller\FechaController;
 use App\Http\Controller\PresupuestoUnidadController;
 
-
  Route::group([
      'middleware' => 'api',
      'prefix' => 'auth'
