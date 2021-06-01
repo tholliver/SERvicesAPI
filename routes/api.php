@@ -10,7 +10,6 @@ use App\Http\Controller\ItemPresController;
 use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 
-
  Route::group([
      'middleware' => 'api',
      'prefix' => 'auth'
