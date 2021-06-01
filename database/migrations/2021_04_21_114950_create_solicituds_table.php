@@ -19,7 +19,7 @@ class CreateSolicitudsTable extends Migration
             $table->string('unidad_nombre');    //ADDED
             $table->string('tipo'); 
             $table->string('responsable');            
-            $table->decimal('montoestimado',9,3);
+            $table->decimal('montoestimado',9,2);
             $table->string('estado');
             $table->string('supera');
             $table->timestamps();
