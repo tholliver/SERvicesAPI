@@ -15,12 +15,16 @@ class CreateSolicitudsTable extends Migration
     {
         Schema::create('solicituds', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('unidad_id')->unsigned(); //ADDED
+            $table->string('unidad_nombre');    //ADDED
             $table->string('tipo'); 
             $table->string('responsable');            
             $table->decimal('montoestimado',9,3);
             $table->string('estado');
             $table->string('supera');
             $table->timestamps();
+
+            $table->foreign('unidad_id')->references('id')->on('unidads'); //added
         });
     }
 

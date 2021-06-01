@@ -11,7 +11,7 @@ class Solicitud extends Model
 use Notifiable;
 
     protected $fillable=[
-    'tipo','responsable','montoestimado','estado','supera'
+    'unidad_id','unidad_nombre','tipo','responsable','montoestimado','estado','supera'
     ];
     public function items()
     {
