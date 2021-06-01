@@ -66,6 +66,8 @@ class SolicitudController extends Controller
         }
 
         $newsolicitud = Solicitud::create([
+            'unidad_id' => $request->get('unidad_id'),
+            'unidad_nombre' => $request->get('unidad_nombre'),
             'tipo' => $request->get('tipo'),
             'responsable' => $request->get('responsable'),
             'montoestimado' => $request->get('montoestimado'),
