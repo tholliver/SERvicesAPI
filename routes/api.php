@@ -10,7 +10,6 @@ use App\Http\Controller\ItemPresController;
 use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 
-
  Route::group([
      'middleware' => 'api',
      'prefix' => 'auth'
@@ -25,6 +24,7 @@ use App\Http\Controller\SolicitudController;
 //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
+    Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
     Route::put('solicitudes', 'SolicitudController@update');
     Route::get('solicitudes-aceptadas', 'SolicitudController@solicitudesAceptadas');
