@@ -11,6 +11,7 @@ use App\Http\Controller\UnidadController;
 use App\Http\Controller\SolicitudController;
 use App\Http\Controller\FechaController;
 use App\Http\Controller\PresupuestoUnidadController;
+use App\Http\Controller\EmpresaCotizController;
 
  Route::group([
      'middleware' => 'api',
@@ -26,13 +27,17 @@ use App\Http\Controller\PresupuestoUnidadController;
     Route::post('fechas', 'FechaController@store');
 
     //POST and Get methods for presupuestos
-    Route::get('presupuesto', 'PresupuestoUnidadController@index');    
+    Route::get('presupuesto', 'PresupuestoUnidadController@index');
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
 
 
     //POST and Get methods for roles
      Route::get('roles', 'RolController@index');
      Route::post('roles', 'RolController@nuevorol');
+
+     //POST and Get methods for empresaCotizacion
+      Route::get('empresaCot', 'EmpresaCotizController@index');
+      Route::post('empresaCot', 'EmpresaCotizController@store');
 
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
