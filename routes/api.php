@@ -55,6 +55,7 @@ use App\Http\Controller\SolicitudController;
      Route::post('unidades', 'UnidadController@store');
      Route::put('unidades/{id}', 'UnidadController@update');
      Route::get('unidades/{id}', 'UnidadController@show');
+     Route::get('unidades2/{id}', 'UnidadController@show2');
      Route::delete('unidades/{id}', 'UnidadController@destroy');
      Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
      Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');
