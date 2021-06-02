@@ -37,6 +37,7 @@ use App\Http\Controller\PresupuestoUnidadController;
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
+    Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
     Route::put('solicitudes', 'SolicitudController@update');
     Route::get('solicitudes-aceptadas', 'SolicitudController@solicitudesAceptadas');
