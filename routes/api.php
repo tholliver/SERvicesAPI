@@ -27,7 +27,9 @@ use App\Http\Controller\PresupuestoUnidadController;
 
     //POST and Get methods for presupuestos
     Route::get('presupuesto', 'PresupuestoUnidadController@index');    
+    Route::get('presupuesto/{id}', 'PresupuestoUnidadController@presupuestoId');   
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
+    Route::put('presupuesto', 'PresupuestoUnidadController@update');
 
 
     //POST and Get methods for roles

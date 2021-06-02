@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PresupuestoUnidad;
 use App\Models\Unidad;
 use Illuminate\Http\Request;
+use DB;
 
 class PresupuestoUnidadController extends Controller
 {
@@ -66,7 +67,14 @@ class PresupuestoUnidadController extends Controller
               );
              return response()->json($returnData, 404);
          }
+    }
 
+    public function presupuestoId($id){
+       // $id = $request->input('id');
+        $presupuesto = DB::table('presupuesto_unidads')
+                ->where('id_unidad', '=', $id)
+                ->get();
+        return response()->json($presupuesto);
     }
 
     /**
@@ -109,9 +117,16 @@ class PresupuestoUnidadController extends Controller
      * @param  \App\Models\PresupuestoUnidad  $presupuestoUnidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PresupuestoUnidad $presupuestoUnidad)
-    {
-        //
+    public function update(Request $request)
+    {     
+        $pres = PresupuestoUnidad::find($request->id);
+        $pres->presupuesto = $request->presupuesto;
+        $result =$pres->save();
+        if($result){
+            return ["result"=>"Success, data is updated"];
+        } else {
+            return ["result"=>"Error, data didnt update"];
+        }
     }
 
     /**
