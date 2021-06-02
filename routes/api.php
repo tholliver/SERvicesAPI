@@ -25,6 +25,7 @@ use App\Http\Controller\SolicitudController;
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('solicitudes', 'SolicitudController@index');
     Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
+    Route::get('/solicitud3/{id}', 'SolicitudController@solicitud3');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
     Route::put('solicitudes', 'SolicitudController@update');
     Route::get('solicitudes-aceptadas', 'SolicitudController@solicitudesAceptadas');

@@ -47,7 +47,17 @@ class SolicitudController extends Controller
             ->where('solicitud_id', '=', $solicitud_idR)
             ->get();
     return response()->json($solicitudes3);
+  }
+
+
+    public function solicitud3($solicitud_idR){
+    $solicitudes4 = DB::table('solicituds')
+            ->where('id', '=', $solicitud_idR)
+            ->get();
+    return response()->json($solicitudes4);
     }
+
+
     public function nuevasolicitud(Request $request){
         $incomingdata = $request->json()->all();
 
@@ -133,6 +143,7 @@ class SolicitudController extends Controller
             return ["result"=>"Error, data didnt update"];
         }
     }
+
 
     /**
      * Show a list of all of the application's users.
