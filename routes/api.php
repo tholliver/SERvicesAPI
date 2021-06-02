@@ -12,7 +12,7 @@ use App\Http\Controller\SolicitudController;
 use App\Http\Controller\FechaController;
 use App\Http\Controller\PresupuestoUnidadController;
 use App\Http\Controller\EmpresaCotizController;
-
+use App\Http\Controller\EmpresaController;
  Route::group([
      'middleware' => 'api',
      'prefix' => 'auth'
@@ -25,6 +25,12 @@ use App\Http\Controller\EmpresaCotizController;
     Route::get('fechas', 'FechaController@index');
     Route::get('ultimafecha', 'FechaController@getUltimaFecha');
     Route::post('fechas', 'FechaController@store');
+
+    //POST and Get methods for empresas
+    Route::get('empresas', 'EmpresaController@index');
+    Route::get('/empresasInfo/{info_idE}', 'EmpresaController@infoEmpresa');
+    Route::post('empresas', 'EmpresaController@store');
+
 
     //POST and Get methods for presupuestos
     Route::get('presupuesto', 'PresupuestoUnidadController@index');
