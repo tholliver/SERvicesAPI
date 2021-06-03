@@ -69,12 +69,21 @@ class PresupuestoUnidadController extends Controller
          }
     }
 
-    public function presupuestoId($id){
+    public function presupuestoId($id, $gestion){
        // $id = $request->input('id');
         $presupuesto = DB::table('presupuesto_unidads')
-                ->where('id_unidad', '=', $id)
+                ->where('id_unidad', '=', $id)    
+                ->where('gestion','=', $gestion)            
                 ->get();
         return response()->json($presupuesto);
+    }
+
+    public function getDatos() {
+        $presupuestos = DB::table('presupuesto_unidads')
+            ->select('unidads.nombre','presupuesto_unidads.presupuesto','presupuesto_unidads.gestion')
+            ->join('unidads', 'presupuesto_unidads.id_unidad', '=', 'unidads.id')        
+            ->get();
+        return response()->json($presupuestos);
     }
 
     /**
