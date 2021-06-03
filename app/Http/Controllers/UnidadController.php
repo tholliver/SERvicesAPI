@@ -62,6 +62,14 @@ class UnidadController extends Controller
         return response()->json(['unidad' => $unidad, 'message' => 'unidad encontrado'], 200);
     }
 
+    public function show2($id)
+    {
+      $info = DB::table('unidads')
+              ->where('id', '=', $id)
+              ->get();
+      return response()->json($info);
+    }
+
     /**
      * Update the specified resource in storage.
      *
