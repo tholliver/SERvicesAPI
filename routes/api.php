@@ -23,6 +23,8 @@ use App\Http\Controller\SolicitudController;
 
 //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
+    Route::get('/solicituditemspivot', 'SolicitudController@solicitudItemsPivot');
+    
     Route::get('solicitudes', 'SolicitudController@index');
     Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');

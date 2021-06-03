@@ -40,8 +40,15 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::find($id);
         $items = $solicitud->items;
 
-        return response()->json(compact('items'),201);
+        return response()->json($items,201);
     }
+    
+    public function solicitudItemsPivot()
+    {
+        $solicitudes = Solicitud::with('items')->get();
+        return response()->json($solicitudes,201);
+    }
+
     public function solicitudItems2($solicitud_idR){
     $solicitudes3 = DB::table('item_solicitud')
             ->where('solicitud_id', '=', $solicitud_idR)
