@@ -30,7 +30,7 @@ class CreateItemSolicitudTable extends Migration
 
             //References
             $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('solicitud_id')->references('id')->on('solicituds');
+            $table->foreign('solicitud_id')->references('id')->on('solicituds')->onDelete('cascade');
         });
     }
 

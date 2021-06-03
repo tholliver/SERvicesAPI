@@ -15,7 +15,7 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         return Solicitud::all();
     }
 
@@ -38,20 +38,42 @@ class SolicitudController extends Controller
     public function solicitudItems($id)
     {
         $solicitud = Solicitud::find($id);
-        $items = $solicitud->items;      
-          
+        $items = $solicitud->items;
+
         return response()->json($items,201);
     }
+    
+    public function solicitudItemsPivot()
+    {
+        $solicitudes = Solicitud::with('items')->get();
+        return response()->json($solicitudes,201);
+    }
 
-    public function nuevasolicitud(Request $request){       
+    public function solicitudItems2($solicitud_idR){
+    $solicitudes3 = DB::table('item_solicitud')
+            ->where('solicitud_id', '=', $solicitud_idR)
+            ->get();
+    return response()->json($solicitudes3);
+  }
+
+
+    public function solicitud3($solicitud_idR){
+    $solicitudes4 = DB::table('solicituds')
+            ->where('id', '=', $solicitud_idR)
+            ->get();
+    return response()->json($solicitudes4);
+    }
+
+
+    public function nuevasolicitud(Request $request){
         $incomingdata = $request->json()->all();
-               
+
         $items = $incomingdata["items"];
         $itemsobs = $incomingdata["itemsobs"];
         //Verify if exits all the items
         $results = Item::whereIn('id', $items)->count();
 
-        if($results !== count($items)){            
+        if($results !== count($items)){
             $datas = [
                 'status'=>"Items no encotrados",
                 'message' => "Items no encotrados en la DB, deben estar registrados"
@@ -61,17 +83,19 @@ class SolicitudController extends Controller
         }
 
         $newsolicitud = Solicitud::create([
+            'unidad_id' => $request->get('unidad_id'),
+            'unidad_nombre' => $request->get('unidad_nombre'),
             'tipo' => $request->get('tipo'),
             'responsable' => $request->get('responsable'),
-            'montoestimado' => $request->get('montoestimado'),       
+            'montoestimado' => $request->get('montoestimado'),
             'estado' => $request->get('estado'),
-            'supera' => $request->get('supera'),    
+            'supera' => $request->get('supera'),
         ]);
-         
-        $newsolicitud->items()->attach($itemsobs);       
-        return response()->json(compact('newsolicitud'),201);         
+
+        $newsolicitud->items()->attach($itemsobs);
+        return response()->json(compact('newsolicitud'),201);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -83,7 +107,7 @@ class SolicitudController extends Controller
         //
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -116,7 +140,7 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, Solicitud $solicitud)
     {
-        
+
         $solicitud = Solicitud::find($request->id);
         $solicitud->estado = $request->estado;
         $result = $solicitud->save();
@@ -124,8 +148,9 @@ class SolicitudController extends Controller
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
-        }        
+        }
     }
+
 
     /**
      * Show a list of all of the application's users.
@@ -135,9 +160,9 @@ class SolicitudController extends Controller
     public function solicitudesAceptadas()
     {
         $solicitudes = DB::table('solicituds')
-                ->where('estado', '=', 'Aceptada')        
+                ->where('estado', '=', 'Aceptada')
                 ->get();
-        return response()->json($solicitudes); 
+        return response()->json($solicitudes);
     }
 
     /**
@@ -148,17 +173,17 @@ class SolicitudController extends Controller
     public function solicitudesRechazadas()
     {
         $solicitudes = DB::table('solicituds')
-                ->where('estado', '=', 'Rechazada')        
+                ->where('estado', '=', 'Rechazada')
                 ->get();
-        return response()->json($solicitudes); 
+        return response()->json($solicitudes);
     }
 
     public function solicitudesPendientes()
     {
         $solicitudes = DB::table('solicituds')
-                ->where('estado', '=', 'Pendiente')        
+                ->where('estado', '=', 'Pendiente')
                 ->get();
-        return response()->json($solicitudes); 
+        return response()->json($solicitudes);
     }
 
     /**
