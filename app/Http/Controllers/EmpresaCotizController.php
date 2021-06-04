@@ -16,7 +16,7 @@ class EmpresaCotizController extends Controller
      */
     public function index()
     {
-        return EmpresaCot::all();
+        return EmpresaCotizacion::all();
         // $items = Item::latest()->paginate(50);
     }
 
@@ -29,7 +29,7 @@ class EmpresaCotizController extends Controller
      public function store(Request $request)
      {
         if($request->has('id_solicitud')){
-         $empCot = EmpresaCot::create([
+         $empCot = EmpresaCotizacion::create([
              'id_solicitud' => $request->get('id_solicitud'),
              'id_empresa' => $request->get('id_empresa'),
          ]);
@@ -102,7 +102,7 @@ class EmpresaCotizController extends Controller
 
 
 
-     
+
      //Gettin the buck data
      public function empresaCotizacion($id)
      {
@@ -110,7 +110,7 @@ class EmpresaCotizController extends Controller
 
         //$empresadetails = $cotizacion->empresas; //only one
         //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
-        
+
         //So the result
         /*
         $result = array(
