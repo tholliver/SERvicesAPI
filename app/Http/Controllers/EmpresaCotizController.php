@@ -49,24 +49,14 @@ class EmpresaCotizController extends Controller
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'manzano' => 'required',
-            'description' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return response(['message' => 'Error de validacion.', $validator->errors()]);       
-        }
-
-        $empresaCot = empresaCotizacion::find($id);
+        $empresaCot = EmpresaCotizacion::Find($id);
         $empresaCot->observaciones = $input['observaciones'];
         $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
         $empresaCot->validez_oferta = $input['validez_oferta'];
         $empresaCot->total = $input['total'];
         $empresaCot->save();
 
-        return response([ 'message' => 'registro actualizado con exito'], 200);
+        return response([ 'message' => 'actualizado'], 200);
     }
 
 
