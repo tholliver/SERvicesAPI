@@ -14,7 +14,7 @@ class CreateEmpresa extends Migration
     public function up()
     {
       Schema::create('empresas', function (Blueprint $table) {
-      $table->integer('id');
+      $table->increments('id');
       $table->string('nombreemp');
       $table->string('repnombre');
       $table->integer('telefono');

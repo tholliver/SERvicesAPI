@@ -20,10 +20,13 @@ class CreateCotizacionItemsTable extends Migration
             $table->integer('cantidad');
             $table->double('precioUnitario');
             $table->double('total');
-            $table->integer('empresa_cotizacion_id');
+            
             // $table->integer('empresa_cotizacion_id')->unsigned();
-            // $table->foreign('empresa_cotizacion_id')->references('id')->on('empresa_cotizacion');
+            $table->integer('empresa_cotizacion_id')->unsigned();
+            $table->foreign('empresa_cotizacion_id')->references('id')->on('empresa_cotizacion');
             $table->timestamps();
+            
+            
         });
     }
 // dnJVDe5dtY

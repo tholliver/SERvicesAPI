@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmpresaCot;
+use App\Models\EmpresaCotizacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -45,6 +45,70 @@ class EmpresaCotizController extends Controller
         return response()->json($returnData, 400);
      }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+     //Gettin the buck data
+     public function empresaCotizacion($id)
+     {
+        $cotizacion = EmpresaCotizacion::where('id_solicitud',$id)->get();
+
+        //$empresadetails = $cotizacion->empresas; //only one
+        //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
+        
+        //So the result
+        /*
+        $result = array(
+            'detalles'=> $cotizacion,
+            'empresadetalles'=> $empresadetails,
+            'itemscotizados'=> $itemscotizados
+        );
+        */
+
+        $object = json_decode(json_encode($result));
+         return response()->json($cotizacion,201);
+     }
 
 
 

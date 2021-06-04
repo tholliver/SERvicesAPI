@@ -56,7 +56,6 @@ class SolicitudController extends Controller
     return response()->json($solicitudes3);
   }
 
-
     public function solicitud3($solicitud_idR){
     $solicitudes4 = DB::table('solicituds')
             ->where('id', '=', $solicitud_idR)
