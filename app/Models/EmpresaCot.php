@@ -15,4 +15,10 @@ class EmpresaCot extends Model
     protected $fillable = [
         'id_solicitud', 'id_empresa', 'observaciones','plazo_de_entrega','validez_oferta', 'total','cotizacion_pdf',
     ];
+    public function itemscot()
+    {
+        //,'item_solicitud','solicitud_id','item_id'
+        return $this->hasMaby(CotizacionItem::class);
+        
+    }
 }
