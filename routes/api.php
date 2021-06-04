@@ -14,6 +14,7 @@ use App\Http\Controller\PresupuestoUnidadController;
 use App\Http\Controller\EmpresaCotizController;
 use App\Http\Controller\EmpresaController;
 use App\Http\Controller\ItemCotController;
+use App\Http\Controller\ScanCotizacionController;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
