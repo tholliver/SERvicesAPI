@@ -13,6 +13,7 @@ use App\Http\Controller\FechaController;
 use App\Http\Controller\PresupuestoUnidadController;
 use App\Http\Controller\EmpresaCotizController;
 use App\Http\Controller\EmpresaController;
+use App\Http\Controller\ItemCotController;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -77,23 +78,31 @@ Route::group([
     Route::post('itemSup', 'ItemSuperiorController@store');
 
      // Rutas unidades
-     Route::get('unidades', 'UnidadController@index');
-     Route::post('unidades', 'UnidadController@store');
-     Route::put('unidades/{id}', 'UnidadController@update');
-     Route::get('unidades/{id}', 'UnidadController@show');
-     Route::get('unidades2/{id}', 'UnidadController@show2');
-     Route::delete('unidades/{id}', 'UnidadController@destroy');
-     Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
-     Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');
-     Route::get('unidadunica', 'UnidadController@getUnidadByName');
+    Route::get('unidades', 'UnidadController@index');
+    Route::post('unidades', 'UnidadController@store');
+    Route::put('unidades/{id}', 'UnidadController@update');
+    Route::get('unidades/{id}', 'UnidadController@show');
+    Route::get('unidades2/{id}', 'UnidadController@show2');
+    Route::delete('unidades/{id}', 'UnidadController@destroy');
+    Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
+    Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');
+    Route::get('unidadunica', 'UnidadController@getUnidadByName');
 
 
      //Autentica cion de usuarios
-     Route::get('users', 'UserController@getusers');
-     Route::post('register', 'UserController@register');
-     Route::post('login', 'AuthController@login');
-     Route::post('logout', 'AuthController@logout');
-     Route::post('refresh', 'AuthController@refresh');
-     Route::get('me', 'AuthController@me');
+    Route::get('users', 'UserController@getusers');
+    Route::post('register', 'UserController@register');
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::get('me', 'AuthController@me');
 
- });
+         // Rutas Item Cotizacion
+    Route::get('item_cotizacion', 'ItemCotController@index');
+    Route::delete('item_cotizacion/{id}', 'ItemCotController@delete');
+    Route::post('item_cotizacion', 'ItemCotController@store');
+    // subir archivo cotizacion
+    Route::get('scan_cotizacion', 'ScanCotizacionController@index');
+    Route::post('scan_cotizacion', 'ScanCotizacionController@store');
+
+});
