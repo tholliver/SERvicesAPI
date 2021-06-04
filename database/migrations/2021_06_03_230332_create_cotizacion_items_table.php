@@ -22,9 +22,10 @@ class CreateCotizacionItemsTable extends Migration
             $table->double('total');
             
             // $table->integer('empresa_cotizacion_id')->unsigned();
-            $table->timestamps();
             $table->integer('empresa_cotizacion_id')->unsigned();
             $table->foreign('empresa_cotizacion_id')->references('id')->on('empresa_cotizacion');
+            $table->timestamps();
+            
             
         });
     }

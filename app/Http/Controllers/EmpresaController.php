@@ -60,4 +60,70 @@ class EmpresaController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   public function cotizacion($id)
+    {
+         $cotizacion = Empresa::all()->cotizaciones->where('id_solicitud',$id);
+
+        //$empresadetails = $cotizacion->empresas; //only one
+        //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
+        
+        //So the result
+        /*
+        $result = array(
+            'detalles'=> $cotizacion,
+            'empresadetalles'=> $empresadetails,
+            'itemscotizados'=> $itemscotizados
+        );
+        */
+
+        $object = json_decode(json_encode($result));
+         return response()->json($cotizacion,201);
+     }
+
+
+
+
 }
