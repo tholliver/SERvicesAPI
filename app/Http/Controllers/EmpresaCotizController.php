@@ -121,22 +121,10 @@ class EmpresaCotizController extends Controller
     //Gettin the buck data
     public function cotizacionItems($id)
     {
-       $cotizacion = EmpresaCotizacion::where('id_solicitud',$id)->get();
+        $cotizacionWithItems = EmpresaCotizacion::where('id_solicitud',$id)->with('itemscot')->get();
 
-       //$empresadetails = $cotizacion->empresas; //only one
-       //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
-
-       //So the result
-       /*
-       $result = array(
-           'detalles'=> $cotizacion,
-           'empresadetalles'=> $empresadetails,
-           'itemscotizados'=> $itemscotizados
-       );
-       */
-
-       $object = json_decode(json_encode($result));
-        return response()->json($cotizacion,201);
+    
+        return response()->json($cotizacionWithItems,201);
     }
 
      public function empresaCotizacion($id)
