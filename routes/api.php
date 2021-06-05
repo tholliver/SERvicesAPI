@@ -14,6 +14,7 @@ use App\Http\Controller\PresupuestoUnidadController;
 use App\Http\Controller\EmpresaCotizController;
 use App\Http\Controller\EmpresaController;
 use App\Http\Controller\ItemCotController;
+use App\Http\Controller\ScanCotizacionController;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -33,9 +34,9 @@ Route::group([
 
 
     //POST and Get methods for presupuestos
-    Route::get('presupuesto', 'PresupuestoUnidadController@index');    
+    Route::get('presupuesto', 'PresupuestoUnidadController@index');
     Route::get('presupuestos', 'PresupuestoUnidadController@getDatos');
-    Route::get('presupuesto/{id}/{gestion}', 'PresupuestoUnidadController@presupuestoId');   
+    Route::get('presupuesto/{id}/{gestion}', 'PresupuestoUnidadController@presupuestoId');
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
     Route::put('presupuesto', 'PresupuestoUnidadController@update');
 
@@ -47,6 +48,7 @@ Route::group([
      //POST and Get methods for empresaCotizacion
       Route::get('empresaCot', 'EmpresaCotizController@index');
       Route::post('empresaCot', 'EmpresaCotizController@store');
+      Route::post('empresaCot/{id}', 'EmpresaCotizController@update');
     //empresaCotizacion
     Route::get('/empresa-cotizacion/{id}', 'EmpresaCotizController@empresaCotizacion');
     Route::get('/solicitud-cotizacion-items/{id}', 'EmpresaCotizController@cotizacionItems');
@@ -55,7 +57,7 @@ Route::group([
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
     Route::get('/solicituditemspivot', 'SolicitudController@solicitudItemsPivot');
-    
+
     Route::get('solicitudes', 'SolicitudController@index');
     Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
     Route::get('/solicitud3/{id}', 'SolicitudController@solicitud3');

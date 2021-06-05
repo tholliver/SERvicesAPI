@@ -24,24 +24,17 @@ class ScanCotizacionController extends Controller
      */
     public function store(Request $request)
     {
-        // $file = $request->file('file');
-        // $nombre = $file->getClientOriginalName();
-        // storage_path()::disk('local')->put($nombre, \File::get($file));
 
-
-        $request->file('archivo')->store('public');
-        dd("subido y guardado");
-
-        // if($request->hasFile("urlpdf")){
-        //     $file=$request->file("urlpdf");
-        //     $nombre= "pdf_".time().".".$file->guessExtension();
-        //     $ruta = public_path("pdf/".$nombre);
-        //     if($file -> guessExtension()=="pdf"){
-        //         copy($file, $ruta);
-        //     }else{
-        //         dd("No es un pdf");
-        //     }
-        // }
+        if($request->hasFile("urlpdf")){
+            $file=$request->file("urlpdf");
+            $nombre= "pdf_".time().".".$file->guessExtension();
+            $ruta = public_path("pdf/".$nombre);
+            if($file -> guessExtension()=="pdf"){
+                copy($file, $ruta);
+            }else{
+                dd("No es un pdf");
+            }
+        }
 
         return response()->json(['message', 'Archivo guardado']);
     }

@@ -17,7 +17,7 @@ class EmpresaCotizController extends Controller
      */
     public function index()
     {
-        return EmpresaCot::all();
+        return EmpresaCotizacion::all();
         // $items = Item::latest()->paginate(50);
     }
 
@@ -30,7 +30,7 @@ class EmpresaCotizController extends Controller
      public function store(Request $request)
      {
         if($request->has('id_solicitud')){
-         $empCot = EmpresaCot::create([
+         $empCot = EmpresaCotizacion::create([
              'id_solicitud' => $request->get('id_solicitud'),
              'id_empresa' => $request->get('id_empresa'),
          ]);
@@ -46,6 +46,19 @@ class EmpresaCotizController extends Controller
         return response()->json($returnData, 400);
      }
 
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+
+        $empresaCot = EmpresaCotizacion::Find($id);
+        $empresaCot->observaciones = $input['observaciones'];
+        $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
+        $empresaCot->validez_oferta = $input['validez_oferta'];
+        $empresaCot->total = $input['total'];
+        $empresaCot->save();
+
+        return response([ 'message' => 'actualizado'], 200);
+    }
 
 
 
@@ -90,13 +103,42 @@ class EmpresaCotizController extends Controller
 
 
 
-     //Gettin the buck data
-     public function cotizacionItems($id)
-     {
-        $cotizacionWithItems = EmpresaCotizacion::where('id_solicitud',$id)->with('itemscot')->get();
-    
-         return response()->json($cotizacionWithItems,201);
-     }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Gettin the buck data
+    public function cotizacionItems($id)
+    {
+       $cotizacion = EmpresaCotizacion::where('id_solicitud',$id)->get();
+
+       //$empresadetails = $cotizacion->empresas; //only one
+       //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
+
+       //So the result
+       /*
+       $result = array(
+           'detalles'=> $cotizacion,
+           'empresadetalles'=> $empresadetails,
+           'itemscotizados'=> $itemscotizados
+       );
+       */
+
+       $object = json_decode(json_encode($result));
+        return response()->json($cotizacion,201);
+    }
+
      public function empresaCotizacion($id)
      {
         //$cotizacion1 = EmpresaCotizacion::where('id_solicitud',$id)->all();
