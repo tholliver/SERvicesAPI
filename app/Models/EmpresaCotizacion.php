@@ -19,7 +19,7 @@ class EmpresaCotizacion extends Model
     public function itemscot()
     {
         //,'item_solicitud','solicitud_id','item_id'
-        return $this->hasMany(CotizacionItem::class);
+        return $this->hasMany(CotizacionItem::class,'empresa_cotizacion_id');
         
     }
     public function empresas()

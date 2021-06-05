@@ -13,6 +13,6 @@ class CotizacionItem extends Model
 
     public function empresas_cotizaciones()
     {
-        return $this->toBelongsTo(EmpresaCot::class,'id');
+        return $this->belongsTo(EmpresaCotizacion::class,'empresa_cotizacion_id');
     }
 }

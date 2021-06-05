@@ -48,7 +48,9 @@ Route::group([
       Route::get('empresaCot', 'EmpresaCotizController@index');
       Route::post('empresaCot', 'EmpresaCotizController@store');
     //empresaCotizacion
-    Route::get('/solicitud-cotizacion/{id}', 'EmpresaController@cotizacion');
+    Route::get('/empresa-cotizacion/{id}', 'EmpresaCotizController@empresaCotizacion');
+    Route::get('/solicitud-cotizacion-items/{id}', 'EmpresaCotizController@cotizacionItems');
+    
 
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');

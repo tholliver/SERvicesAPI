@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Empresa;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +17,11 @@ use Notifiable;
     {
         return $this->belongsToMany(Item::class,'item_solicitud','solicitud_id','item_id')->withPivot('nombre','descrip','cantidad','precio');
         
+    }
+
+    public function cotizacionesEmpresa()
+    {
+        //,'item_solicitud','solicitud_id','item_id'
+        return $this->belongsToMany(Empresa::class,'empresa_cotizacion','id_solicitud','id_empresa')->withPivot('id','observaciones','plazo_de_entrega','validez_oferta','total','cotizacion_pdf','eleccion');
     }
 }

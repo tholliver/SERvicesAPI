@@ -122,8 +122,4 @@ class EmpresaController extends Controller
         $object = json_decode(json_encode($result));
          return response()->json($cotizacion,201);
      }
-
-
-
-
 }

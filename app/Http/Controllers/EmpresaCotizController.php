@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmpresaCotizacion;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -88,28 +89,21 @@ class EmpresaCotizController extends Controller
 
 
 
-     
+
      //Gettin the buck data
+     public function cotizacionItems($id)
+     {
+        $cotizacionWithItems = EmpresaCotizacion::where('id_solicitud',$id)->with('itemscot')->get();
+    
+         return response()->json($cotizacionWithItems,201);
+     }
      public function empresaCotizacion($id)
      {
-        $cotizacion = EmpresaCotizacion::where('id_solicitud',$id)->get();
+        //$cotizacion1 = EmpresaCotizacion::where('id_solicitud',$id)->all();
 
-        //$empresadetails = $cotizacion->empresas; //only one
-        //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
-        
-        //So the result
-        /*
-        $result = array(
-            'detalles'=> $cotizacion,
-            'empresadetalles'=> $empresadetails,
-            'itemscotizados'=> $itemscotizados
-        );
-        */
-
-        $object = json_decode(json_encode($result));
-         return response()->json($cotizacion,201);
+        $solicitud = Solicitud::find($id);
+        $empresasWithCot = $solicitud->cotizacionesEmpresa;
+           
+         return response()->json($empresasWithCot,201);
      }
-
-
-
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
-use App\Models\EmpresaCotizacion;
+
+use App\Models\Solicitud;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +17,12 @@ class Empresa extends Model
     protected $fillable = [
         'nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit',
     ];
-
-    public function cotizaciones()
+    
+    public function cots()
     {
         //,'item_solicitud','solicitud_id','item_id'
         return $this->hasMany(EmpresaCotizacion::class,'id_empresa');
-       
     }
+   
 
 }
