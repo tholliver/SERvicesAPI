@@ -61,62 +61,12 @@ class EmpresaCotizController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-
-
-
-
-
-
-
-
-
-
-
-
+    public function recomendacionUpdate(Request $request)
+    {
+        $id  = $request->get('id');
+        $updatedReco = EmpresaCotizacion::where('id','=',$id)->update(['eleccion' => 'Si']);
+        return response()->json($updatedReco,201);
+    }
 
     //Gettin the buck data
     public function cotizacionItems($id)

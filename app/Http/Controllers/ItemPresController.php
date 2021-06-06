@@ -37,7 +37,6 @@ class ItemPresController extends Controller
          ]);
 
         return response()->json($unidadasignacion,201);
-
         }
 
         $returnData = array(

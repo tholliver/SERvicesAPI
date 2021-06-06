@@ -49,9 +49,13 @@ Route::group([
       Route::get('empresaCot', 'EmpresaCotizController@index');
       Route::post('empresaCot', 'EmpresaCotizController@store');
       Route::post('empresaCot/{id}', 'EmpresaCotizController@update');
+      
+      Route::put('actualizar-recomendar', 'EmpresaCotizController@recomendacionUpdate');
+
     //empresaCotizacion
     Route::get('/empresa-cotizacion/{id}', 'EmpresaCotizController@empresaCotizacion');
     Route::get('/solicitud-cotizacion-items/{id}', 'EmpresaCotizController@cotizacionItems');
+    
     
 
     //POST and Get methods for solicitudes
