@@ -48,11 +48,13 @@ Route::group([
      //POST and Get methods for empresaCotizacion
       Route::get('empresaCot', 'EmpresaCotizController@index');
       Route::post('empresaCot', 'EmpresaCotizController@store');
+      ///////////////////////////////////////////
       Route::post('empresaCot/{id}', 'EmpresaCotizController@update');
     //empresaCotizacion
     Route::get('/empresa-cotizacion/{id}', 'EmpresaCotizController@empresaCotizacion');
     Route::get('/solicitud-cotizacion-items/{id}', 'EmpresaCotizController@cotizacionItems');
-    
+    //probandos
+    Route::get('/cotizacion/{id1}/{id2}', 'EmpresaCotizController@obtenerCotizacion');
 
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
@@ -62,7 +64,9 @@ Route::group([
     Route::get('/solicituditems2/{id}', 'SolicitudController@solicitudItems2');
     Route::get('/solicitud3/{id}', 'SolicitudController@solicitud3');
     Route::post('solicitudes', 'SolicitudController@nuevasolicitud');
+
     Route::put('solicitudes', 'SolicitudController@update');
+    Route::put('solicitudes11', 'SolicitudController@update1');
     Route::get('solicitudes-aceptadas', 'SolicitudController@solicitudesAceptadas');
     Route::get('solicitudes-rechazadas', 'SolicitudController@solicitudesRechazadas');
     Route::get('solicitudes-pendientes', 'SolicitudController@solicitudesPendientes');

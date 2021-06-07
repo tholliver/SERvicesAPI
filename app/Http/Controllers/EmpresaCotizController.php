@@ -6,7 +6,7 @@ use App\Models\EmpresaCotizacion;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use DB;
 
 class EmpresaCotizController extends Controller
 {
@@ -19,6 +19,15 @@ class EmpresaCotizController extends Controller
     {
         return EmpresaCotizacion::all();
         // $items = Item::latest()->paginate(50);
+    }
+
+    public function obtenerCotizacion($idSol, $idEmp)
+    {
+        $libros_mario_puzo = DB::table('empresa_cotizacion')
+        ->select('id')
+        ->where('id_empresa',$idEmp)
+        ->where('id_solicitud',$idSol )->get();
+        return response()->json($libros_mario_puzo,201);
     }
 
 
@@ -104,7 +113,7 @@ class EmpresaCotizController extends Controller
 
 
 
-     
+
 
 
 
@@ -123,7 +132,7 @@ class EmpresaCotizController extends Controller
     {
         $cotizacionWithItems = EmpresaCotizacion::where('id_solicitud',$id)->with('itemscot')->get();
 
-    
+
         return response()->json($cotizacionWithItems,201);
     }
 
@@ -133,7 +142,7 @@ class EmpresaCotizController extends Controller
 
         $solicitud = Solicitud::find($id);
         $empresasWithCot = $solicitud->cotizacionesEmpresa;
-           
+
          return response()->json($empresasWithCot,201);
      }
 }

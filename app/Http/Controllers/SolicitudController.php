@@ -42,7 +42,7 @@ class SolicitudController extends Controller
 
         return response()->json($items,201);
     }
-    
+
     public function solicitudItemsPivot()
     {
         $solicitudes = Solicitud::with('items')->get();
@@ -150,7 +150,17 @@ class SolicitudController extends Controller
         }
     }
 
-
+    public function update1(Request $request, Solicitud $solicitud)
+    {
+        $libros_mario_puzo = DB::table('solicituds')
+        //$estado444='estado';
+        ->where('id',$request->id)
+        ->where('unidad_id',$request->unidad_id )
+        ->update(
+              ['estado' => $request->estado, 'montoestimado' =>$request->montoestimado ,'tipo'=> $request->tipo],
+        ['supera' => 'Quizas']
+                );
+    }
     /**
      * Show a list of all of the application's users.
      *
