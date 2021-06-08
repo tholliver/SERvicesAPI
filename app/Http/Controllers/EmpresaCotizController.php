@@ -70,7 +70,7 @@ class EmpresaCotizController extends Controller
          $nombre = "pdf_".time().".".$file->getClientOriginalExtension();
          $rute1 = $request->file("cotizacion_pdf")->move(public_path()."/pdf", $nombre); //Moving the file to public route
         
-         $ruta = public_path()."/".'pdf/'.$nombre;
+         $ruta = "/".'pdf/'.$nombre;
          //$request->file("cotizacion_pdf")->move(public_path("pdf/".$nombre));
    
         $empresaCot = EmpresaCotizacion::Find($id);
