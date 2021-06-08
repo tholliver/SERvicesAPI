@@ -55,15 +55,30 @@ class EmpresaCotizController extends Controller
         return response()->json($returnData, 400);
      }
 
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $input = $request->all();
-
+        //dump($request);
+         //Procesando archivo
+         $file = $request->file('cotizacion_pdf');
+         $nombre = "pdf_".time().".".$file->getClientOriginalExtension();
+         $rute1 = $request->file("cotizacion_pdf")->move(public_path()."/pdf", $nombre); //Moving the file to public route
+        
+         $ruta = 'public/pdf/'.$nombre;
+         //$request->file("cotizacion_pdf")->move(public_path("pdf/".$nombre));
+   
         $empresaCot = EmpresaCotizacion::Find($id);
         $empresaCot->observaciones = $input['observaciones'];
         $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
         $empresaCot->validez_oferta = $input['validez_oferta'];
         $empresaCot->total = $input['total'];
+        $empresaCot->cotizacion_pdf = $ruta;
         $empresaCot->save();
 
         return response([ 'message' => 'actualizado'], 200);
