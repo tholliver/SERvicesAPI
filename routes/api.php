@@ -50,7 +50,7 @@ Route::group([
       Route::post('empresaCot', 'EmpresaCotizController@store');
       ///////////////////////////////////////////
       Route::post('empresaCot/{id}', 'EmpresaCotizController@update');
-      
+
       Route::put('actualizar-recomendar', 'EmpresaCotizController@recomendacionUpdate');
 
     //empresaCotizacion
@@ -117,5 +117,7 @@ Route::group([
     // subir archivo cotizacion
     Route::get('scan_cotizacion', 'ScanCotizacionController@index');
     Route::post('scan_cotizacion', 'ScanCotizacionController@store');
+
+    Route::post('itemPres', 'ItemPresController@store');
 
 });
