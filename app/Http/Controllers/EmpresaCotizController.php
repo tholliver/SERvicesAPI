@@ -66,13 +66,17 @@ class EmpresaCotizController extends Controller
         $input = $request->all();
         //dump($request);
          //Procesando archivo
+        if($request->file('cotizacion_pdf')->getSize() >= 2048){
+            return response([ 'message' => 'Archivo muy grande'], 413);
+        }
+
          $file = $request->file('cotizacion_pdf');
          $nombre = "pdf_".time().".".$file->getClientOriginalExtension();
          $rute1 = $request->file("cotizacion_pdf")->move(public_path()."/pdf", $nombre); //Moving the file to public route
-        
+         
          $ruta = "/".'pdf/'.$nombre;
          //$request->file("cotizacion_pdf")->move(public_path("pdf/".$nombre));
-   
+        
         $empresaCot = EmpresaCotizacion::Find($id);
         $empresaCot->observaciones = $input['observaciones'];
         $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
