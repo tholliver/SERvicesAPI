@@ -84,6 +84,28 @@ class UserController extends Controller
             return response()->json(compact('user','token'),201);
         }
 
+    public function update(Request $request)
+    {
+        $unidadName = $request->get('unidaddegasto');
+        $unidadId = Unidad::where('nombre',$unidadName)->first()->id;
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;        
+        $user->cellphone = $request->cellphone;
+        $user->rol = $request->rol;
+        $user->unidaddegasto = $request->unidaddegasto;
+        $user->unidad_id = $unidadId;
+
+        $result = $user->save();
+        if($result){
+            return ["result"=>"Success, data is updated"];
+        } else {
+            return ["result"=>"Error, data didnt update"];
+        }
+    }
+
         public function getAuthenticatedUser()
             {
                     try {

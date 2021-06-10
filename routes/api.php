@@ -109,6 +109,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
+    Route::put('actualizar', 'UserController@update');
 
          // Rutas Item Cotizacion
     Route::get('item_cotizacion', 'ItemCotController@index');
