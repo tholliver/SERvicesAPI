@@ -13,6 +13,5 @@ class Informe extends Model
      * @var array
      */
     protected $fillable=[
-    'nombre_cotizador','tipo_informe','informe_escrito','empresa_cotizacion_id','solicitud_id'
-    ];
+    'nombre_cotizador','tipo_informe','informe_escrito','id_solicitud'];
 }
