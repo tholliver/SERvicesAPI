@@ -84,9 +84,17 @@ class RolController extends Controller
      * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rol $rol)
+    public function update(Request $request)
     {
-        //
+        $rol = Rol::find($request->id);
+        $rol->rolnom = $request->rolnom;
+        $rol->descrip = $request->descrip;
+        $result = $rol->save();
+        if($result){
+            return ["result"=>"Success, data is updated"];
+        } else {
+            return ["result"=>"Error, data didnt update"];
+        }
     }
 
     /**

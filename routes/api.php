@@ -80,6 +80,7 @@ Route::group([
     //POST and Get methods for roles
     Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
+    Route::put('roles', 'RolController@update');
 
     // Rutas items
     Route::get('items', 'ItemController@index');
@@ -111,6 +112,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
+    Route::put('actualizar', 'UserController@update');
 
          // Rutas Item Cotizacion
     Route::get('item_cotizacion', 'ItemCotController@index');
