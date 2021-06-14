@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\ItemPres;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use DB;
 
 class ItemPresController extends Controller
 {
@@ -44,6 +44,26 @@ class ItemPresController extends Controller
          'message' => 'An error occurred!'
      );
         return response()->json($returnData, 400);
+     }
+
+     public function obtenerPresItem($idUni, $periodo)
+     {
+         $items = DB::table('unidadasignacionitems')
+         ->select('item_superiors.nomitemSup','montoasig')
+         ->join('item_superiors', 'unidadasignacionitems.itemsuperior_id', '=', 'item_superiors.id')
+         ->where('unidad_id',$idUni)
+         ->where('periodo',$periodo )->get();
+         return response()->json($items ,201);
+     }
+     public function obtenerPresItemSum($idUni, $periodo)
+     {
+         $items = DB::table('unidadasignacionitems')
+         //->select('item_superiors.nomitemSup','montoasig')
+         ->join('item_superiors', 'unidadasignacionitems.itemsuperior_id', '=', 'item_superiors.id')
+         ->where('unidad_id',$idUni)
+         ->where('periodo',$periodo )->get()
+         ->sum('montoasig');
+         return response()->json($items ,201);
      }
 
 
