@@ -15,6 +15,8 @@ use App\Http\Controller\EmpresaCotizController;
 use App\Http\Controller\EmpresaController;
 use App\Http\Controller\ItemCotController;
 use App\Http\Controller\ScanCotizacionController;
+use App\Http\Controller\InformeController;
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -122,7 +124,16 @@ Route::group([
     Route::post('scan_cotizacion', 'ScanCotizacionController@store');
 
     Route::post('itemPres', 'ItemPresController@store');
+<<<<<<< HEAD
       // obtenerPresItem, unidad , periodo
     Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
+=======
+
+    //Routes for informe
+    Route::post('informe', 'InformeController@store');
+    Route::get('informe-solicitud/{id}', 'InformeController@getOneInforme');
+    Route::get('informes-solicitud', 'InformeController@getAllInformes');
+    
+>>>>>>> 2d659e992b2168d65cd5c06f0fdda8ab4346047f
 });
