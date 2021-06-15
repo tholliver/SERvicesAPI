@@ -34,7 +34,9 @@ class InformeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   //We update the solicitud -> estado 
+        $id_solit  = $request->get('id_solicitud');
+        $updatedReco = Solicitud::where('id','=',$id_solit)->update(['estado' => 'Concluido']);   
        $newInforme = Informe::create([
             'nombre_cotizador' => $request->get('nombre_cotizador'),
             'tipo_informe' => $request->get('tipo_informe'),
@@ -42,7 +44,13 @@ class InformeController extends Controller
             'id_solicitud' => $request->get('id_solicitud')
         ]);
 
-        return response()->json($newInforme,201);
+        return response()->json([
+            'message' => 'Data processed successfully',
+            'data' => [
+                'infome' => $newInforme,
+                'ID_updated' => $updatedReco
+            ]
+        ]);;
     }
 
     /**
