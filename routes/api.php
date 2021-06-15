@@ -33,6 +33,7 @@ Route::group([
     Route::get('empresas', 'EmpresaController@index');
     Route::get('/empresasInfo/{info_idE}', 'EmpresaController@infoEmpresa');
     Route::post('empresas', 'EmpresaController@store');
+    Route::delete('empresas/{id}', 'EmpresaController@destroy');
 
 
     //POST and Get methods for presupuestos
@@ -123,6 +124,8 @@ Route::group([
     Route::post('scan_cotizacion', 'ScanCotizacionController@store');
 
     Route::post('itemPres', 'ItemPresController@store');
+        Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
+    Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
 
     //Routes for informe
     Route::post('informe', 'InformeController@store');

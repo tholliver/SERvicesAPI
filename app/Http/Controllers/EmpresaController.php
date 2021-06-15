@@ -56,6 +56,14 @@ class EmpresaController extends Controller
              ->get();
      return response()->json($empresainfo);
    }
+   public function destroy($id)
+   {
+       $unidad = Empresa::find($id);
+       $unidad->delete();
+
+       return response()->json(['message' => 'empresa eliminado']);
+   }
+
 
 
 
@@ -109,7 +117,7 @@ class EmpresaController extends Controller
 
         //$empresadetails = $cotizacion->empresas; //only one
         //$itemscotizados = $cotizacion->itemscot; //Tmay of this class type
-        
+
         //So the result
         /*
         $result = array(
