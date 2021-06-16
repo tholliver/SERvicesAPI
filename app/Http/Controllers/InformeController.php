@@ -50,7 +50,7 @@ class InformeController extends Controller
                 'infome' => $newInforme,
                 'ID_updated' => $updatedReco
             ]
-        ]);;
+        ]);
     }
 
     /**
