@@ -20,20 +20,20 @@ class ItemSuperiorController extends Controller
         return ItemSuperior::all();
         // $items = Item::latest()->paginate(50);
     }
-   
+
      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function  allItemsOnSup($id)
-    {        
+    {
         $itemSup = ItemSuperior::find($id);
-        $items = $itemSup->items;      
+        $items = $itemSup->items;
         return response()->json($items,201);
         // $items = Item::latest()->paginate(50);
     }
-   
+
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +83,7 @@ class ItemSuperiorController extends Controller
      */
     public function destroy($id)
     {
-        $item = Item::find($id);
+        $item = ItemSuperior::find($id);
         $item->delete();
 
         return response()->json(['message' => 'item eliminado']);

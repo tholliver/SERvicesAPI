@@ -93,7 +93,8 @@ Route::group([
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
     Route::post('itemSup', 'ItemSuperiorController@store');
-
+    Route::delete('itemSup/{id}', 'ItemSuperiorController@destroy');
+    //destroy($id)
      // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
     Route::post('unidades', 'UnidadController@store');
@@ -124,6 +125,7 @@ Route::group([
     Route::post('scan_cotizacion', 'ScanCotizacionController@store');
 
     Route::post('itemPres', 'ItemPresController@store');
+    //unidad y periodo
         Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
 
@@ -131,5 +133,5 @@ Route::group([
     Route::post('informe', 'InformeController@store');
     Route::get('informe-solicitud/{id}', 'InformeController@getOneInforme');
     Route::get('informes-solicitud', 'InformeController@getAllInformes');
-    
+
 });
