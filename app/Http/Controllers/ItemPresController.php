@@ -65,6 +65,15 @@ class ItemPresController extends Controller
          ->sum('montoasig');
          return response()->json($items ,201);
      }
+     public function obtenerAnios($idUni)
+     {
+         $items = DB::table('unidadasignacionitems')
+         ->select('periodo')->distinct()
+         ->orderBy('periodo', 'asc')
+         ->where('unidad_id',$idUni)->get();
+         return response()->json($items ,201);
+     }
+///////////////////////////////
 
 
 

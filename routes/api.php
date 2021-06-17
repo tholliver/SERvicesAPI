@@ -126,8 +126,9 @@ Route::group([
 
     Route::post('itemPres', 'ItemPresController@store');
     //unidad y periodo
-        Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
+    Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
+    Route::get('/itemPresAnio/{id1}', 'ItemPresController@obtenerAnios');
 
     //Routes for informe
     Route::post('informe', 'InformeController@store');

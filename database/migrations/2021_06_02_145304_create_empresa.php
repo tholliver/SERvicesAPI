@@ -21,6 +21,7 @@ class CreateEmpresa extends Migration
       $table->string('diremp');
       $table->string('rubro');
       $table->integer('nit');
+      $table->integer('correo');
       $table->timestamps();
     });
     }

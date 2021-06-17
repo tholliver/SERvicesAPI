@@ -37,6 +37,7 @@ class EmpresaController extends Controller
              'diremp' => $request->get('diremp'),
              'rubro' => $request->get('rubro'),
              'nit' => $request->get('nit'),
+             'correo' => $request->get('correo'),
          ]);
 
         return response()->json($empresaguardar,201);
