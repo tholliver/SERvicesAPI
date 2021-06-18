@@ -100,11 +100,14 @@ class RolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rol $rol)
+    public function destroy($id)
     {
-        //
+        $rol = Rol::find($id);
+        $rol->delete();
+        return response()->json(['message' => 'item eliminado']);
     }
 }

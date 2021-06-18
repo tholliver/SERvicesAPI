@@ -144,8 +144,10 @@ class PresupuestoUnidadController extends Controller
      * @param  \App\Models\PresupuestoUnidad  $presupuestoUnidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PresupuestoUnidad $presupuestoUnidad)
+    public function destroy($id)
     {
-        //
+        $pres = PresupuestoUnidad::find($id);
+        $pres->delete();
+        return response()->json(['message' => 'item eliminado']);
     }
 }

@@ -43,6 +43,7 @@ Route::group([
     Route::get('presupuesto/{id}/{gestion}', 'PresupuestoUnidadController@presupuestoId');
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
     Route::put('presupuesto', 'PresupuestoUnidadController@update');
+    Route::delete('presupuesto/{id}', 'PresupuestoUnidadController@destroy');
 
 
     //POST and Get methods for roles
@@ -83,6 +84,7 @@ Route::group([
     Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
     Route::put('roles', 'RolController@update');
+    Route::delete('roles/{id}', 'RolController@destroy');
 
     // Rutas items
     Route::get('items', 'ItemController@index');
@@ -118,6 +120,7 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
     Route::put('actualizar', 'UserController@update');
+    Route::delete('user/{id}', 'UserController@destroy');
 
          // Rutas Item Cotizacion
     Route::get('item_cotizacion', 'ItemCotController@index');
