@@ -70,7 +70,7 @@ class ItemController extends Controller
             return response()->json(['message' => 'item no encontrado']);
         }
 
-        return response()->json(['items' => $items, 'message' => 'item encontrado'], 200);
+        return response()->json($item, 200);
     }
 
     /**
@@ -80,31 +80,26 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
         $validator = Validator::make($data, [
             'nomitem' => 'required|max:255',
             'descrip' => 'required|max:500',
-            'montoasig' => 'required|numeric| max:10000000',
-            'periodo' => 'required| max:255',
-            'unidaddegasto' => 'required| max:255'
+            'itemsuperior' => 'required|max:5000'
         ]);
 
         if($validator->fails()){
             return response()->json(['message' => 'Error de validacion.', $validator->errors()]);
         }
 
-        $item = Item::find($request->id);
+        $item = Item::find($id);
         $item->nomitem = $data['nomitem'];
         $item->descrip = $data['descrip'];
-        $item->montoasig = $data['montoasig'];
-        $item->periodo = $data['periodo'];
-        $item->unidaddegasto = $data['unidaddegasto'];
+        $item->item_general_id = $data['itemsuperior'];
         $item->save();
-
-        return response()->json(['items' => $items, 'message' => 'item actualizado con exito'], 200);
+        return response()->json(['items' => $item], 200);
     }
 
     /**
@@ -115,7 +110,6 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        echo($item);
         $item = Item::find($id);
         $item->delete();
 

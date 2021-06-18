@@ -51,19 +51,52 @@ class EmpresaController extends Controller
         return response()->json($returnData, 400);
      }
 
-     public function infoEmpresa($info_idE){
-     $empresainfo = DB::table('empresas')
-             ->where('nombreemp', '=', $info_idE)
-             ->get();
-     return response()->json($empresainfo);
-   }
-   public function destroy($id)
-   {
-       $unidad = Empresa::find($id);
-       $unidad->delete();
+    public function show($id){
 
-       return response()->json(['message' => 'empresa eliminado']);
-   }
+    $empresa = Empresa::find($id);
+
+        if (is_null($empresa)) {
+            return response()->json(['message' => 'empresa no encontrada']);
+        }
+
+    return response()->json($empresa);
+    }
+
+    public function update($id, Request $request){
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nombreemp' => 'required',
+            'repnombre' => 'required',
+            'telefono' => 'required',
+            'diremp' => 'required',
+            'rubro' => 'required',
+            'nit' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['message' => 'Error de validacion.', $validator->errors()]);
+        }
+
+        $empresa = Empresa::find($id);
+        $empresa->nombreemp = $input['nombreemp'];
+        $empresa->repnombre = $input['repnombre'];
+        $empresa->telefono = $input['telefono'];
+        $empresa->diremp = $input['diremp'];
+        $empresa->rubro = $input['rubro'];
+        $empresa->nit = $input['nit'];
+        $empresa->save();
+
+        return response()->json($empresa, 200);
+    }
+        
+    public function destroy($id)
+    {
+        $unidad = Empresa::find($id);
+        $unidad->delete();
+
+        return response()->json(['message' => 'empresa eliminado']);
+    }
 
 
 

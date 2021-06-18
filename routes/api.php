@@ -31,8 +31,9 @@ Route::group([
 
     //POST and Get methods for empresas
     Route::get('empresas', 'EmpresaController@index');
-    Route::get('/empresasInfo/{info_idE}', 'EmpresaController@infoEmpresa');
+    Route::get('/empresas/{id}', 'EmpresaController@show');
     Route::post('empresas', 'EmpresaController@store');
+    Route::post('empresas/{id}', 'EmpresaController@update');
     Route::delete('empresas/{id}', 'EmpresaController@destroy');
 
 
@@ -86,19 +87,21 @@ Route::group([
     // Rutas items
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
-    Route::put('items/{id}', 'ItemController@update');
+    Route::post('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
     Route::delete('items/{id}', 'ItemController@destroy');
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
+    Route::get('itemSup/{id}', 'ItemSuperiorController@show');
     Route::post('itemSup', 'ItemSuperiorController@store');
+    Route::post('itemSup/{id}', 'ItemSuperiorController@update');
     Route::delete('itemSup/{id}', 'ItemSuperiorController@destroy');
     //destroy($id)
      // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
     Route::post('unidades', 'UnidadController@store');
-    Route::put('unidades/{id}', 'UnidadController@update');
+    Route::post('unidades/{id}', 'UnidadController@update');
     Route::get('unidades/{id}', 'UnidadController@show');
     Route::get('unidades2/{id}', 'UnidadController@show2');
     Route::delete('unidades/{id}', 'UnidadController@destroy');
