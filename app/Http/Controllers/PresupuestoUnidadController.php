@@ -80,7 +80,7 @@ class PresupuestoUnidadController extends Controller
 
     public function getDatos() {
         $presupuestos = DB::table('presupuesto_unidads')
-            ->select('unidads.nombre','presupuesto_unidads.presupuesto','presupuesto_unidads.gestion')
+            ->select('unidads.nombre','presupuesto_unidads.presupuesto','presupuesto_unidads.gestion','presupuesto_unidads.id')
             ->join('unidads', 'presupuesto_unidads.id_unidad', '=', 'unidads.id')        
             ->get();
         return response()->json($presupuestos);
@@ -144,8 +144,10 @@ class PresupuestoUnidadController extends Controller
      * @param  \App\Models\PresupuestoUnidad  $presupuestoUnidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PresupuestoUnidad $presupuestoUnidad)
+    public function destroy($id)
     {
-        //
+        $pres = PresupuestoUnidad::find($id);
+        $pres->delete();
+        return response()->json(['message' => 'item eliminado']);
     }
 }

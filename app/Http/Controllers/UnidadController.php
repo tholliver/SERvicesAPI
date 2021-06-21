@@ -59,7 +59,7 @@ class UnidadController extends Controller
             return response()->json(['message' => 'unidad no encontrado']);
         }
 
-        return response()->json(['unidad' => $unidad, 'message' => 'unidad encontrado'], 200);
+        return response()->json($unidad, 200);
     }
 
     public function show2($id)
@@ -77,7 +77,7 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unidad $unidad)
+    public function update(Request $request)
     {
         $data = $request->all();
 
@@ -97,10 +97,9 @@ class UnidadController extends Controller
         $unidad->facultad = $data['facultad'];
         $unidad->presupuesto = $data['presupuesto'];
         $unidad->telefono = $data['telefono'];
-        $unidad->user_id = $data['user_id'];
         $unidad->save();
 
-        return response()->json(['unidad' => $unidad,'message' => 'unidad actualizada con exito'], 200);
+        return response()->json($unidad, 200);
     }
 
       /**

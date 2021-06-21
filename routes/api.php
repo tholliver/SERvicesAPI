@@ -33,8 +33,9 @@ Route::group([
 
     //POST and Get methods for empresas
     Route::get('empresas', 'EmpresaController@index');
-    Route::get('/empresasInfo/{info_idE}', 'EmpresaController@infoEmpresa');
+    Route::get('/empresas/{id}', 'EmpresaController@show');
     Route::post('empresas', 'EmpresaController@store');
+    Route::post('empresas/{id}', 'EmpresaController@update');
     Route::delete('empresas/{id}', 'EmpresaController@destroy');
 
 
@@ -44,6 +45,7 @@ Route::group([
     Route::get('presupuesto/{id}/{gestion}', 'PresupuestoUnidadController@presupuestoId');
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
     Route::put('presupuesto', 'PresupuestoUnidadController@update');
+    Route::delete('presupuesto/{id}', 'PresupuestoUnidadController@destroy');
 
 
     //POST and Get methods for roles
@@ -84,23 +86,26 @@ Route::group([
     Route::get('roles', 'RolController@index');
     Route::post('roles', 'RolController@nuevorol');
     Route::put('roles', 'RolController@update');
+    Route::delete('roles/{id}', 'RolController@destroy');
 
     // Rutas items
     Route::get('items', 'ItemController@index');
     Route::post('items', 'ItemController@store');
-    Route::put('items/{id}', 'ItemController@update');
+    Route::post('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
     Route::delete('items/{id}', 'ItemController@destroy');
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
+    Route::get('itemSup/{id}', 'ItemSuperiorController@show');
     Route::post('itemSup', 'ItemSuperiorController@store');
+    Route::post('itemSup/{id}', 'ItemSuperiorController@update');
     Route::delete('itemSup/{id}', 'ItemSuperiorController@destroy');
     //destroy($id)
      // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
     Route::post('unidades', 'UnidadController@store');
-    Route::put('unidades/{id}', 'UnidadController@update');
+    Route::post('unidades/{id}', 'UnidadController@update');
     Route::get('unidades/{id}', 'UnidadController@show');
     Route::get('unidades2/{id}', 'UnidadController@show2');
     Route::delete('unidades/{id}', 'UnidadController@destroy');
@@ -118,6 +123,7 @@ Route::group([
     Route::get('me', 'AuthController@me');
     Route::get('auth-user', 'UserController@getAuthenticatedUser');
     Route::put('actualizar', 'UserController@update');
+    Route::delete('user/{id}', 'UserController@destroy');
 
          // Rutas Item Cotizacion
     Route::get('item_cotizacion', 'ItemCotController@index');
@@ -129,8 +135,9 @@ Route::group([
 
     Route::post('itemPres', 'ItemPresController@store');
     //unidad y periodo
-        Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
+    Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
+    Route::get('/itemPresAnio/{id1}', 'ItemPresController@obtenerAnios');
 
     //Routes for informe
     Route::post('informe', 'InformeController@store');

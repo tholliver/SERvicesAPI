@@ -12,7 +12,7 @@ class ItemPresController extends Controller
      * @return \Illuminate\Http\Response
 
      */
-     protected $table = 'unidadasignacionitems';
+    protected $table = 'unidadasignacionitems';
     public function index()
     {
         return ItemPres::all();
@@ -26,15 +26,15 @@ class ItemPresController extends Controller
      * @return \Illuminate\Http\Response
      */
      //'unidad_id', 'itemsuperior_id', 'montoasig','periodo',
-     public function store(Request $request)
-     {
-        if($request->has('unidad_id')){
-         $unidadasignacion = ItemPres::create([
-             'unidad_id' => $request->get('unidad_id'),
-             'itemsuperior_id' => $request->get('itemsuperior_id'),
-             'montoasig' => $request->get('montoasig'),
-             'periodo' => $request->get('periodo'),
-         ]);
+    public function store(Request $request)
+    {
+    if($request->has('unidad_id')){
+        $unidadasignacion = ItemPres::create([
+            'unidad_id' => $request->get('unidad_id'),
+            'itemsuperior_id' => $request->get('itemsuperior_id'),
+            'montoasig' => $request->get('montoasig'),
+            'periodo' => $request->get('periodo'),
+        ]);
 
         return response()->json($unidadasignacion,201);
         }
@@ -65,6 +65,15 @@ class ItemPresController extends Controller
          ->sum('montoasig');
          return response()->json($items ,201);
      }
+     public function obtenerAnios($idUni)
+     {
+         $items = DB::table('unidadasignacionitems')
+         ->select('periodo')->distinct()
+         ->orderBy('periodo', 'asc')
+         ->where('unidad_id',$idUni)->get();
+         return response()->json($items ,201);
+     }
+///////////////////////////////
 
 
 

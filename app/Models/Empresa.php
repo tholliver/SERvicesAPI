@@ -15,14 +15,14 @@ class Empresa extends Model
      */
     protected $table = 'empresas';
     protected $fillable = [
-        'nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit',
+        'nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo',
     ];
-    
+
     public function cots()
     {
         //,'item_solicitud','solicitud_id','item_id'
         return $this->hasMany(EmpresaCotizacion::class,'id_empresa');
     }
-   
+
 
 }
