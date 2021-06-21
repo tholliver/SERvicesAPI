@@ -3,16 +3,20 @@ namespace App\Models;
 use App\Models\CotizacionItem;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class EmpresaCotizacion extends Model
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
+
+    protected static $logAttributes = ['observaciones','plazo_de_entrega','validez_oferta', 'total','eleccion'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $table = 'empresa_cotizacion';
+
     protected $fillable = [
         'observaciones','plazo_de_entrega','validez_oferta', 'total','cotizacion_pdf','eleccion','id_empresa','id_solicitud'
     ];

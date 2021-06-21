@@ -4,12 +4,14 @@ namespace App\Models;
 use App\Models\Empresa;
 use App\Models\Informe;
 use Illuminate\Notifications\Notifiable;
+use Spatie\ActivityLog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Solicitud extends Model
 {
 
-    use Notifiable;
+    use Notifiable, LogsActivity;
+    protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
     
     protected $fillable=[
     'unidad_id','unidad_nombre','tipo','responsable','montoestimado','estado','supera'
