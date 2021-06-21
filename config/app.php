@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //Upper addons
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
 
     ],
 

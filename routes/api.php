@@ -16,6 +16,8 @@ use App\Http\Controller\EmpresaController;
 use App\Http\Controller\ItemCotController;
 use App\Http\Controller\ScanCotizacionController;
 use App\Http\Controller\InformeController;
+use App\Http\Controller\ActivityLogController; 
+
 
 Route::group([
     'middleware' => 'api',
@@ -114,6 +116,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
+    Route::get('auth-user', 'UserController@getAuthenticatedUser');
     Route::put('actualizar', 'UserController@update');
 
          // Rutas Item Cotizacion
@@ -134,4 +137,6 @@ Route::group([
     Route::get('informe-solicitud/{id}', 'InformeController@getOneInforme');
     Route::get('informes-solicitud', 'InformeController@getAllInformes');
 
+    //Rutas para actividades
+    Route::get('logs', 'ActivityLogController@index');
 });
