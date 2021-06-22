@@ -146,4 +146,6 @@ Route::group([
 
     //Rutas para actividades
     Route::get('logs', 'ActivityLogController@index');
+    Route::get('informe-logs', 'ActivityLogController@getInformes');
+ 
 });

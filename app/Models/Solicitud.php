@@ -4,12 +4,11 @@ namespace App\Models;
 use App\Models\Empresa;
 use App\Models\Informe;
 use Illuminate\Notifications\Notifiable;
-use Spatie\ActivityLog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Solicitud extends Model
-{
-
+{    
     use Notifiable, LogsActivity;
     protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
     

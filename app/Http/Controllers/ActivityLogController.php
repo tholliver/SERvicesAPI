@@ -18,6 +18,17 @@ class ActivityLogController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getInformes()
+    {   
+        $activities = Activity::where('subject_type','App\Models\Informe')->get();
+        return response()->json($activities);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -82,4 +93,5 @@ class ActivityLogController extends Controller
     {
         //
     }
+
 }

@@ -4,10 +4,12 @@ namespace App\Models;
 use App\Models\Solicitud;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Empresa extends Model
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
+    protected static $logAttributes = ['nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo',];
     /**
      * The attributes that are mass assignable.
      *

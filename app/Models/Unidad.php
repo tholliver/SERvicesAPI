@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Unidad extends Model
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
+
+    protected static $logAttributes = ['nombre', 'facultad', 'presupuesto', 'telefono'];
+  
     /**
      * The attributes that are mass assignable.
      *

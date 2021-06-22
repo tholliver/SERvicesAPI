@@ -3,10 +3,14 @@
 namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ItemSuperior extends Model
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
+
+    protected static $logAttributes = ['nomitemSup', 'descripSup'];
+    protected static $logName = 'item-superiores';
     /**
      * The attributes that are mass assignable.
      *aqui se esta guardando

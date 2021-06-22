@@ -5,11 +5,14 @@ use App\Models\Unidad;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, LogsActivity;
+    protected static $logAttributes = ['name', 'lastname', 'email', 'cellphone', 'rol','unidaddegasto','unidad_id'];
+     
 
     /**
      * The attributes that are mass assignable.

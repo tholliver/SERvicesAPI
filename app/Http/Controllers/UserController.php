@@ -66,7 +66,7 @@ class UserController extends Controller
                 'facultad' => $request->get('facultad'),
                 'unidad_id' => $unidadId->id,
             ]);
-*/
+        */
             $user = new User;
             $user->name = $request->name;
             $user->lastname = $request->lastname;
