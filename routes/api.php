@@ -138,11 +138,13 @@ Route::group([
     Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
     Route::get('/itemPresAnio/{id1}', 'ItemPresController@obtenerAnios');
+    Route::delete('itemPresUni/{id}', 'ItemPresController@destroy');
 
     //Routes for informe
     Route::post('informe', 'InformeController@store');
     Route::get('informe-solicitud/{id}', 'InformeController@getOneInforme');
     Route::get('informes-solicitud', 'InformeController@getAllInformes');
+
 
     //Rutas para actividades
     Route::get('logs', 'ActivityLogController@index');

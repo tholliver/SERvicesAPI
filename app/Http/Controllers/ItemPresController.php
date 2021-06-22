@@ -49,7 +49,7 @@ class ItemPresController extends Controller
      public function obtenerPresItem($idUni, $periodo)
      {
          $items = DB::table('unidadasignacionitems')
-         ->select('item_superiors.nomitemSup','montoasig')
+         ->select('item_superiors.nomitemSup','montoasig','unidadasignacionitems.id')
          ->join('item_superiors', 'unidadasignacionitems.itemsuperior_id', '=', 'item_superiors.id')
          ->where('unidad_id',$idUni)
          ->where('periodo',$periodo )->get();
@@ -72,6 +72,14 @@ class ItemPresController extends Controller
          ->orderBy('periodo', 'asc')
          ->where('unidad_id',$idUni)->get();
          return response()->json($items ,201);
+     }
+
+     public function destroy($id)
+     {
+      $items = DB::table('unidadasignacionitems')
+      ->where('id', $id)
+      ->delete();
+      return response()->json($items ,201);
      }
 ///////////////////////////////
 
