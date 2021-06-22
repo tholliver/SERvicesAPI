@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Solicitud extends Model
 {    
+    //addd
     use Notifiable, LogsActivity;
     protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
     
