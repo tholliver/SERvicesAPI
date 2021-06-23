@@ -115,6 +115,19 @@ class UnidadController extends Controller
 
         return response()->json($itemSuperiores,201);
     }
+       /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Unidad
+     * @return \Illuminate\Http\Response
+     */
+    public function unidadItemsSuperioresActuales($id)
+    {
+        $unidad = Unidad::find($id);
+        $itemSuperiores = $unidad->assignActual;
+
+        return response()->json($itemSuperiores,201);
+    }
 
       /**
      * Display the specified resource.

@@ -109,7 +109,10 @@ Route::group([
     Route::get('unidades/{id}', 'UnidadController@show');
     Route::get('unidades2/{id}', 'UnidadController@show2');
     Route::delete('unidades/{id}', 'UnidadController@destroy');
+    //Obtener todas las asignaciones de la unidad --> HISTORIAL
     Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
+    //Obtener todas las asignaciones de la unidad --> Del año en curso
+    Route::get('/unidaditemsuper-actual/{id}', 'UnidadController@unidadItemsSuperioresActuales');
     Route::get('unidaditemsuper', 'UnidadController@allUnidadItems');
     Route::get('unidadunica', 'UnidadController@getUnidadByName');
 

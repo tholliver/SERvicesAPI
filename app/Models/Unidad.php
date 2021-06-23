@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -36,6 +37,13 @@ class Unidad extends Model
     public function usuarios()
     {
         return $this->hasMany(User::class,'unidad_id');
+    }
+
+    public function assignActual()
+    {
+        $fullDate = Carbon::now();
+        $actualYear = $fullDate->year;
+        return $this->assign()->wherePivot('periodo',$actualYear);
     }
 
 }
