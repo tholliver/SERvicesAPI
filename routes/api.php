@@ -34,6 +34,7 @@ Route::group([
     //POST and Get methods for empresas
     Route::get('empresas', 'EmpresaController@index');
     Route::get('/empresas/{id}', 'EmpresaController@show');
+    Route::get('/empresasInfo/{id}', 'EmpresaController@empresInfo');
     Route::post('empresas', 'EmpresaController@store');
     Route::post('empresas/{id}', 'EmpresaController@update');
     Route::delete('empresas/{id}', 'EmpresaController@destroy');

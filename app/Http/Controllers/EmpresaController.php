@@ -89,7 +89,7 @@ class EmpresaController extends Controller
 
         return response()->json($empresa, 200);
     }
-        
+
     public function destroy($id)
     {
         $unidad = Empresa::find($id);
@@ -98,6 +98,17 @@ class EmpresaController extends Controller
         return response()->json(['message' => 'empresa eliminado']);
     }
 
+    public function empresInfo($nombre)
+    {
+        $empresa= DB::table('empresas')
+        ->where('nombreemp',$nombre)->get();
+        return response()->json($empresa ,201);
+    }
+    public function empresInfo1($nombre)
+    {
+        $unidad = Empresa::find($nombre);
+        return response()->json($nombre, 200);
+    }
 
 
 
