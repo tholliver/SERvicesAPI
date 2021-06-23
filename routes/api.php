@@ -16,7 +16,7 @@ use App\Http\Controller\EmpresaController;
 use App\Http\Controller\ItemCotController;
 use App\Http\Controller\ScanCotizacionController;
 use App\Http\Controller\InformeController;
-use App\Http\Controller\ActivityLogController; 
+use App\Http\Controller\ActivityLogController;
 
 
 Route::group([
@@ -138,6 +138,7 @@ Route::group([
     Route::get('/itemPresUni/{id1}/{id2}', 'ItemPresController@obtenerPresItem');
     Route::get('/itemPresUniSum/{id1}/{id2}', 'ItemPresController@obtenerPresItemSum');
     Route::get('/itemPresAnio/{id1}', 'ItemPresController@obtenerAnios');
+      Route::get('/itemPresAnio1/{id1}', 'ItemPresController@obtenerAnios1');
     Route::delete('itemPresUni/{id}', 'ItemPresController@destroy');
 
     //Routes for informe
@@ -149,5 +150,5 @@ Route::group([
     //Rutas para actividades
     Route::get('logs', 'ActivityLogController@index');
     Route::get('informe-logs', 'ActivityLogController@getInformes');
- 
+
 });

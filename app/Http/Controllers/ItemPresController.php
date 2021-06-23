@@ -73,6 +73,14 @@ class ItemPresController extends Controller
          ->where('unidad_id',$idUni)->get();
          return response()->json($items ,201);
      }
+     public function obtenerAnios1($idUni)
+     {
+         $items = DB::table('presupuesto_unidads')
+         ->select('gestion')->distinct()
+         ->orderBy('gestion', 'asc')
+         ->where('id_unidad',$idUni)->get();
+         return response()->json($items ,201);
+     }
 
      public function destroy($id)
      {
