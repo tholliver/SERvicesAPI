@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Http\Request;
 
+//Getting stats
+use App\Models\User;
+use App\Models\Solicitud;
+use App\Models\EmpresaCotizacion;
+use App\Models\Unidad;
+
 class ActivityLogController extends Controller
 {
     /**
@@ -26,6 +32,27 @@ class ActivityLogController extends Controller
     {   
         $activities = Activity::where('subject_type','App\Models\Informe')->get();
         return response()->json($activities);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getStats()
+    {   
+        $users = User::all()->count();  
+        $solicitudes = Solicitud::all()->count();  
+        $cotizaciones = EmpresaCotizacion::all()->count();  
+        $unidades = Unidad::all()->count();  
+
+        return response()->json([
+            'users' => $users,
+            'solicitudes' => $solicitudes,
+            'cotizaciones' => $cotizaciones,
+            'unidades' => $unidades
+        ]);
+        
     }
 
     /**
