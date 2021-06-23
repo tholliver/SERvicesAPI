@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Informe;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InformeController extends Controller
 {
@@ -35,14 +36,31 @@ class InformeController extends Controller
      */
     public function store(Request $request)
     {   //We update the solicitud -> estado 
-        $id_solit  = $request->get('id_solicitud');
-        $updatedReco = Solicitud::where('id','=',$id_solit)->update(['estado' => 'Concluido']);   
+
+       $user = auth()->user();
+
+
+       $id_solit  = $request->get('id_solicitud');
+       $updatedReco = Solicitud::where('id','=',$id_solit)->update(['estado' => 'Concluido']);   
        $newInforme = Informe::create([
             'nombre_cotizador' => $request->get('nombre_cotizador'),
             'tipo_informe' => $request->get('tipo_informe'),
             'informe_escrito' => $request->get('informe_escrito'),
             'id_solicitud' => $request->get('id_solicitud')
         ]);
+        $requestID = request()->ip();
+         //error_log($requestID);
+        if($newInforme){
+             // Add activity logs   
+             
+             activity('informes')
+             ->performedOn($newInforme)
+             ->causedBy($user)
+             ->withProperties(['ip' => $requestID,
+                               'user'=> $user])
+             ->log('created');
+             //$user->name
+        }
 
         return response()->json([
             'message' => 'Data processed successfully',
