@@ -68,7 +68,7 @@ class PresupuestoUnidadController extends Controller
                      ->causedBy($user)
                      ->withProperties(['ip' => $requestIP,
                                        'user'=> $user])
-                     ->log('update');
+                     ->log('create');
                 }
                  
                  return response()->json(compact('pres'),201);            
@@ -145,7 +145,18 @@ class PresupuestoUnidadController extends Controller
         $pres = PresupuestoUnidad::find($request->id);
         $pres->presupuesto = $request->presupuesto;
         $result =$pres->save();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+       
         if($result){
+             // Add activity logs           
+             activity('presupuesto')
+             ->performedOn($result)
+             ->causedBy($user)
+             ->withProperties(['ip' => $requestIP,
+                               'user'=> $user])
+             ->log('create');
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];

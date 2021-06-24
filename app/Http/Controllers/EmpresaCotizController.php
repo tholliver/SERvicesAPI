@@ -44,6 +44,19 @@ class EmpresaCotizController extends Controller
              'id_empresa' => $request->get('id_empresa'),
          ]);
 
+         $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($empCot){
+            // Add activity logs           
+            activity('cotizacion')
+            ->performedOn($empCot)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('create');
+       }
+
         return response()->json($empCot,201);
 
         }
@@ -90,7 +103,7 @@ class EmpresaCotizController extends Controller
         //error_log($requestID);
        if($empresaCot){
             // Add activity logs           
-            activity('cotizacion')
+            activity('oferta-empresa')
             ->performedOn($empresaCot)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,

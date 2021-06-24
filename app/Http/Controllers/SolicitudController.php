@@ -164,11 +164,11 @@ class SolicitudController extends Controller
         $requestID = request()->ip();
 
             activity('informes')
-            ->performedOn($newInforme)
+            ->performedOn($result)
             ->causedBy($user)
             ->withProperties(['ip' => $requestID,
                               'user'=> $user])
-            ->log('created');
+            ->log('updated');
             //$user->name
        
             return ["result"=>"Success, data is updated"];
