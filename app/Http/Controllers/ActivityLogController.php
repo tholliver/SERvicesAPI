@@ -25,6 +25,18 @@ class ActivityLogController extends Controller
         return response()->json($activities);
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filteredLogs()
+    {   
+        $activities = Activity::all()
+        ->where('subject_type','<>','App\Models\Solicitud','subject_type','<>','App\Models\EmpresaCotizacion');
+        return response()->json($activities);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +48,27 @@ class ActivityLogController extends Controller
         return response()->json($activities);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSolicitudes()
+    {   
+        $activities = Activity::where('subject_type','App\Models\Solicitud')->get();
+        return response()->json($activities);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCotizaciones()
+    {   
+        $activities = Activity::where('subject_type','App\Models\EmpresaCotizacion')->get();
+        return response()->json($activities);
+    }
     /**
      * Display a listing of the resource.
      *

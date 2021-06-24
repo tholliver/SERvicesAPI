@@ -153,7 +153,12 @@ Route::group([
 
     //Rutas para actividades
     Route::get('logs', 'ActivityLogController@index');
+    Route::get('logs-filtered', 'ActivityLogController@filteredLogs');
+    Route::get('logs-solicitudes', 'ActivityLogController@getSolicitudes');
+    Route::get('logs-cotizaciones', 'ActivityLogController@getCotizaciones');    
+    
     Route::get('informe-logs', 'ActivityLogController@getInformes');
-    Route::get('stats', 'ActivityLogController@getStats');    
+    Route::get('stats', 'ActivityLogController@getStats'); 
+       
 
 });

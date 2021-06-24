@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Empresa;
 use DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class EmpresaController extends Controller
 {
@@ -39,6 +41,19 @@ class EmpresaController extends Controller
              'nit' => $request->get('nit'),
              'correo' => $request->get('correo'),
          ]);
+
+         $user = auth()->user();
+         $requestIP = request()->ip();
+         //error_log($requestID);
+        if($empresaguardar){
+             // Add activity logs           
+             activity('items')
+             ->performedOn($empresaguardar)
+             ->causedBy($user)
+             ->withProperties(['ip' => $requestIP,
+                               'user'=> $user])
+             ->log('create');
+        }
 
         return response()->json($empresaguardar,201);
 
@@ -87,6 +102,18 @@ class EmpresaController extends Controller
         $empresa->nit = $input['nit'];
         $empresa->save();
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($empresa){
+            // Add activity logs           
+            activity('empresa')
+            ->performedOn($empresa)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('update');
+       }
         return response()->json($empresa, 200);
     }
 
@@ -94,6 +121,19 @@ class EmpresaController extends Controller
     {
         $unidad = Empresa::find($id);
         $unidad->delete();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($unidad){
+            // Add activity logs           
+            activity('empresa')
+            ->performedOn($unidad)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('update');
+       }
 
         return response()->json(['message' => 'empresa eliminado']);
     }

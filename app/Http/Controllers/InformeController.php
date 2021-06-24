@@ -39,9 +39,8 @@ class InformeController extends Controller
 
        $user = auth()->user();
 
-
        $id_solit  = $request->get('id_solicitud');
-       $updatedReco = Solicitud::where('id','=',$id_solit)->update(['estado' => 'Concluido']);   
+         
        $newInforme = Informe::create([
             'nombre_cotizador' => $request->get('nombre_cotizador'),
             'tipo_informe' => $request->get('tipo_informe'),
@@ -52,6 +51,7 @@ class InformeController extends Controller
         $requestID = request()->ip();
          //error_log($requestID);
         if($newInforme){
+            $updatedReco = Solicitud::where('id','=',$id_solit)->update(['estado' => 'Concluido']); 
              // Add activity logs   
              
              activity('informes')
