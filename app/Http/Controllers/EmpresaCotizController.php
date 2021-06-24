@@ -7,6 +7,7 @@ use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class EmpresaCotizController extends Controller
 {
