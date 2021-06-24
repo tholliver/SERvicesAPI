@@ -4,6 +4,7 @@ use App\Models\ItemPres;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class ItemPresController extends Controller
 {
@@ -46,7 +47,7 @@ class ItemPresController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('create');
+            ->log('created');
        }
 
         return response()->json($unidadasignacion,201);

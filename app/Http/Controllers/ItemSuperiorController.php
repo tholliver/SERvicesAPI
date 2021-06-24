@@ -6,6 +6,7 @@ use App\Models\ItemSuperior;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 
 class ItemSuperiorController extends Controller
@@ -99,6 +100,19 @@ class ItemSuperiorController extends Controller
         $item->descripSup = $input['descripSup'];
         $item->save();
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('itemsuperior')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('updated');
+       }
+
         return response()->json(['item' => $input], 200);
     }
 
@@ -129,6 +143,19 @@ class ItemSuperiorController extends Controller
     {
         $item = ItemSuperior::find($id);
         $item->delete();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('itemsuperior')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
 
         return response()->json(['message' => 'item eliminado']);
     }

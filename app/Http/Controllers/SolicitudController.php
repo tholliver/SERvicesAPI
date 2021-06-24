@@ -7,6 +7,8 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use DB;
+use Illuminate\Support\Facades\Auth;
+
 class SolicitudController extends Controller
 {
     /**

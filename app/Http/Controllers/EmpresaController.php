@@ -47,12 +47,12 @@ class EmpresaController extends Controller
          //error_log($requestID);
         if($empresaguardar){
              // Add activity logs           
-             activity('items')
+             activity('empresa')
              ->performedOn($empresaguardar)
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
                                'user'=> $user])
-             ->log('create');
+             ->log('created');
         }
 
         return response()->json($empresaguardar,201);
@@ -112,7 +112,7 @@ class EmpresaController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('update');
+            ->log('updated');
        }
         return response()->json($empresa, 200);
     }
@@ -132,7 +132,7 @@ class EmpresaController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('update');
+            ->log('deleted');
        }
 
         return response()->json(['message' => 'empresa eliminado']);

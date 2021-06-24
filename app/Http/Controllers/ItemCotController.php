@@ -45,7 +45,7 @@ class ItemCotController extends Controller
                 ->causedBy($user)
                 ->withProperties(['ip' => $requestIP,
                                   'user'=> $user])
-                ->log('create');
+                ->log('created');
            }
             return response()->json($itemCotizacion,201);
         }

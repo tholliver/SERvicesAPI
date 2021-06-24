@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -90,7 +91,7 @@ class UserController extends Controller
                 ->causedBy($userdetails)
                 ->withProperties(['ip' => $requestIP,
                                   'user'=> $userdetails])
-                ->log('update');
+                ->log('created');
            }
 
             return response()->json(compact('user','token'),201);
@@ -110,23 +111,19 @@ class UserController extends Controller
         $user->unidaddegasto = $request->unidaddegasto;
         $user->unidad_id = $unidadId;
 
-
         $result = $user->save();
 
         $userdeta = auth()->user();
         $requestIP = request()->ip();
-        //error_log($requestID);
-       if($result){
+
+        if($result){
             // Add activity logs           
-            activity('itemscotizados')
+            activity('usuario')
             ->performedOn($user)
             ->causedBy($userdeta)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $userdeta])
-            ->log('update');
-       }
-        if($result){
-
+            ->log('updated');
 
             return ["result"=>"Success, data is updated"];
         } else {

@@ -6,6 +6,7 @@ use App\Models\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UnidadController extends Controller
 {
@@ -47,8 +48,7 @@ class UnidadController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidad){
-            // Add activity logs   
-            
+            // Add activity logs           
             activity('solicitudes')
             ->performedOn($unidad)
             ->causedBy($user)
@@ -114,6 +114,19 @@ class UnidadController extends Controller
         $unidad->telefono = $data['telefono'];
         $unidad->save();
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($unidad){
+            // Add activity logs           
+            activity('unidad')
+            ->performedOn($unidad)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('updated');
+       }
+
         return response()->json($unidad, 200);
     }
 
@@ -176,6 +189,19 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::find($id);
         $unidad->delete();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($unidad){
+            // Add activity logs           
+            activity('unidad')
+            ->performedOn($unidad)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
 
         return response()->json(['message' => 'unidad eliminado']);
     }
