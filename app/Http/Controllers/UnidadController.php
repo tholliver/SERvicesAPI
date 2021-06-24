@@ -48,7 +48,7 @@ class UnidadController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidad){
-            // Add activity logs           
+            // Add activity logs
             activity('solicitudes')
             ->performedOn($unidad)
             ->causedBy($user)
@@ -99,7 +99,7 @@ class UnidadController extends Controller
         $validator = Validator::make($data, [
             'nombre' => 'required|max:255',
             'facultad' => 'required|max:500',
-            'presupuesto' => 'required|numeric| max:255',
+            'presupuesto' => 'required|numeric',
             'telefono' => 'required| max:255'
         ]);
 
@@ -118,7 +118,7 @@ class UnidadController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidad){
-            // Add activity logs           
+            // Add activity logs
             activity('unidad')
             ->performedOn($unidad)
             ->causedBy($user)
@@ -194,7 +194,7 @@ class UnidadController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidad){
-            // Add activity logs           
+            // Add activity logs
             activity('unidad')
             ->performedOn($unidad)
             ->causedBy($user)
