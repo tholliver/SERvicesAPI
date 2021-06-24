@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use DB;
 
 //Getting stats
 use App\Models\User;
@@ -44,15 +46,20 @@ class ActivityLogController extends Controller
         $users = User::all()->count();  
         $solicitudes = Solicitud::all()->count();  
         $cotizaciones = EmpresaCotizacion::all()->count();  
-        $unidades = Unidad::all()->count();  
+        $unidades = Unidad::all()->count();
+        /*  */
+        $fullDate = Carbon::now();
+        $actualYear = $fullDate->year;  
+        $montosAsignados = DB::table('unidadasignacionitems')
+        ->where('periodo',$actualYear)->sum('montoasig');
 
         return response()->json([
             'users' => $users,
             'solicitudes' => $solicitudes,
             'cotizaciones' => $cotizaciones,
-            'unidades' => $unidades
-        ]);
-        
+            'unidades' => $unidades,
+            'totalasignacion'=>$montosAsignados
+        ]);        
     }
 
     /**
