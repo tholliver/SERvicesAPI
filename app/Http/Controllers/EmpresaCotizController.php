@@ -44,7 +44,7 @@ class EmpresaCotizController extends Controller
              'id_empresa' => $request->get('id_empresa'),
          ]);
 
-         $user = auth()->user();
+        $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($empCot){
@@ -54,7 +54,7 @@ class EmpresaCotizController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('create');
+            ->log('created');
        }
 
         return response()->json($empCot,201);

@@ -165,7 +165,7 @@ class SolicitudController extends Controller
         $user = auth()->user();
         $requestID = request()->ip();
 
-            activity('informes')
+            activity('solicitud')
             ->performedOn($result)
             ->causedBy($user)
             ->withProperties(['ip' => $requestID,

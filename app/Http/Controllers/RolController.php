@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rol;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RolController extends Controller
 {
@@ -36,12 +37,12 @@ class RolController extends Controller
         //error_log($requestID);
        if($rol){
             // Add activity logs           
-            activity('itemscotizados')
+            activity('rol')
             ->performedOn($rol)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('create');
+            ->log('created');
        }
 
        return response()->json(compact('rol'),201);
@@ -104,6 +105,18 @@ class RolController extends Controller
         $rol->descrip = $request->descrip;
         $result = $rol->save();
         if($result){
+            $user = auth()->user();
+            $requestIP = request()->ip();
+            //error_log($requestID);
+           if($rol){
+                // Add activity logs           
+                activity('rol')
+                ->performedOn($rol)
+                ->causedBy($user)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $user])
+                ->log('updated');
+           }
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
