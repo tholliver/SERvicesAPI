@@ -10,8 +10,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, LogsActivity;
-    protected static $logAttributes = ['name', 'lastname', 'email', 'cellphone', 'rol','unidaddegasto','unidad_id'];
+    use Notifiable;
+    // LogsActivity;
+    //protected static $logAttributes = ['name', 'lastname', 'email', 'cellphone', 'rol','unidaddegasto','unidad_id'];
      
 
     /**

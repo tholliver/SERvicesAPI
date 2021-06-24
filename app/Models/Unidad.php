@@ -9,9 +9,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Unidad extends Model
 {
-    use Notifiable, LogsActivity;
+    use Notifiable;
+    // LogsActivity;
 
-    protected static $logAttributes = ['nombre', 'facultad', 'presupuesto', 'telefono'];
+    //protected static $logAttributes = ['nombre', 'facultad', 'presupuesto', 'telefono'];
   
     /**
      * The attributes that are mass assignable.

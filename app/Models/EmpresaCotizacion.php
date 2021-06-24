@@ -7,9 +7,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class EmpresaCotizacion extends Model
 {
-    use Notifiable, LogsActivity;
+    use Notifiable;
+    //LogsActivity;
 
-    protected static $logAttributes = ['observaciones','plazo_de_entrega','validez_oferta', 'total','eleccion'];
+   // protected static $logAttributes = ['observaciones','plazo_de_entrega','validez_oferta', 'total','eleccion'];
     /**
      * The attributes that are mass assignable.
      *

@@ -7,8 +7,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Item extends Model
 {
-    use Notifiable, LogsActivity;
-    protected static $logAttributes = ['nomitem', 'descrip', 'item_general_id'];
+    use Notifiable; 
+    //LogsActivity;
+    //protected static $logAttributes = ['nomitem', 'descrip', 'item_general_id'];
     /**
      * The attributes that are mass assignable.
      *

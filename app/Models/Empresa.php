@@ -8,8 +8,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Empresa extends Model
 {
-    use Notifiable, LogsActivity;
-    protected static $logAttributes = ['nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo',];
+    use Notifiable;
+    // LogsActivity;
+    //protected static $logAttributes = ['nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo',];
     /**
      * The attributes that are mass assignable.
      *

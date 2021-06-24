@@ -7,9 +7,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class ItemSuperior extends Model
 {
-    use Notifiable, LogsActivity;
+    use Notifiable;
+    // LogsActivity;
 
-    protected static $logAttributes = ['nomitemSup', 'descripSup'];
+    //protected static $logAttributes = ['nomitemSup', 'descripSup'];
     protected static $logName = 'item-superiores';
     /**
      * The attributes that are mass assignable.

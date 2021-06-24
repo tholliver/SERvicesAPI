@@ -10,8 +10,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Solicitud extends Model
 {    
     //addd
-    use Notifiable, LogsActivity;
-    protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
+    use Notifiable;
+    //LogsActivity;
+    //protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
     
     protected $fillable=[
     'unidad_id','unidad_nombre','tipo','responsable','montoestimado','estado','supera'
