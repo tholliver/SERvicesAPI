@@ -57,6 +57,20 @@ class PresupuestoUnidadController extends Controller
                      'presupuesto' => $request->get('presupuesto'),
                      'gestion' => $request->get('gestion'),                   
                  ]);
+
+                 $user = auth()->user();
+                 $requestIP = request()->ip();
+                 //error_log($requestID);
+                if($pres){
+                     // Add activity logs           
+                     activity('itemscotizados')
+                     ->performedOn($pres)
+                     ->causedBy($user)
+                     ->withProperties(['ip' => $requestIP,
+                                       'user'=> $user])
+                     ->log('update');
+                }
+                 
                  return response()->json(compact('pres'),201);            
             }            
          } else {

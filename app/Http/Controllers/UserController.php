@@ -78,8 +78,20 @@ class UserController extends Controller
             $user->unidad_id = $unidadId;
             $user->save();
 
-
             $token = JWTAuth::fromUser($user);
+
+            $userdetails = auth()->user();
+            $requestIP = request()->ip();
+            //error_log($requestID);
+           if($user){
+                // Add activity logs           
+                activity('itemscotizados')
+                ->performedOn($user)
+                ->causedBy($userdetails)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $userdetails])
+                ->log('update');
+           }
 
             return response()->json(compact('user','token'),201);
         }
@@ -98,8 +110,24 @@ class UserController extends Controller
         $user->unidaddegasto = $request->unidaddegasto;
         $user->unidad_id = $unidadId;
 
+
         $result = $user->save();
+
+        $userdeta = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($result){
+            // Add activity logs           
+            activity('itemscotizados')
+            ->performedOn($user)
+            ->causedBy($userdeta)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $userdeta])
+            ->log('update');
+       }
         if($result){
+
+
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];

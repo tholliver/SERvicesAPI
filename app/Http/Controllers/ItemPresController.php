@@ -36,6 +36,19 @@ class ItemPresController extends Controller
             'periodo' => $request->get('periodo'),
         ]);
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($unidadasignacion){
+            // Add activity logs           
+            activity('itemscotizados')
+            ->performedOn($unidadasignacion)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('create');
+       }
+
         return response()->json($unidadasignacion,201);
         }
 

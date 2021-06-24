@@ -30,6 +30,19 @@ class RolController extends Controller
             'rolnom' => $request->get('rolnom'),
             'descrip' => $request->get('descrip'),            
         ]);
+        
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($rol){
+            // Add activity logs           
+            activity('itemscotizados')
+            ->performedOn($rol)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('create');
+       }
 
        return response()->json(compact('rol'),201);
             

@@ -48,6 +48,7 @@ class InformeController extends Controller
             'informe_escrito' => $request->get('informe_escrito'),
             'id_solicitud' => $request->get('id_solicitud')
         ]);
+        // $user = auth()->user();
         $requestID = request()->ip();
          //error_log($requestID);
         if($newInforme){
@@ -61,7 +62,7 @@ class InformeController extends Controller
              ->log('created');
              //$user->name
         }
-
+     
         return response()->json([
             'message' => 'Data processed successfully',
             'data' => [

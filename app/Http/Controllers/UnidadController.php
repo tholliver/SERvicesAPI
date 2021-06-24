@@ -42,6 +42,21 @@ class UnidadController extends Controller
             return  response()->json(['error' => 'Error de validación', $validator->errors()]);
         }
         $unidad = Unidad::create($data);
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($unidad){
+            // Add activity logs   
+            
+            activity('solicitudes')
+            ->performedOn($unidad)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('created');
+       }
+
         return response()->json(['unidad' => $unidad, 'message' => 'unidad guardada con exito'],201);
     }
 

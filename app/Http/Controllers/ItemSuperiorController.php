@@ -47,6 +47,19 @@ class ItemSuperiorController extends Controller
             'descripSup' => $request->get('descripSup'),
         ]);
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($itemsitoSup){
+            // Add activity logs           
+            activity('itemscotizados')
+            ->performedOn($itemsitoSup)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('create');
+       }
+
     return response()->json($itemsitoSup,201);
 
     }

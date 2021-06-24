@@ -85,6 +85,18 @@ class EmpresaCotizController extends Controller
         $empresaCot->cotizacion_pdf = $ruta;
         $empresaCot->save();
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($empresaCot){
+            // Add activity logs           
+            activity('cotizacion')
+            ->performedOn($empresaCot)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('updated');
+       }
         return response([ 'message' => 'actualizado'], 200);
     }
 

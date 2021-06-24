@@ -92,6 +92,21 @@ class SolicitudController extends Controller
         ]);
 
         $newsolicitud->items()->attach($itemsobs);
+
+
+         $user = auth()->user();
+         $requestIP = request()->ip();
+         //error_log($requestID);
+        if($newsolicitud){
+             // Add activity logs   
+             
+             activity('solicitudes')
+             ->performedOn($newsolicitud)
+             ->causedBy($user)
+             ->withProperties(['ip' => $requestIP,
+                               'user'=> $user])
+             ->log('created');
+        }
         return response()->json(compact('newsolicitud'),201);
     }
 
@@ -142,11 +157,25 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::find($request->id);
         $solicitud->estado = $request->estado;
         $result = $solicitud->save();
+
+
         if($result){
+        $user = auth()->user();
+        $requestID = request()->ip();
+
+            activity('informes')
+            ->performedOn($newInforme)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestID,
+                              'user'=> $user])
+            ->log('created');
+            //$user->name
+       
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
         }
+
     }
 
     public function update1(Request $request, Solicitud $solicitud)

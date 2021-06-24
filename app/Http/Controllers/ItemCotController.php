@@ -34,6 +34,19 @@ class ItemCotController extends Controller
                 'total' => $request->get('total'),
                 'empresa_cotizacion_id' => $request->get('empresa_cotizacion_id')
             ]);
+
+            $user = auth()->user();
+            $requestIP = request()->ip();
+            //error_log($requestID);
+           if($itemCotizacion){
+                // Add activity logs           
+                activity('itemscotizados')
+                ->performedOn($itemCotizacion)
+                ->causedBy($user)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $user])
+                ->log('create');
+           }
             return response()->json($itemCotizacion,201);
         }
 

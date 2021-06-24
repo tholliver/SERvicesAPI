@@ -51,6 +51,18 @@ class ItemController extends Controller
             'item_general_id' => $itemsuperior,
         ]);
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('items')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('create');
+       }
 
         return response()->json(['item' => $item, 'message' => 'item guardado con exito'],201);
     }
