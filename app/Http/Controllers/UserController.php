@@ -86,7 +86,7 @@ class UserController extends Controller
             //error_log($requestID);
            if($user){
                 // Add activity logs           
-                activity('itemscotizados')
+                activity('usuario')
                 ->performedOn($user)
                 ->causedBy($userdetails)
                 ->withProperties(['ip' => $requestIP,
@@ -158,6 +158,19 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+
+        $userdetails = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($user){
+            // Add activity logs           
+            activity('usuario')
+            ->performedOn($user)
+            ->causedBy($userdetails)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $userdetails])
+            ->log('deleted');
+       }
         return response()->json(['message' => 'item eliminado']);
     }
 }
