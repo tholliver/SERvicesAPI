@@ -91,6 +91,19 @@ class ItemCotController extends Controller
         $item = CotizacionItem::find($id);
         $item->delete();
 
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('items')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
+
         return response()->json(['message' => 'item eliminado']);
     }
 }

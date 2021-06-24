@@ -58,7 +58,7 @@ class ItemSuperiorController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('create');
+            ->log('created');
        }
 
     return response()->json($itemsitoSup,201);

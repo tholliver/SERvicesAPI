@@ -61,7 +61,7 @@ class ItemController extends Controller
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
-            ->log('create');
+            ->log('created');
        }
 
         return response()->json(['item' => $item, 'message' => 'item guardado con exito'],201);
@@ -111,6 +111,19 @@ class ItemController extends Controller
         $item->descrip = $data['descrip'];
         $item->item_general_id = $data['itemsuperior'];
         $item->save();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('items')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('updated');
+       }        
         return response()->json(['items' => $item], 200);
     }
 
@@ -124,6 +137,19 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $item->delete();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($item){
+            // Add activity logs           
+            activity('items')
+            ->performedOn($item)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
 
         return response()->json(['message' => 'item eliminado']);
     }
