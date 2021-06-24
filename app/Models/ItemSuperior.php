@@ -11,7 +11,7 @@ class ItemSuperior extends Model
     // LogsActivity;
 
     //protected static $logAttributes = ['nomitemSup', 'descripSup'];
-    protected static $logName = 'item-superiores';
+    //protected static $logName = 'item-superiores';
     /**
      * The attributes that are mass assignable.
      *aqui se esta guardando

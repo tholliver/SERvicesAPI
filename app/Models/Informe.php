@@ -7,9 +7,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Informe extends Model
 {
-    use Notifiable, LogsActivity;
+    use Notifiable; 
+    //LogsActivity;
 
-    protected static $logAttributes = ['nombre_cotizador','tipo_informe','informe_escrito','id_solicitud'];
+    //protected static $logAttributes = ['nombre_cotizador','tipo_informe','informe_escrito','id_solicitud'];
     /**
      * The attributes that are mass assignable.
      *
