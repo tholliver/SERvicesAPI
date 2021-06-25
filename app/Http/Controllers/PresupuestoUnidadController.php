@@ -32,10 +32,10 @@ class PresupuestoUnidadController extends Controller
                 'presupuesto' => $request->get('presupuesto'),
                 'gestion' => $request->get('gestion'),
             ]);
-    
+
            return response()->json(compact('presupuestoUnidad'),201);
-                
-    
+
+
            $returnData = array(
             'status' => 'error',
             'message' => 'An error occurred!'
@@ -56,23 +56,23 @@ class PresupuestoUnidadController extends Controller
                  $pres = PresupuestoUnidad::create([
                      'id_unidad' => $request->get('id_unidad'),
                      'presupuesto' => $request->get('presupuesto'),
-                     'gestion' => $request->get('gestion'),                   
+                     'gestion' => $request->get('gestion'),
                  ]);
 
                  $user = auth()->user();
                  $requestIP = request()->ip();
                  //error_log($requestID);
                 if($pres){
-                     // Add activity logs           
+                     // Add activity logs
                      activity('presupuesto')
                      ->performedOn($pres)
                      ->causedBy($user)
                      ->withProperties(['ip' => $requestIP,
                                        'user'=> $user])
                      ->log('created');
-                }                 
-                 return response()->json(compact('pres'),201);            
-            }            
+                }
+                 return response()->json(compact('pres'),201);
+            }
          } else {
              $returnData = array(
                   'status' => 'error',
@@ -86,8 +86,8 @@ class PresupuestoUnidadController extends Controller
     public function presupuestoId($id, $gestion){
        // $id = $request->input('id');
         $presupuesto = DB::table('presupuesto_unidads')
-                ->where('id_unidad', '=', $id)    
-                ->where('gestion','=', $gestion)            
+                ->where('id_unidad', '=', $id)
+                ->where('gestion','=', $gestion)
                 ->get();
         return response()->json($presupuesto);
     }
@@ -95,7 +95,7 @@ class PresupuestoUnidadController extends Controller
     public function getDatos() {
         $presupuestos = DB::table('presupuesto_unidads')
             ->select('unidads.nombre','presupuesto_unidads.presupuesto','presupuesto_unidads.gestion','presupuesto_unidads.id')
-            ->join('unidads', 'presupuesto_unidads.id_unidad', '=', 'unidads.id')        
+            ->join('unidads', 'presupuesto_unidads.id_unidad', '=', 'unidads.id')
             ->get();
         return response()->json($presupuestos);
     }
@@ -141,26 +141,29 @@ class PresupuestoUnidadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {     
+    {
         $pres = PresupuestoUnidad::find($request->id);
         $pres->presupuesto = $request->presupuesto;
         $result = $pres->save();
 
         $user = auth()->user();
         $requestIP = request()->ip();
-       
-        if($result){
-             // Add activity logs           
-             activity('presupuesto')
-             ->performedOn($result)
+
+      //  if($result){
+             // Add activity logs
+
+          activity('presupuesto')
+             //->performedOn($pres)
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
                                'user'=> $user])
              ->log('updated');
-            return ["result"=>"Success, data is updated"];
-        } else {
+            //return ["result"=>"Success, data is updated"];
+
+
+      /*  } else {
             return ["result"=>"Error, data didnt update"];
-        }
+        }*/
     }
 
     /**
@@ -174,12 +177,12 @@ class PresupuestoUnidadController extends Controller
         $pres = PresupuestoUnidad::find($id);
         $pres->delete();
 
-        
+
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($pres){
-            // Add activity logs           
+            // Add activity logs
             activity('presupuesto')
             ->performedOn($pres)
             ->causedBy($user)
