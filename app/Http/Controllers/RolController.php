@@ -134,6 +134,20 @@ class RolController extends Controller
     {
         $rol = Rol::find($id);
         $rol->delete();
+
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($rol){
+            // Add activity logs           
+            activity('rol')
+            ->performedOn($rol)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
+        
         return response()->json(['message' => 'item eliminado']);
     }
 }

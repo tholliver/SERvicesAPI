@@ -90,7 +90,7 @@ class ItemSuperiorController extends Controller
             'nomitemSup' => 'required',
             'descripSup' => 'required'
         ]);
-
+        
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }

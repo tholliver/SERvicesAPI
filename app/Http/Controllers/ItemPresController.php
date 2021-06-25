@@ -42,7 +42,7 @@ class ItemPresController extends Controller
         //error_log($requestID);
        if($unidadasignacion){
             // Add activity logs           
-            activity('itemscotizados')
+            activity('presupuesto-asignacion')
             ->performedOn($unidadasignacion)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
@@ -101,6 +101,19 @@ class ItemPresController extends Controller
       $items = DB::table('unidadasignacionitems')
       ->where('id', $id)
       ->delete();
+      
+      $user = auth()->user();
+      $requestIP = request()->ip();
+      //error_log($requestID);
+     if($items){
+          // Add activity logs           
+          activity('presupuesto-asignacion')
+          ->performedOn($items)
+          ->causedBy($user)
+          ->withProperties(['ip' => $requestIP,
+                            'user'=> $user])
+          ->log('deleted');
+     }
       return response()->json($items ,201);
      }
 ///////////////////////////////

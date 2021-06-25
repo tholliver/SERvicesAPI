@@ -64,14 +64,13 @@ class PresupuestoUnidadController extends Controller
                  //error_log($requestID);
                 if($pres){
                      // Add activity logs           
-                     activity('itemscotizados')
+                     activity('presupuesto')
                      ->performedOn($pres)
                      ->causedBy($user)
                      ->withProperties(['ip' => $requestIP,
                                        'user'=> $user])
-                     ->log('create');
-                }
-                 
+                     ->log('created');
+                }                 
                  return response()->json(compact('pres'),201);            
             }            
          } else {
@@ -145,7 +144,7 @@ class PresupuestoUnidadController extends Controller
     {     
         $pres = PresupuestoUnidad::find($request->id);
         $pres->presupuesto = $request->presupuesto;
-        $result =$pres->save();
+        $result = $pres->save();
 
         $user = auth()->user();
         $requestIP = request()->ip();
@@ -157,7 +156,7 @@ class PresupuestoUnidadController extends Controller
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
                                'user'=> $user])
-             ->log('create');
+             ->log('updated');
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
@@ -174,6 +173,20 @@ class PresupuestoUnidadController extends Controller
     {
         $pres = PresupuestoUnidad::find($id);
         $pres->delete();
+
+        
+        $user = auth()->user();
+        $requestIP = request()->ip();
+        //error_log($requestID);
+       if($pres){
+            // Add activity logs           
+            activity('presupuesto')
+            ->performedOn($pres)
+            ->causedBy($user)
+            ->withProperties(['ip' => $requestIP,
+                              'user'=> $user])
+            ->log('deleted');
+       }
         return response()->json(['message' => 'item eliminado']);
     }
 }
