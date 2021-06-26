@@ -49,7 +49,7 @@ class EmpresaCotizController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($empCot){
-            // Add activity logs           
+            // Add activity logs
             activity('cotizacion')
             ->performedOn($empCot)
             ->causedBy($user)
@@ -87,10 +87,10 @@ class EmpresaCotizController extends Controller
          $file = $request->file('cotizacion_pdf');
          $nombre = "pdf_".time().".".$file->getClientOriginalExtension();
          $rute1 = $request->file("cotizacion_pdf")->move(public_path()."/pdf", $nombre); //Moving the file to public route
-         
+
          $ruta = "/".'pdf/'.$nombre;
          //$request->file("cotizacion_pdf")->move(public_path("pdf/".$nombre));
-        
+
         $empresaCot = EmpresaCotizacion::Find($id);
         $empresaCot->observaciones = $input['observaciones'];
         $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
@@ -103,7 +103,7 @@ class EmpresaCotizController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($empresaCot){
-            // Add activity logs           
+            // Add activity logs
             activity('oferta-empresa')
             ->performedOn($empresaCot)
             ->causedBy($user)
@@ -139,5 +139,15 @@ class EmpresaCotizController extends Controller
         $empresasWithCot = $solicitud->cotizacionesEmpresa;
 
          return response()->json($empresasWithCot,201);
+     }
+
+     public function obtenerEmpresas($id)
+     {
+         $items = DB::table('empresa_cotizacion','empresas')
+         ->select('e.nombreemp')->distinct()
+          ->join('empresas as e', 'empresa_cotizacion.id_empresa', '=', 'e.id')
+         ->where('empresa_cotizacion.id_solicitud',$id)->get();
+
+         return response()->json($items ,201);
      }
 }

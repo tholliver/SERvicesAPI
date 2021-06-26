@@ -66,6 +66,9 @@ Route::group([
     Route::get('/solicitud-cotizacion-items/{id}', 'EmpresaCotizController@cotizacionItems');
     //probandos
     Route::get('/cotizacion/{id1}/{id2}', 'EmpresaCotizController@obtenerCotizacion');
+    Route::get('/nombreEmp/{id}', 'EmpresaCotizController@obtenerEmpresas');
+
+
 
     //POST and Get methods for solicitudes
     Route::get('/solicituditems/{id}', 'SolicitudController@solicitudItems');
@@ -155,10 +158,10 @@ Route::group([
     Route::get('logs', 'ActivityLogController@index');
     Route::get('logs-filtered', 'ActivityLogController@filteredLogs');
     Route::get('logs-solicitudes', 'ActivityLogController@getSolicitudes');
-    Route::get('logs-cotizaciones', 'ActivityLogController@getCotizaciones');    
-    
+    Route::get('logs-cotizaciones', 'ActivityLogController@getCotizaciones');
+
     Route::get('informe-logs', 'ActivityLogController@getInformes');
-    Route::get('stats', 'ActivityLogController@getStats'); 
-       
+    Route::get('stats', 'ActivityLogController@getStats');
+
 
 });
