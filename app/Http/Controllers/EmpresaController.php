@@ -46,7 +46,7 @@ class EmpresaController extends Controller
          $requestIP = request()->ip();
          //error_log($requestID);
         if($empresaguardar){
-             // Add activity logs           
+             // Add activity logs
              activity('empresa')
              ->performedOn($empresaguardar)
              ->causedBy($user)
@@ -106,7 +106,7 @@ class EmpresaController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($empresa){
-            // Add activity logs           
+            // Add activity logs
             activity('empresa')
             ->performedOn($empresa)
             ->causedBy($user)
@@ -126,7 +126,7 @@ class EmpresaController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidad){
-            // Add activity logs           
+            // Add activity logs
             activity('empresa')
             ->performedOn($unidad)
             ->causedBy($user)
@@ -215,4 +215,7 @@ class EmpresaController extends Controller
         $object = json_decode(json_encode($result));
          return response()->json($cotizacion,201);
      }
+
+
+
 }
