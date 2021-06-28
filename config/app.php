@@ -181,6 +181,8 @@ return [
         //Upper addons
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        //Backup interface
+        Sarfraznawaz2005\BackupManager\ServiceProvider::class,
 
     ],
 
@@ -233,7 +235,8 @@ return [
         //Mods
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-
+        // Backups
+        'BackupManager' => Sarfraznawaz2005\BackupManager\Facades\BackupManager::class,
 
     ],
 
