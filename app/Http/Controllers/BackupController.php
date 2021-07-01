@@ -20,8 +20,8 @@ class BackupController extends Controller
     public function newBack(Request $request)
     {
        //       
-       $backupRes = shell_exec('php artisan backup:list');
-       $fiels = shell_exec('cd .. && php artisan backup:run --only-db');
+       //$backupRes = shell_exec('php artisan backup:list');
+       $fiels = shell_exec('cd .. && cd .. && cd .. &&  php artisan backup:run --only-db');
        
 
        //Lets create a verificaition log
@@ -34,7 +34,7 @@ class BackupController extends Controller
 
        $object1 = new \stdClass();
        $object->name  = 'User';
-       sleep(300);
+       //sleep(300);
       if($fiels){
            // Add activity logs
            activity('backup')
