@@ -17,7 +17,7 @@ use App\Http\Controller\ItemCotController;
 use App\Http\Controller\ScanCotizacionController;
 use App\Http\Controller\InformeController;
 use App\Http\Controller\ActivityLogController;
-
+use App\Http\Controllers\BackupController;
 
 Route::group([
     'middleware' => 'api',
@@ -163,5 +163,11 @@ Route::group([
     Route::get('informe-logs', 'ActivityLogController@getInformes');
     Route::get('stats', 'ActivityLogController@getStats');
 
+    /*Backs */
+    Route::get('get-backs','BackupController@getBacks');
+    Route::get('setbackup','BackupController@newBack');
+    
+
+    
 
 });

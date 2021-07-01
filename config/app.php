@@ -183,6 +183,7 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         //Backup interface
         Sarfraznawaz2005\BackupManager\ServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 
     ],
 
@@ -237,6 +238,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         // Backups
         'BackupManager' => Sarfraznawaz2005\BackupManager\Facades\BackupManager::class,
+       
 
     ],
 
