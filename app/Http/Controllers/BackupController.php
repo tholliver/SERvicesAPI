@@ -22,16 +22,19 @@ class BackupController extends Controller
        //       
        $backupRes = shell_exec('php artisan backup:list');
        $fiels = shell_exec('cd .. && php artisan backup:run --only-db');
+       
 
        //Lets create a verificaition log
        $user = auth()->user();
        $requestIP = request()->ip();
+      
        //error_log($requestID);
        $object = new stdClass();
        $object->name  = 'Backup';
 
        $object1 = new stdClass();
        $object->name  = 'User';
+       sleep(300);
       if($fiels){
            // Add activity logs
            activity('backup')
@@ -44,7 +47,7 @@ class BackupController extends Controller
        // $fiels = shell_exec('cd .. && cd storage && cd app && cd Laravel && ls -a');
 
        //$backupRes = [];
-       return response()->json($fiels, 200);
+       return response()->json($fiels, 400);
     }
 
     public function getBacks(Request $request)
