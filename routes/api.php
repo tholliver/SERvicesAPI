@@ -166,8 +166,8 @@ Route::group([
     /*Backs */
     Route::get('get-backs','BackupController@getBacks');
     Route::get('setbackup','BackupController@newBack');
-    Route::get('massa','BackupController@testFunc');
-    
+    Route::get('setbackup','BackupController@newBack');
+    //testFunc
 
 
 });
