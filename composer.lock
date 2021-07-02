@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39ba718edbffd0ae4a4d9d140be10190",
+    "content-hash": "4790c070edd383ad2d81c7065d232725",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -62,59 +62,70 @@
             "time": "2015-05-16T19:24:58+00:00"
         },
         {
-            "name": "cornford/backup",
-            "version": "v2.8.0",
+            "name": "chumper/zipper",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bradcornford/Backup.git",
-                "reference": "203bdab79745fd4b11d5818c2649b3ef7c142924"
+                "url": "https://github.com/Chumper/Zipper.git",
+                "reference": "d15207e010f8fe1bdd341376bd86d599c4166423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bradcornford/Backup/zipball/203bdab79745fd4b11d5818c2649b3ef7c142924",
-                "reference": "203bdab79745fd4b11d5818c2649b3ef7c142924",
+                "url": "https://api.github.com/repos/Chumper/Zipper/zipball/d15207e010f8fe1bdd341376bd86d599c4166423",
+                "reference": "d15207e010f8fe1bdd341376bd86d599c4166423",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^5.0 || ^6.0",
-                "illuminate/console": "^5.0 || ^6.0",
-                "illuminate/support": "^5.0 || ^6.0",
-                "php": ">=5.4.0",
-                "symfony/process": "*"
+                "ext-zip": "*",
+                "illuminate/filesystem": "^5.0",
+                "illuminate/support": "^5.0",
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.1",
-                "phpspec/phpspec": "2.*@dev"
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.7"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Chumper\\Zipper\\ZipperServiceProvider"
+                    ],
+                    "aliases": {
+                        "Zipper": "Chumper\\Zipper\\Zipper"
+                    }
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Cornford\\Backup": "src/"
+                "psr-4": {
+                    "Chumper\\Zipper\\": "src/Chumper/Zipper"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "Apache2"
             ],
             "authors": [
                 {
-                    "name": "Bradley Cornford",
-                    "email": "me@bradleycornford.co.uk"
+                    "name": "Nils Plaschke",
+                    "email": "github@nilsplaschke.de",
+                    "homepage": "http://nilsplaschke.de",
+                    "role": "Developer"
                 }
             ],
-            "description": "An easy way backup and restore databases in Laravel.",
+            "description": "This is a little neat helper for the ZipArchive methods with handy functions",
+            "homepage": "http://github.com/Chumper/zipper",
             "keywords": [
-                "backup",
-                "database",
-                "dump",
+                "archive",
                 "laravel",
-                "restore"
+                "zip"
             ],
             "support": {
-                "issues": "https://github.com/bradcornford/Backup/issues",
-                "source": "https://github.com/bradcornford/Backup/tree/v2.8.0"
+                "issues": "https://github.com/Chumper/Zipper/issues",
+                "source": "https://github.com/Chumper/Zipper/tree/v1.0.3"
             },
-            "time": "2020-05-13T07:30:36+00:00"
+            "abandoned": true,
+            "time": "2020-02-25T11:57:40+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

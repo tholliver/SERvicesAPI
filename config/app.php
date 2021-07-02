@@ -182,8 +182,8 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         //Backup interface
-        Sarfraznawaz2005\BackupManager\ServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
 
     ],
 
@@ -238,6 +238,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         // Backups
         'BackupManager' => Sarfraznawaz2005\BackupManager\Facades\BackupManager::class,
+        'Zipper' => Chumper\Zipper\Zipper::class
        
 
     ],
