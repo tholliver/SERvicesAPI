@@ -216,6 +216,13 @@ class EmpresaController extends Controller
          return response()->json($cotizacion,201);
      }
 
+     public function verificar($nombre)
+     {
+         $items = DB::table('empresas')
+         ->where('nombreemp',$nombre)->get();
+         return response()->json($items ,201);
+     }
+
 
 
 }

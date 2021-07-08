@@ -13,7 +13,7 @@
         "nesbot/carbon": "~1.14",
         "sarfraznawaz2005/backupmanager": "^1.3",
         "spatie/laravel-activitylog": "^1.0",
-        "spatie/laravel-backup": "^3.0.0",
+        "spatie/laravel-backup": "3.0.0",
         "tymon/jwt-auth": "^1.0.0-rc.2"
     },
     "require-dev": {

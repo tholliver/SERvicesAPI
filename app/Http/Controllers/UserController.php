@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class UserController extends Controller
 {
     public function authenticate(Request $request)
@@ -32,6 +32,15 @@ class UserController extends Controller
             #response()->json(compact('token')
            return User::all();
         }
+
+        public function verificar($nombre, $apellido)
+        {
+            $items = DB::table('users')
+            ->where('name',$nombre)
+            ->where('lastname',$apellido)->get();
+            return response()->json($items ,201);
+        }
+
 
         public function register(Request $request)
         {
@@ -85,7 +94,7 @@ class UserController extends Controller
             $requestIP = request()->ip();
             //error_log($requestID);
            if($user){
-                // Add activity logs           
+                // Add activity logs
                 activity('usuario')
                 ->performedOn($user)
                 ->causedBy($userdetails)
@@ -105,7 +114,7 @@ class UserController extends Controller
         $user = User::find($request->id);
         $user->name = $request->name;
         $user->lastname = $request->lastname;
-        $user->email = $request->email;        
+        $user->email = $request->email;
         $user->cellphone = $request->cellphone;
         $user->rol = $request->rol;
         $user->unidaddegasto = $request->unidaddegasto;
@@ -117,7 +126,7 @@ class UserController extends Controller
         $requestIP = request()->ip();
 
         if($result){
-            // Add activity logs           
+            // Add activity logs
             activity('usuario')
             ->performedOn($user)
             ->causedBy($userdeta)
@@ -163,7 +172,7 @@ class UserController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($user){
-            // Add activity logs           
+            // Add activity logs
             activity('usuario')
             ->performedOn($user)
             ->causedBy($userdetails)
