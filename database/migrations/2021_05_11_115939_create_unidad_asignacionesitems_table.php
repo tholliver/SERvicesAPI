@@ -23,7 +23,7 @@ class CreateUnidadAsignacionesitemsTable extends Migration
 
             //References
             $table->foreign('unidad_id')->references('id')->on('unidads');
-            $table->foreign('itemsuperior_id')->references('id')->on('item_superiors');
+            $table->foreign('itemsuperior_id')->references('id')->on('item_superiors')->onDelete('cascade');
         });
     }
 

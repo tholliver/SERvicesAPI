@@ -23,7 +23,7 @@ class CreateCotizacionItemsTable extends Migration
             
             // $table->integer('empresa_cotizacion_id')->unsigned();
             $table->integer('empresa_cotizacion_id')->unsigned();
-            $table->foreign('empresa_cotizacion_id')->references('id')->on('empresa_cotizacion');
+            $table->foreign('empresa_cotizacion_id')->references('id')->on('empresa_cotizacion')->onDelete('cascade');
             $table->timestamps();
             
             

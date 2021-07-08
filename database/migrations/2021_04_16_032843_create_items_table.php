@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('nomitem');
             $table->string('descrip');
             $table->integer('item_general_id')->unsigned();
-            $table->foreign('item_general_id')->references('id')->on('item_superiors');
+            $table->foreign('item_general_id')->references('id')->on('item_superiors')->onDelete('cascade');
             $table->timestamps();
         });
     }
