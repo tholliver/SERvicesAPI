@@ -24,7 +24,7 @@ class CreateSolicitudsTable extends Migration
             $table->string('supera');
             $table->timestamps();
 
-            $table->foreign('unidad_id')->references('id')->on('unidads'); //added
+            $table->foreign('unidad_id')->references('id')->on('unidads')->onDelete('cascade'); //added
         });
     }
 

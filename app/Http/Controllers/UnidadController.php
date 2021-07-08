@@ -38,7 +38,7 @@ class UnidadController extends Controller
             ]);
 
         if ($validator->fails()) {
-            return  response()->json(['error' => 'Error de validación', $validator->errors()]);
+            return  response()->json([$validator->errors()], 400);
         }
         $unidad = Unidad::create($data);
 

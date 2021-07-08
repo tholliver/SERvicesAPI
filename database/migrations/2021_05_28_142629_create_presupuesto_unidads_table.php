@@ -21,7 +21,7 @@ class CreatePresupuestoUnidadsTable extends Migration
             $table->timestamps();   
             
             //References
-            $table->foreign('id_unidad')->references('id')->on('unidads');            
+            $table->foreign('id_unidad')->references('id')->on('unidads')->onDelete('cascade');            
         });
     }
 

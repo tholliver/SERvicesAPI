@@ -30,7 +30,7 @@ class CreateEmpresaCotizacionTable extends Migration
             $table->integer('id_solicitud')->unsigned();
             
             //References
-            $table->foreign('id_empresa')->references('id')->on('empresas');
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
             $table->foreign('id_solicitud')->references('id')->on('solicituds')->onDelete('cascade');
             
         });

@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('unidaddegasto',100)->nullable();
             //$table->string('facultad',100)->nullable();
             $table->integer('unidad_id')->nullable()->unsigned();
-            $table->foreign('unidad_id')->references('id')->on('unidads');
+            $table->foreign('unidad_id')->references('id')->on('unidads')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
 

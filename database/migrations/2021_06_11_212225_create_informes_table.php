@@ -21,7 +21,7 @@ class CreateInformesTable extends Migration
             //fk KEYS
             
             $table->integer('id_solicitud')->unsigned();            
-            $table->foreign('id_solicitud')->references('id')->on('solicituds');            
+            $table->foreign('id_solicitud')->references('id')->on('solicituds')->onDelete('cascade');            
             $table->timestamps();
         });
     }
