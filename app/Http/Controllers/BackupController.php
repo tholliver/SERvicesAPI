@@ -43,11 +43,11 @@ class BackupController extends Controller
            ->log('created');
        }
        */
-       
+    
        // $fiels = shell_exec('cd .. && cd storage && cd app && cd Laravel && ls -a');
 
        //$backupRes = [];
-       return response()->json($fiels, 400);
+       return response()->json($fiels, 200);
     }
 
     public function getBacks(Request $request)

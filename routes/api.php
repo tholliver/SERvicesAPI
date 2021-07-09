@@ -165,7 +165,7 @@ Route::group([
 
     /*Backs */
     Route::get('get-backs','BackupController@getBacks');
-    Route::get('setbackup','BackupController@newBack');
+    Route::post('setbackup','BackupController@newBack');
     Route::get('restore','BackupController@testFunc');
     //testFunc
 
