@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
 class UnidadController extends Controller
 {
     /**
@@ -35,12 +34,11 @@ class UnidadController extends Controller
         $validator = Validator::make($data, [
             'nombre' => 'required|max:255|unique:unidads',
             'facultad' => 'required|max:500',
-            'presupuesto' => 'required|numeric',
             'telefono' => 'required| max:255'
             ]);
 
         if ($validator->fails()) {
-            return  response()->json(['error' => 'Error de validación', $validator->errors()]);
+            return  response()->json([$validator->errors()], 400);
         }
         $unidad = Unidad::create($data);
 
@@ -99,7 +97,7 @@ class UnidadController extends Controller
         $validator = Validator::make($data, [
             'nombre' => 'required|max:255',
             'facultad' => 'required|max:500',
-            'presupuesto' => 'required|numeric',
+            //'presupuesto' => 'required|numeric',
             'telefono' => 'required| max:255'
         ]);
 
@@ -110,7 +108,7 @@ class UnidadController extends Controller
         $unidad = Unidad::find($request->id);
         $unidad->nombre = $data['nombre'];
         $unidad->facultad = $data['facultad'];
-        $unidad->presupuesto = $data['presupuesto'];
+        //$unidad->presupuesto = $data['presupuesto'];
         $unidad->telefono = $data['telefono'];
         $unidad->save();
 
@@ -204,5 +202,12 @@ class UnidadController extends Controller
        }
 
         return response()->json(['message' => 'unidad eliminado']);
+    }
+
+    public function verificar($nombre)
+    {
+        $items = DB::table('unidads')
+        ->where('nombre',$nombre)->get();
+        return response()->json($items ,201);
     }
 }

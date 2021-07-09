@@ -33,6 +33,8 @@ Route::group([
 
     //POST and Get methods for empresas
     Route::get('empresas', 'EmpresaController@index');
+    ////////////////////////////////////////////////
+    Route::get('verificarEmpresa/{nombre}', 'EmpresaController@verificar');
     Route::get('/empresas/{id}', 'EmpresaController@show');
     Route::get('/empresasInfo/{id}', 'EmpresaController@empresInfo');
     Route::post('empresas', 'EmpresaController@store');
@@ -94,6 +96,8 @@ Route::group([
 
     // Rutas items
     Route::get('items', 'ItemController@index');
+    /////////////////////////////////////////////////
+    Route::get('verificarItem/{nombre}', 'ItemController@verificar');
     Route::post('items', 'ItemController@store');
     Route::post('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
@@ -108,6 +112,8 @@ Route::group([
     //destroy($id)
      // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
+    /////////////////////////////////////////////////
+    Route::get('verificarUnidad/{nombre}', 'UnidadController@verificar');
     Route::post('unidades', 'UnidadController@store');
     Route::post('unidades/{id}', 'UnidadController@update');
     Route::get('unidades/{id}', 'UnidadController@show');
@@ -123,6 +129,8 @@ Route::group([
 
      //Autentica cion de usuarios
     Route::get('users', 'UserController@getusers');
+    /////////////////////////////////////////////////
+    Route::get('verificar/{nombre}/{apellido}', 'UserController@verificar');
     Route::post('register', 'UserController@register');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');

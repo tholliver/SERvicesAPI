@@ -7,7 +7,7 @@ use App\Models\ItemSuperior;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use DB;
 
 class ItemController extends Controller
 {
@@ -55,7 +55,7 @@ class ItemController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($item){
-            // Add activity logs           
+            // Add activity logs
             activity('items')
             ->performedOn($item)
             ->causedBy($user)
@@ -116,14 +116,14 @@ class ItemController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($item){
-            // Add activity logs           
+            // Add activity logs
             activity('items')
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
             ->log('updated');
-       }        
+       }
         return response()->json(['items' => $item], 200);
     }
 
@@ -142,7 +142,7 @@ class ItemController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($item){
-            // Add activity logs           
+            // Add activity logs
             activity('items')
             ->performedOn($item)
             ->causedBy($user)
@@ -152,5 +152,11 @@ class ItemController extends Controller
        }
 
         return response()->json(['message' => 'item eliminado']);
+    }
+    public function verificar($nombre)
+    {
+        $items = DB::table('items')
+        ->where('nomitem',$nombre)->get();
+        return response()->json($items ,201);
     }
 }
