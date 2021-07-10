@@ -32,21 +32,6 @@ class BackupController extends Controller
        $user = auth()->user();
        $requestIP = request()->ip();
       
-/*
-       //sleep(300);
-      if($fiels){
-           // Add activity logs
-           activity('backup')
-           ->causedBy($user)
-           ->withProperties(['ip' => $requestIP,
-                             'user'=> $user])
-           ->log('created');
-       }
-       */
-    
-       // $fiels = shell_exec('cd .. && cd storage && cd app && cd Laravel && ls -a');
-
-       //$backupRes = [];
        return response()->json($fiels, 200);
     }
 
@@ -79,71 +64,17 @@ class BackupController extends Controller
         $stup = \Zipper::make($files)->extractTo('restoration');
         $b = public_path('restoration\8vC9ZQ2AJT.sql');
 
-        //$fiels = shell_exec('cd .. && cd storage && cd app && cd Laravel && ls -a');
-        //$backing = shell_exec("cd C:\xampp\mysql\bin && mysql -u ".\Config::get('database.mysql.user')." -p".\Config::get('database.mysql.password')." ".\Config::get('database.mysql.database')." < ".$b);
-        //$var = shell_exec('cd C:\xampp\mysql\bin && ls -a');
-
         $host = env('DB_HOST');
         $username = env('DB_USERNAME');
-        //$password = env('DB_PASSWORD');
         $password = env('DB_PASSWORD');
         $database = env('DB_DATABASE');
 
-        
-        //$ts = time();
-
-        //mysql -u root --password=  testapp < C:\\xampp\htdocs\\API-SERvices\public\\restoration\8vC9ZQ2AJT.sql
-        //$file = date('Y-m-d-His', $ts) . '-dump-' . $database . '.sql';
         $command = sprintf('cd c:\xampp\mysql\bin && mysql -u %s --password=%s  %s < %s', $username, $password, $database, $b);
         
 
         $massa1 = shell_exec($command);
         //TILL HERE
- 
-   /*   
 
-        //TESTING RESTORATION 
-        //check if the file exits 
- //  if (Storage::disk($this->disk)->exists($this->backupPath . $file)) {
-
-
-            $storageLocal = Storage::createLocalDriver(['root' => base_path()]);
-            $contents = Storage::disk($this->disk)->get($this->backupPath . $file);
-
-            $storageLocal->put($file, $contents);
-
-           
-
-                $connection = [
-                    'host' => config('database.connections.mysql.host'),
-                    'database' => config('database.connections.mysql.database'),
-                    'username' => config('database.connections.mysql.username'),
-                    'password' => config('database.connections.mysql.password'),
-                ];
-
-                $connectionOptions = "-u {$connection['username']} ";
-
-                if (trim($connection['password'])) {
-                    $connectionOptions .= " -p\"{$connection['password']}\" ";
-                }
-
-                $connectionOptions .= " -h {$connection['host']} {$connection['database']} ";
-
-                //$command = "$cd gunzip < $this->fBackupName | mysql $connectionOptions";
-                $commands = 'cd ' . str_replace('\\', '/',
-                        base_path()) . " && $this->zcat $file | mysql $connectionOptions";
-                //exit($command);
-
-               $bytes = shell_exec($commands . ' 2>&1');
-
-                // delete local file
-                //$storageLocal->delete($file);
-        
-
-                */
-
-  //  }
-        //$massa1
     return response()->json($massa1, 201);
 
     }

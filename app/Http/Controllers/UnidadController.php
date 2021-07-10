@@ -110,6 +110,7 @@ class UnidadController extends Controller
         $unidad->facultad = $data['facultad'];
         //$unidad->presupuesto = $data['presupuesto'];
         $unidad->telefono = $data['telefono'];
+        $dataView = $unidad;
         $unidad->save();
 
         $user = auth()->user();
@@ -121,7 +122,8 @@ class UnidadController extends Controller
             ->performedOn($unidad)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'data'=> $dataView])
             ->log('updated');
        }
 

@@ -141,7 +141,8 @@ class RolController extends Controller
                 ->performedOn($rol)
                 ->causedBy($user)
                 ->withProperties(['ip' => $requestIP,
-                                  'user'=> $user])
+                                  'user'=> $user,
+                                  'data' => $rol])
                 ->log('updated');
            }
             return ["result"=>"Success, data is updated"];
