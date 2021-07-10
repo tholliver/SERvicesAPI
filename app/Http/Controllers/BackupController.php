@@ -86,18 +86,18 @@ class BackupController extends Controller
         $host = env('DB_HOST');
         $username = env('DB_USERNAME');
         //$password = env('DB_PASSWORD');
-        $password = config('database.connections.mysql.password');
+        $password = env('DB_PASSWORD');
         $database = env('DB_DATABASE');
 
         
         //$ts = time();
 
-
+        //mysql -u root --password=  testapp < C:\\xampp\htdocs\\API-SERvices\public\\restoration\8vC9ZQ2AJT.sql
         //$file = date('Y-m-d-His', $ts) . '-dump-' . $database . '.sql';
-        $command = sprintf('cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql -u %s -p %s %s  < %s', $username, $password, $database, $b);
+        $command = sprintf('cd c:\xampp\mysql\bin && mysql -u %s --password=%s  %s < %s', $username, $password, $database, $b);
         
 
-        //$massa1 = shell_exec($fileUnzipedPath);
+        $massa1 = shell_exec($command);
         //TILL HERE
  
    /*   
@@ -144,7 +144,7 @@ class BackupController extends Controller
 
   //  }
         //$massa1
-    return response()->json($command, 201);
+    return response()->json($massa1, 201);
 
     }
 }
