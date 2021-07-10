@@ -64,10 +64,19 @@ class BackupController extends Controller
     public function testFunc(Request $request){
         //on the request get ----> the name file to unzip
         ini_set('max_execution_time', 3000);
-       
-        $file = storage_path('app\Laravel\2021-07-02-082434.zip');
+
+        //get the filename
         
-        $stup = \Zipper::make($file)->extractTo('restoration');
+        $filename = $request->nom;
+        
+        $fileUnzipedPath = "app\Laravel";
+        $files = storage_path("app\Laravel\\".$filename);
+        /*
+         $files = storage_path("app\\Laravel\\".''.$file);
+       
+       */
+        
+        $stup = \Zipper::make($files)->extractTo('restoration');
         $b = public_path('restoration\8vC9ZQ2AJT.sql');
 
         //$fiels = shell_exec('cd .. && cd storage && cd app && cd Laravel && ls -a');
@@ -76,19 +85,66 @@ class BackupController extends Controller
 
         $host = env('DB_HOST');
         $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
+        //$password = env('DB_PASSWORD');
+        $password = config('database.connections.mysql.password');
         $database = env('DB_DATABASE');
+
         
         //$ts = time();
 
 
         //$file = date('Y-m-d-His', $ts) . '-dump-' . $database . '.sql';
-        $command = sprintf('mysql -u %s -p%s %s  < %s', $username, $password, $database, $b);
-      
-
-        $massa1 = shell_exec($command);
+        $command = sprintf('cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql -u %s -p %s %s  < %s', $username, $password, $database, $b);
         
-    return response()->json($massa1, 201);
+
+        //$massa1 = shell_exec($fileUnzipedPath);
+        //TILL HERE
+ 
+   /*   
+
+        //TESTING RESTORATION 
+        //check if the file exits 
+ //  if (Storage::disk($this->disk)->exists($this->backupPath . $file)) {
+
+
+            $storageLocal = Storage::createLocalDriver(['root' => base_path()]);
+            $contents = Storage::disk($this->disk)->get($this->backupPath . $file);
+
+            $storageLocal->put($file, $contents);
+
+           
+
+                $connection = [
+                    'host' => config('database.connections.mysql.host'),
+                    'database' => config('database.connections.mysql.database'),
+                    'username' => config('database.connections.mysql.username'),
+                    'password' => config('database.connections.mysql.password'),
+                ];
+
+                $connectionOptions = "-u {$connection['username']} ";
+
+                if (trim($connection['password'])) {
+                    $connectionOptions .= " -p\"{$connection['password']}\" ";
+                }
+
+                $connectionOptions .= " -h {$connection['host']} {$connection['database']} ";
+
+                //$command = "$cd gunzip < $this->fBackupName | mysql $connectionOptions";
+                $commands = 'cd ' . str_replace('\\', '/',
+                        base_path()) . " && $this->zcat $file | mysql $connectionOptions";
+                //exit($command);
+
+               $bytes = shell_exec($commands . ' 2>&1');
+
+                // delete local file
+                //$storageLocal->delete($file);
+        
+
+                */
+
+  //  }
+        //$massa1
+    return response()->json($command, 201);
 
     }
 }
