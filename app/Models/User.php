@@ -13,7 +13,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     // LogsActivity;
     //protected static $logAttributes = ['name', 'lastname', 'email', 'cellphone', 'rol','unidaddegasto','unidad_id'];
-     
+
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'email', 'password', 'cellphone', 'rol','unidaddegasto','unidad_id',
+        'name', 'lastname', 'email', 'password', 'cellphone', 'rol','unidaddegasto','unidad_id','visible',
     ];
 
     /**

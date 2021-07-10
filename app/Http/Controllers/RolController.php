@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class RolController extends Controller
 {
     /**
@@ -16,9 +16,27 @@ class RolController extends Controller
     public function index()
     {
         //return Users::all();
-        return Rol::all();
+        $user = DB::table('rols')
+        ->select('id','rolnom','descrip')
+        ->where('visible','=','1')->get();
+        return response()->json($user ,201);
     }
-
+    public function index2()
+    {
+        //return Users::all();
+        $user = DB::table('rols')
+        ->select('id','rolnom','descrip')
+        ->where('visible','=','1')
+        ->where('rolnom','!=','Administrador del sistema')->get();
+        return response()->json($user ,201);
+    }
+    public function verificar($nombre)
+    {
+        $items = DB::table('rols')
+        ->where('rolnom',$nombre)
+         ->where('visible','=','1' )->get();
+        return response()->json($items ,201);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,17 +44,26 @@ class RolController extends Controller
      */
     public function nuevorol(Request $request)
     {
-       if($request->has('rolnom')){
+      /* if($request->has('rolnom')){
         $rol = Rol::create([
-            'rolnom' => $request->get('rolnom'),
-            'descrip' => $request->get('descrip'),            
-        ]);
-        
+            'rolnom' ,'=','JoelCar',
+            'descrip' => $request->get('descrip'),
+            'visible','=','1',
+        ]);*/
+
+        $rol = new Rol;
+        $rol->rolnom = $request->rolnom;
+        $rol->descrip = $request->descrip;
+        $rol->visible ='1';
+        $rol->save();
+
+
+
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($rol){
-            // Add activity logs           
+            // Add activity logs
             activity('rol')
             ->performedOn($rol)
             ->causedBy($user)
@@ -46,17 +73,17 @@ class RolController extends Controller
        }
 
        return response()->json(compact('rol'),201);
-            
-       }
 
+
+/*
        $returnData = array(
         'status' => 'error',
         'message' => 'An error occurred!'
     );
-       return response()->json($returnData, 400);
+       return response()->json($returnData, 400);*/
     }
 
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,10 +91,10 @@ class RolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+  /*  public function store(Request $request)
     {
         //
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -109,7 +136,7 @@ class RolController extends Controller
             $requestIP = request()->ip();
             //error_log($requestID);
            if($rol){
-                // Add activity logs           
+                // Add activity logs
                 activity('rol')
                 ->performedOn($rol)
                 ->causedBy($user)
@@ -133,13 +160,15 @@ class RolController extends Controller
     public function destroy($id)
     {
         $rol = Rol::find($id);
-        $rol->delete();
+        //$rol->delete();
+        Rol::where('id','=',$id)->update(['visible' => '0']);
+
 
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($rol){
-            // Add activity logs           
+            // Add activity logs
             activity('rol')
             ->performedOn($rol)
             ->causedBy($user)
@@ -147,7 +176,7 @@ class RolController extends Controller
                               'user'=> $user])
             ->log('deleted');
        }
-        
+
         return response()->json(['message' => 'item eliminado']);
     }
 }

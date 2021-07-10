@@ -18,6 +18,7 @@ class ItemPresController extends Controller
     {
         return ItemPres::all();
         // $items = Item::latest()->paginate(50);
+
     }
 
 
@@ -41,7 +42,7 @@ class ItemPresController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($unidadasignacion){
-            // Add activity logs           
+            // Add activity logs
             activity('presupuesto-asignacion')
             ->performedOn($unidadasignacion)
             ->causedBy($user)
@@ -101,12 +102,12 @@ class ItemPresController extends Controller
       $items = DB::table('unidadasignacionitems')
       ->where('id', $id)
       ->delete();
-      
+
       $user = auth()->user();
       $requestIP = request()->ip();
       //error_log($requestID);
      if($items){
-          // Add activity logs           
+          // Add activity logs
           activity('presupuesto-asignacion')
           ->performedOn($items)
           ->causedBy($user)

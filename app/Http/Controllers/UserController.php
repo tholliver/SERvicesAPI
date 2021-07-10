@@ -30,14 +30,27 @@ class UserController extends Controller
         public function getusers()
         {
             #response()->json(compact('token')
-           return User::all();
+          // return User::all();
+                   $user = DB::table('users')
+                   ->select('name','lastname','rol','email','cellphone','unidaddegasto','id')
+                   ->where('visible','=','1')->get();
+                   return response()->json($user ,201);
         }
+      /*  public function getusersNew()
+        {
+          $items = DB::table('unidadasignacionitems')
+          ->select('periodo')->distinct()
+          ->orderBy('periodo', 'asc')
+          ->where('unidad_id',$idUni)->get();
+          return response()->json($items ,201);
+        }*/
 
         public function verificar($nombre, $apellido)
         {
             $items = DB::table('users')
             ->where('name',$nombre)
-            ->where('lastname',$apellido)->get();
+            ->where('lastname',$apellido)
+             ->where('visible','=','1' )->get();
             return response()->json($items ,201);
         }
 
@@ -52,6 +65,7 @@ class UserController extends Controller
                 'cellphone' => 'required|string|max:20',
                 'rol' => 'required|string|max:50',
                 'unidaddegasto' => 'required|string|max:100',
+                'visible'=>'integer'
             ]);
 
             if($validator->fails()){
@@ -86,6 +100,7 @@ class UserController extends Controller
             $user->rol = $request->rol;
             $user->unidaddegasto = $request->unidaddegasto;
             $user->unidad_id = $unidadId;
+            $user->visible ='1';
             $user->save();
 
             $token = JWTAuth::fromUser($user);
@@ -119,7 +134,7 @@ class UserController extends Controller
         $user->rol = $request->rol;
         $user->unidaddegasto = $request->unidaddegasto;
         $user->unidad_id = $unidadId;
-
+        $user->visible ='1';
         $result = $user->save();
 
         $userdeta = auth()->user();
@@ -166,11 +181,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->delete();
+      //  $user->delete();
+    //  $id  = $request->get('id');
+
+      User::where('id','=',$id)->update(['visible' => '0']);
+
+
+
+    /////////////////////////
 
         $userdetails = auth()->user();
         $requestIP = request()->ip();
-        //error_log($requestID);
+        error_log($requestID);
        if($user){
             // Add activity logs
             activity('usuario')
