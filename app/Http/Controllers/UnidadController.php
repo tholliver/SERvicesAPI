@@ -17,10 +17,15 @@ class UnidadController extends Controller
      ///////////////////
     public function index()
     {
-        $unidades = Unidad::all();
+        //$unidades = Unidad::all();
         // $unidades = Unidad::latest()->paginate(10);
+        //return response()->json(['unidades' => $unidades, 'message' => 'unidades encontrados'], 200);
 
-        return response()->json(['unidades' => $unidades, 'message' => 'unidades encontrados'], 200);
+
+        $user = DB::table('unidads')
+        ->select('nombre','facultad','telefono','id')
+        ->where('visible','=','1')->get();
+        return response()->json($user ,201);
     }
 
     /**
@@ -40,8 +45,14 @@ class UnidadController extends Controller
         if ($validator->fails()) {
             return  response()->json([$validator->errors()], 400);
         }
-        $unidad = Unidad::create($data);
-
+        //$unidad = Unidad::create($data);
+        $unidad = new Unidad;
+        $unidad->nombre = $request->nombre;
+        $unidad->facultad = $request->facultad;
+        $unidad->telefono = $request->telefono;
+        $unidad->visible ='1';
+        $unidad->save();
+        ///////////////
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
@@ -188,7 +199,8 @@ class UnidadController extends Controller
     public function destroy($id)
     {
         $unidad = Unidad::find($id);
-        $unidad->delete();
+        //$unidad->delete();
+        Unidad::where('id','=',$id)->update(['visible' => '0']);
 
         $user = auth()->user();
         $requestIP = request()->ip();
@@ -206,10 +218,12 @@ class UnidadController extends Controller
         return response()->json(['message' => 'unidad eliminado']);
     }
 
+
     public function verificar($nombre)
     {
         $items = DB::table('unidads')
-        ->where('nombre',$nombre)->get();
+        ->where('nombre',$nombre)
+         ->where('visible','=','1' )->get();
         return response()->json($items ,201);
     }
 }

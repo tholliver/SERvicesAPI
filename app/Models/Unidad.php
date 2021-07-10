@@ -13,14 +13,14 @@ class Unidad extends Model
     // LogsActivity;
 
     //protected static $logAttributes = ['nombre', 'facultad', 'presupuesto', 'telefono'];
-  
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nombre', 'facultad', 'presupuesto', 'telefono'
+        'nombre', 'telefono','visible',
     ];
 
     /*
