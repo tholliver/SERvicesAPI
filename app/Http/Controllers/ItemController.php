@@ -130,7 +130,7 @@ class ItemController extends Controller
         $item->nomitem = $data['nomitem'];
         $item->descrip = $data['descrip'];
         $item->item_general_id = $data['itemsuperior'];
-        $itemUpdated -> $item->getDirty();
+        $itemUpdated = $item->getDirty();
         $item->save();
 
         $user = auth()->user();
