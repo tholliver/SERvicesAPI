@@ -139,9 +139,11 @@ class RolController extends Controller
     public function update(Request $request)
     {
         $rol = Rol::find($request->id);
+        $beforeRol->$rol;
         $rol->rolnom = $request->rolnom;
         $rol->descrip = $request->descrip;
         $rol->privilegios = $request->privilegios;
+        $getchange -> $rol->getDirty();
         $result = $rol->save();
         if($result){
             $user = auth()->user();
@@ -154,7 +156,8 @@ class RolController extends Controller
                 ->causedBy($user)
                 ->withProperties(['ip' => $requestIP,
                                   'user'=> $user,
-                                  'data' => $rol])
+                                  'nuevo' => $getchange,
+                                  'anterior'=>$beforeRol])
                 ->log('updated');
            }
             return ["result"=>"Success, data is updated"];
