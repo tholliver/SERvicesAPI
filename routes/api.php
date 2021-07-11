@@ -13,6 +13,7 @@ use App\Http\Controller\FechaController;
 use App\Http\Controller\PresupuestoUnidadController;
 use App\Http\Controller\EmpresaCotizController;
 use App\Http\Controller\EmpresaController;
+use App\Http\Controller\FacultadController;
 use App\Http\Controller\ItemCotController;
 use App\Http\Controller\ScanCotizacionController;
 use App\Http\Controller\InformeController;
@@ -181,6 +182,12 @@ Route::group([
     Route::post('setbackup','BackupController@newBack');
     Route::post('restore','BackupController@testFunc');
     //testFunc
-
-
+    //Agregando Facultad
+      Route::get('facultades', 'FacultadController@getFacultades');
+      ////////////////////////////////////////////////
+      Route::get('verificarFacultad/{nombre}', 'FacultadController@verificar');
+      Route::post('facultad', 'FacultadController@register');
+      Route::delete('facultad/{id}', 'FacultadController@destroy');
+      //////////////////////////////////
+      Route::post('facultad/{id}', 'EmpresaController@update');
 });
