@@ -7,7 +7,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Item extends Model
 {
-    use Notifiable; 
+    use Notifiable;
     //LogsActivity;
     //protected static $logAttributes = ['nomitem', 'descrip', 'item_general_id'];
     /**
@@ -16,7 +16,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'nomitem', 'descrip', 'item_general_id'
+        'nomitem', 'descrip', 'item_general_id','visible',
     ];
 
 

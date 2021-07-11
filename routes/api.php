@@ -107,6 +107,8 @@ Route::group([
     Route::delete('items/{id}', 'ItemController@destroy');
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
+    ///////////////////////////////////////////////////////
+    Route::get('itemSuperiorVerificar/{nombre}', 'ItemSuperiorController@verificar');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
     Route::get('itemSup/{id}', 'ItemSuperiorController@show');
     Route::post('itemSup', 'ItemSuperiorController@store');

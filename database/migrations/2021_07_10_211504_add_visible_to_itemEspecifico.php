@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemSuperiorTable extends Migration
+class AddVisibleToItemEspecifico extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateItemSuperiorTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_superiors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nomitemSup')
-            $table->string('descripSup');
-            $table->timestamps();
-        });
+      Schema::table('items',function(Blueprint $table){
+        $table->integer('visible')->nullable();
+      });
     }
 
     /**
@@ -28,6 +25,9 @@ class CreateItemSuperiorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_superiors');
+      Schema::table('items',function(
+        Blueprint $table){
+          $table->dropColumn('visible');
+        });
     }
 }

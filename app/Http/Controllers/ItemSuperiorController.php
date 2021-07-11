@@ -7,7 +7,7 @@ use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 
 class ItemSuperiorController extends Controller
 {
@@ -18,8 +18,20 @@ class ItemSuperiorController extends Controller
      */
     public function index()
     {
-        return ItemSuperior::all();
+        //return ItemSuperior::all();
         // $items = Item::latest()->paginate(50);
+        $user = DB::table('item_superiors')
+        ->select('nomitemSup','descripSup','id')
+        ->where('visible','=','1')->get();
+        return response()->json($user ,201);
+    }
+
+    public function verificar($nombre)
+    {
+        $items = DB::table('item_superiors')
+        ->where('nomitemSup',$nombre)
+         ->where('visible','=','1' )->get();
+        return response()->json($items ,201);
     }
 
      /**
@@ -42,36 +54,47 @@ class ItemSuperiorController extends Controller
      */
     public function store(Request $request)
     {
-    if($request->has('nomitemSup')){
-        $itemsitoSup = ItemSuperior::create([
-            'nomitemSup' => $request->get('nomitemSup'),
-            'descripSup' => $request->get('descripSup'),
-        ]);
+    //if($request->has('nomitemSup')){
+        //$itemsitoSup = ItemSuperior::create([
+          //  'nomitemSup' => $request->get('nomitemSup'),
+          //  'descripSup' => $request->get('descripSup'),
+        //]);
+        //////////////////////////////
+        $superior = new ItemSuperior;
+        $superior->nomitemSup = $request->nomitemSup;
+        $superior->descripSup = $request->descripSup;
+        $superior->visible ='1';
+        $superior->save();
+        //////////////////////////////
+
 
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
-       if($itemsitoSup){
-            // Add activity logs           
+       if($superior){
+            // Add activity logs
             activity('itemscotizados')
-            ->performedOn($itemsitoSup)
+            ->performedOn($superior)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user])
             ->log('created');
-       }
+      // }
 
     return response()->json($itemsitoSup,201);
 
     }
 
-    $returnData = array(
+    /*$returnData = array(
         'status' => 'error',
         'message' => 'An error occurred!'
-    );
+    );*/
     return response()->json($returnData, 400);
     }
-    
+
+
+
+
     public function show($id)
     {
 
@@ -90,7 +113,7 @@ class ItemSuperiorController extends Controller
             'nomitemSup' => 'required',
             'descripSup' => 'required'
         ]);
-        
+
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }
@@ -104,7 +127,7 @@ class ItemSuperiorController extends Controller
         $requestIP = request()->ip();
         //error_log($requestID);
        if($item){
-            // Add activity logs           
+            // Add activity logs
             activity('itemsuperior')
             ->performedOn($item)
             ->causedBy($user)
@@ -142,13 +165,15 @@ class ItemSuperiorController extends Controller
     public function destroy($id)
     {
         $item = ItemSuperior::find($id);
-        $item->delete();
+        //$item->delete();
+        ItemSuperior::where('id','=',$id)->update(['visible' => '0']);
+
 
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($item){
-            // Add activity logs           
+            // Add activity logs
             activity('itemsuperior')
             ->performedOn($item)
             ->causedBy($user)

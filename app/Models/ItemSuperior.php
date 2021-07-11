@@ -18,7 +18,7 @@ class ItemSuperior extends Model
      * @var array
      */
     protected $fillable = [
-        'nomitemSup', 'descripSup',
+        'nomitemSup', 'descripSup','visible',
     ];
 
     public function items()
