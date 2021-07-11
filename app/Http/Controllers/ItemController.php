@@ -126,9 +126,11 @@ class ItemController extends Controller
         }
 
         $item = Item::find($id);
+        $olddata = $item;
         $item->nomitem = $data['nomitem'];
         $item->descrip = $data['descrip'];
         $item->item_general_id = $data['itemsuperior'];
+        $itemUpdated -> $item->getDirty();
         $item->save();
 
         $user = auth()->user();
@@ -140,7 +142,9 @@ class ItemController extends Controller
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olddata])
             ->log('updated');
        }
         return response()->json(['items' => $item], 200);
