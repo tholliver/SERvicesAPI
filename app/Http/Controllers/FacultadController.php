@@ -28,7 +28,6 @@ class FacultadController extends Controller
 
         public function register(Request $request)
         {
-
             $facultad = new Facultad;
             $facultad->nombre = $request->nombre;
             $facultad->decano = $request->decano;
@@ -42,27 +41,27 @@ class FacultadController extends Controller
 
     public function update(Request $request)
     {
-        $unidadName = $request->get('unidaddegasto');
-        $unidadId = Unidad::where('nombre',$unidadName)->first()->id;
+        //$unidadName = $request->get('unidaddegasto');
+        //$unidadId = Unidad::where('nombre',$unidadName)->first()->id;
 
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->cellphone = $request->cellphone;
-        $user->rol = $request->rol;
-        $user->unidaddegasto = $request->unidaddegasto;
-        $user->unidad_id = $unidadId;
-        $user->visible ='1';
-        $result = $user->save();
+        $facultad= Facultad::find($request->id);
+        $facultad->nombre = $request->nombre;
+        $facultad->decano = $request->decano;
+        $facultad->telefono = $request->telefono;
+        $facultad->direccion = $request->direccion;
+        $facultad->correo= $request->correo;
+        $facultad->visible ='1';
+
+        /////
+        $result = $facultad->save();
 
         $userdeta = auth()->user();
         $requestIP = request()->ip();
-
+      /*
         if($result){
             // Add activity logs
-            activity('usuario')
-            ->performedOn($user)
+            activity('facultad')
+            ->performedOn($facultad)
             ->causedBy($userdeta)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $userdeta])
@@ -71,7 +70,8 @@ class FacultadController extends Controller
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
-        }
+        }*/
+        return ["result"=>"Success, data is updated"];
     }
 
 

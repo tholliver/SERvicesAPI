@@ -189,5 +189,5 @@ Route::group([
       Route::post('facultad', 'FacultadController@register');
       Route::delete('facultad/{id}', 'FacultadController@destroy');
       //////////////////////////////////
-      Route::post('facultad/{id}', 'EmpresaController@update');
+      Route::post('facultadAct', 'FacultadController@update');
 });
