@@ -18,10 +18,16 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+      //  $items = Item::all();
         // $items = Item::latest()->paginate(50);
         //Cambiando la respuesta a solo un array
-        return response()->json($items, 200);
+        //return response()->json($items, 200);
+
+
+        $user = DB::table('items')
+        ->select('nomitem','descrip','item_general_id','id')
+        ->where('visible','=','1')->get();
+        return response()->json($user ,201);
     }
 
     /**
@@ -44,12 +50,25 @@ class ItemController extends Controller
 
         $unidadName = $request->get('itemsuperior');
         $itemsuperior = ItemSuperior::where('nomitemSup',$unidadName)->first()->id;
-
-        $item = Item::create([
+        error_log($itemsuperior);
+        error_log('Vacunas');
+      /*  $item = Item::create([
             'nomitem' => $request->get('nomitem'),
             'descrip' => $request->get('descrip'),
             'item_general_id' => $itemsuperior,
-        ]);
+            'visible'
+        ]);*/
+
+        $item = new Item;
+        $item->nomitem= $request->nomitem;
+        $item->descrip= $request->descrip;
+        $item->item_general_id = $itemsuperior;
+        $item->visible ='1';
+        $item->save();
+
+
+
+
 
         $user = auth()->user();
         $requestIP = request()->ip();
@@ -136,7 +155,10 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
-        $item->delete();
+        //$item->delete();
+        Item::where('id','=',$id)->update(['visible' => '0']);
+
+
 
         $user = auth()->user();
         $requestIP = request()->ip();
@@ -156,7 +178,8 @@ class ItemController extends Controller
     public function verificar($nombre)
     {
         $items = DB::table('items')
-        ->where('nomitem',$nombre)->get();
+        ->where('nomitem',$nombre)
+        ->where('visible','=','1' )->get();
         return response()->json($items ,201);
     }
 }
