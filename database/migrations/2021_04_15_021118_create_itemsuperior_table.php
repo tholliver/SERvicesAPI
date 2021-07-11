@@ -15,7 +15,7 @@ class CreateItemSuperiorTable extends Migration
     {
         Schema::create('item_superiors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nomitemSup')
+            $table->string('nomitemSup');
             $table->string('descripSup');
             $table->timestamps();
         });

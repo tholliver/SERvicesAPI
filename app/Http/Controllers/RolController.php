@@ -17,10 +17,11 @@ class RolController extends Controller
     {
         //return Users::all();
         $user = DB::table('rols')
-        ->select('id','rolnom','descrip')
+        ->select('id','rolnom','descrip','privilegios')
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
+    
     public function index2()
     {
         //return Users::all();
@@ -36,6 +37,15 @@ class RolController extends Controller
         ->where('rolnom',$nombre)
          ->where('visible','=','1' )->get();
         return response()->json($items ,201);
+    }
+
+    public function getPrivilegios($nombre)
+    {
+        //return Users::all();
+        $rol = DB::table('rols')
+        ->select('privilegios')
+        ->where('rolnom',$nombre)->get();
+        return response()->json($rol ,201);
     }
     /**
      * Show the form for creating a new resource.
@@ -54,7 +64,8 @@ class RolController extends Controller
         $rol = new Rol;
         $rol->rolnom = $request->rolnom;
         $rol->descrip = $request->descrip;
-        $rol->visible ='1';
+        $rol->visible ='1';        
+        $rol->privilegios =$request->privilegios;
         $rol->save();
 
 
@@ -130,6 +141,7 @@ class RolController extends Controller
         $rol = Rol::find($request->id);
         $rol->rolnom = $request->rolnom;
         $rol->descrip = $request->descrip;
+        $rol->privilegios = $request->privilegios;
         $result = $rol->save();
         if($result){
             $user = auth()->user();

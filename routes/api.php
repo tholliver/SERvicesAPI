@@ -58,7 +58,7 @@ Route::group([
      Route::get('rolesVerificar/{denominativo}', 'RolController@verificar');
      Route::get('roles2', 'RolController@index2');
      Route::post('roles', 'RolController@nuevorol');
-
+     Route::get('rol-privilegios/{nombre}', 'RolController@getPrivilegios');
      //POST and Get methods for empresaCotizacion
       Route::get('empresaCot', 'EmpresaCotizController@index');
       Route::post('empresaCot', 'EmpresaCotizController@store');
