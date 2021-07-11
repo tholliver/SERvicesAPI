@@ -17,6 +17,7 @@ class CreateRolsTable extends Migration
             $table->increments('id');
             $table->string('rolnom');
             $table->string('descrip');
+            $table->string('privilegios');
             $table->timestamps();
         });
     }
