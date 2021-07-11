@@ -127,6 +127,8 @@ class UserController extends Controller
         $unidadId = Unidad::where('nombre',$unidadName)->first()->id;
 
         $user = User::find($request->id);
+
+        $capOld = $user;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
@@ -135,6 +137,7 @@ class UserController extends Controller
         $user->unidaddegasto = $request->unidaddegasto;
         $user->unidad_id = $unidadId;
         $user->visible ='1';
+        $userChanged = $user->getDirty();
         $result = $user->save();
 
         $userdeta = auth()->user();
@@ -146,7 +149,9 @@ class UserController extends Controller
             ->performedOn($user)
             ->causedBy($userdeta)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $userdeta])
+                              'user'=> $userdeta,
+                              'nuevo' => $userChanged,
+                              'anterior' => $capOld])
             ->log('updated');
 
             return ["result"=>"Success, data is updated"];

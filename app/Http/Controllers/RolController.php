@@ -157,7 +157,7 @@ class RolController extends Controller
                 ->withProperties(['ip' => $requestIP,
                                   'user'=> $user,
                                   'nuevo' => $getchange,
-                                  'anterior'=>$beforeRol])
+                                  'anterior' => $beforeRol])
                 ->log('updated');
            }
             return ["result"=>"Success, data is updated"];
