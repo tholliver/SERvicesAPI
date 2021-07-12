@@ -106,7 +106,8 @@ class SolicitudController extends Controller
              ->performedOn($newsolicitud)
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
-                               'user'=> $user])
+                               'user'=> $user,
+                               'nuevo'=> $newsolicitud])
              ->log('created');
         }
         return response()->json(compact('newsolicitud'),201);
@@ -157,8 +158,11 @@ class SolicitudController extends Controller
     public function update(Request $request, Solicitud $solicitud)
     {
         $solicitud = Solicitud::find($request->id);
+        $olds = $solicitud;
         $solicitud->estado = $request->estado;
+        $itemUpdated = $solicitud->getDirty();
         $result = $solicitud->save();
+        
 
 
         if($result){
@@ -169,7 +173,9 @@ class SolicitudController extends Controller
             ->performedOn($result)
             ->causedBy($user)
             ->withProperties(['ip' => $requestID,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olds])
             ->log('updated');
             //$user->name
        

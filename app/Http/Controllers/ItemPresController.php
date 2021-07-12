@@ -37,7 +37,8 @@ class ItemPresController extends Controller
             'montoasig' => $request->get('montoasig'),
             'periodo' => $request->get('periodo'),
         ]);
-
+        
+        $itemUpdated = $unidadasignacion;
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
@@ -47,7 +48,8 @@ class ItemPresController extends Controller
             ->performedOn($unidadasignacion)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated])
             ->log('created');
        }
 
@@ -99,6 +101,7 @@ class ItemPresController extends Controller
 
      public function destroy($id)
      {
+      $olddata = DB::table('unidadasignacionitems')->where('id', $id)->get();
       $items = DB::table('unidadasignacionitems')
       ->where('id', $id)
       ->delete();
@@ -112,7 +115,8 @@ class ItemPresController extends Controller
           ->performedOn($items)
           ->causedBy($user)
           ->withProperties(['ip' => $requestIP,
-                            'user'=> $user])
+                            'user'=> $user,
+                            'anterior'=>$olddata])
           ->log('deleted');
      }
       return response()->json($items ,201);

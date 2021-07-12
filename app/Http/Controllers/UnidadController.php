@@ -59,7 +59,7 @@ class UnidadController extends Controller
         //error_log($requestID);
        if($unidad){
             // Add activity logs
-            activity('solicitudes')
+            activity('unidades')
             ->performedOn($unidad)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
@@ -124,7 +124,7 @@ class UnidadController extends Controller
         $unidad->facultad = $data['facultad'];
         //$unidad->presupuesto = $data['presupuesto'];
         $unidad->telefono = $data['telefono'];
-        $itemUpdated = $unidad;
+        $itemUpdated = $unidad->getDirty();
         $unidad->save();
 
         $user = auth()->user();

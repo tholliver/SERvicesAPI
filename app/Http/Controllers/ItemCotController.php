@@ -34,7 +34,7 @@ class ItemCotController extends Controller
                 'total' => $request->get('total'),
                 'empresa_cotizacion_id' => $request->get('empresa_cotizacion_id')
             ]);
-
+            $newe = $itemCotizacion;
             $user = auth()->user();
             $requestIP = request()->ip();
             //error_log($requestID);
@@ -44,7 +44,8 @@ class ItemCotController extends Controller
                 ->performedOn($itemCotizacion)
                 ->causedBy($user)
                 ->withProperties(['ip' => $requestIP,
-                                  'user'=> $user])
+                                  'user'=> $user,
+                                  'nuevo'=>$newe])
                 ->log('created');
            }
             return response()->json($itemCotizacion,201);
@@ -89,6 +90,7 @@ class ItemCotController extends Controller
     public function delete($id)
     {
         $item = CotizacionItem::find($id);
+        $olddata = $item;
         $item->delete();
 
         $user = auth()->user();
@@ -100,7 +102,8 @@ class ItemCotController extends Controller
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'anterior'=>$olddata])
             ->log('deleted');
        }
 

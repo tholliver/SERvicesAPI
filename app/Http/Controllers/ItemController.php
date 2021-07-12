@@ -64,10 +64,8 @@ class ItemController extends Controller
         $item->descrip= $request->descrip;
         $item->item_general_id = $itemsuperior;
         $item->visible ='1';
+        $newe = $item;
         $item->save();
-
-
-
 
 
         $user = auth()->user();
@@ -79,7 +77,8 @@ class ItemController extends Controller
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=>$newe])
             ->log('created');
        }
 
@@ -159,6 +158,7 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
+        $itemdl = $item;
         //$item->delete();
         Item::where('id','=',$id)->update(['visible' => '0']);
 
@@ -173,7 +173,8 @@ class ItemController extends Controller
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'anterior'=> $itemdl])
             ->log('deleted');
        }
 

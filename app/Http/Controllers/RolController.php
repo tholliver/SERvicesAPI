@@ -66,6 +66,7 @@ class RolController extends Controller
         $rol->descrip = $request->descrip;
         $rol->visible ='1';        
         $rol->privilegios =$request->privilegios;
+        $nuevos = $rol;
         $rol->save();
 
 
@@ -79,7 +80,8 @@ class RolController extends Controller
             ->performedOn($rol)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $nuevos])
             ->log('created');
        }
 
@@ -176,6 +178,7 @@ class RolController extends Controller
     public function destroy($id)
     {
         $rol = Rol::find($id);
+
         //$rol->delete();
         Rol::where('id','=',$id)->update(['visible' => '0']);
 
@@ -189,7 +192,8 @@ class RolController extends Controller
             ->performedOn($rol)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'anterior'=>$rol])
             ->log('deleted');
        }
 

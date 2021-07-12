@@ -48,6 +48,7 @@ class InformeController extends Controller
             'id_solicitud' => $request->get('id_solicitud')
         ]);
         // $user = auth()->user();
+        $newe = $newInforme;
         $requestID = request()->ip();
          //error_log($requestID);
         if($newInforme){
@@ -58,7 +59,8 @@ class InformeController extends Controller
              ->performedOn($newInforme)
              ->causedBy($user)
              ->withProperties(['ip' => $requestID,
-                               'user'=> $user])
+                               'user'=> $user,
+                               'nuevo'=>$newe])
              ->log('created');
              //$user->name
         }
