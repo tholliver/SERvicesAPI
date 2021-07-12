@@ -41,7 +41,7 @@ class EmpresaController extends Controller
              'nit' => $request->get('nit'),
              'correo' => $request->get('correo'),
          ]);
-
+         $itemUpdated = $empresaguardar;
          $user = auth()->user();
          $requestIP = request()->ip();
          //error_log($requestID);
@@ -51,7 +51,8 @@ class EmpresaController extends Controller
              ->performedOn($empresaguardar)
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
-                               'user'=> $user])
+                               'user'=> $user,
+                               'nuevo'=> $itemUpdated])
              ->log('created');
         }
 
@@ -123,6 +124,7 @@ class EmpresaController extends Controller
     public function destroy($id)
     {
         $unidad = Empresa::find($id);
+        $itemdl = $unidad;
         $unidad->delete();
 
         $user = auth()->user();
@@ -134,7 +136,8 @@ class EmpresaController extends Controller
             ->performedOn($unidad)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'anterior'=> $itemdl])
             ->log('deleted');
        }
 

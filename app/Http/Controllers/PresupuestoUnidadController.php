@@ -58,7 +58,7 @@ class PresupuestoUnidadController extends Controller
                      'presupuesto' => $request->get('presupuesto'),
                      'gestion' => $request->get('gestion'),
                  ]);
-
+                 $newdata = $pres;
                  $user = auth()->user();
                  $requestIP = request()->ip();
                  //error_log($requestID);
@@ -68,7 +68,8 @@ class PresupuestoUnidadController extends Controller
                      ->performedOn($pres)
                      ->causedBy($user)
                      ->withProperties(['ip' => $requestIP,
-                                       'user'=> $user])
+                                       'user'=> $user,
+                                       'nuevo'=>$newdata])
                      ->log('created');
                 }
                  return response()->json(compact('pres'),201);
@@ -143,7 +144,9 @@ class PresupuestoUnidadController extends Controller
     public function update(Request $request)
     {
         $pres = PresupuestoUnidad::find($request->id);
+        $olddata = $pres;
         $pres->presupuesto = $request->presupuesto;
+        $itemUpdated = $pres->getDirty();
         $result = $pres->save();
 
         $user = auth()->user();
@@ -156,7 +159,9 @@ class PresupuestoUnidadController extends Controller
              //->performedOn($pres)
              ->causedBy($user)
              ->withProperties(['ip' => $requestIP,
-                               'user'=> $user])
+                               'user'=> $user,
+                               'nuevo'=> $itemUpdated,
+                               'anterior'=>$olddata])
              ->log('updated');
             //return ["result"=>"Success, data is updated"];
 
@@ -175,6 +180,7 @@ class PresupuestoUnidadController extends Controller
     public function destroy($id)
     {
         $pres = PresupuestoUnidad::find($id);
+        $del = $pres;
         $pres->delete();
 
 
@@ -187,7 +193,8 @@ class PresupuestoUnidadController extends Controller
             ->performedOn($pres)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'anterior'=>$del])
             ->log('deleted');
        }
         return response()->json(['message' => 'item eliminado']);

@@ -64,6 +64,7 @@ class ItemSuperiorController extends Controller
         $superior->nomitemSup = $request->nomitemSup;
         $superior->descripSup = $request->descripSup;
         $superior->visible ='1';
+        $newes = $superior;
         $superior->save();
         //////////////////////////////
 
@@ -77,7 +78,8 @@ class ItemSuperiorController extends Controller
             ->performedOn($superior)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=>$newes])
             ->log('created');
       // }
 
@@ -119,8 +121,10 @@ class ItemSuperiorController extends Controller
         }
 
         $item = ItemSuperior::find($id);
+        $olddata = $item;
         $item->nomitemSup = $input['nomitemSup'];
         $item->descripSup = $input['descripSup'];
+        $itemUpdated = $item->getDirty();
         $item->save();
 
         $user = auth()->user();
@@ -132,7 +136,9 @@ class ItemSuperiorController extends Controller
             ->performedOn($item)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olddata])
             ->log('updated');
        }
 

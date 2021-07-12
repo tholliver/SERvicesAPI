@@ -186,25 +186,25 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $userdel = $user;
       //  $user->delete();
     //  $id  = $request->get('id');
 
       User::where('id','=',$id)->update(['visible' => '0']);
 
-
-
     /////////////////////////
 
         $userdetails = auth()->user();
         $requestIP = request()->ip();
-        error_log($requestID);
+        //error_log($requestID);
        if($user){
             // Add activity logs
             activity('usuario')
             ->performedOn($user)
             ->causedBy($userdetails)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $userdetails])
+                              'user'=> $userdetails,
+                              'anterior'=>$userdel])
             ->log('deleted');
        }
         return response()->json(['message' => 'item eliminado']);

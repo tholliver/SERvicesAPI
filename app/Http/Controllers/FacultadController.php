@@ -35,7 +35,21 @@ class FacultadController extends Controller
             $facultad->direccion = $request->direccion;
             $facultad->correo = $request->correo;
             $facultad->visible ='1';
+            $newe = $facultad ;
             $facultad->save();
+            $user = auth()->user();
+            $requestIP = request()->ip();
+     
+            if($facultad){
+                // Add activity logs
+                activity('facultades')
+                ->performedOn($facultad)
+                ->causedBy($user)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $user,
+                                  'nuevo'=> $newe])
+                ->log('created');
+           }
             return response()->json($facultad,201);
         }
 
@@ -45,32 +59,31 @@ class FacultadController extends Controller
         //$unidadId = Unidad::where('nombre',$unidadName)->first()->id;
 
         $facultad= Facultad::find($request->id);
+        $olddata = $facultad;
         $facultad->nombre = $request->nombre;
         $facultad->decano = $request->decano;
         $facultad->telefono = $request->telefono;
         $facultad->direccion = $request->direccion;
         $facultad->correo= $request->correo;
         $facultad->visible ='1';
-
+        $itemUpdated = $facultad->getDirty();
         /////
         $result = $facultad->save();
 
-        $userdeta = auth()->user();
+        $user = auth()->user();
         $requestIP = request()->ip();
-      /*
-        if($result){
+        //error_log($requestID);
+       if($result){
             // Add activity logs
-            activity('facultad')
-            ->performedOn($facultad)
-            ->causedBy($userdeta)
+            activity('facultades')
+            ->performedOn($item)
+            ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $userdeta])
-            ->log('updated');
-
-            return ["result"=>"Success, data is updated"];
-        } else {
-            return ["result"=>"Error, data didnt update"];
-        }*/
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olddata])
+            ->log('deleted');
+       }
         return ["result"=>"Success, data is updated"];
     }
 
@@ -85,11 +98,12 @@ class FacultadController extends Controller
         error_log($requestID);
        if($facultad){
             // Add activity logs
-            activity('facultad')
+            activity('facultades')
             ->performedOn($facultad)
             ->causedBy($userdetails)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $userdetails])
+                              'user'=> $userdetails,
+                              'anterior'=>$facultad])
             ->log('deleted');
        }
         return response()->json(['message' => 'facultad eliminada']);
