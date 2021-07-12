@@ -39,7 +39,7 @@ class FacultadController extends Controller
             $facultad->save();
             $user = auth()->user();
             $requestIP = request()->ip();
-     
+
             if($facultad){
                 // Add activity logs
                 activity('facultades')
@@ -69,21 +69,20 @@ class FacultadController extends Controller
         $itemUpdated = $facultad->getDirty();
         /////
         $result = $facultad->save();
-
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
-       if($result){
+       //if($result){
             // Add activity logs
             activity('facultades')
-            ->performedOn($item)
+            //->performedOn($itemUpdated)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
                               'user'=> $user,
                               'nuevo'=> $itemUpdated,
                               'anterior'=>$olddata])
-            ->log('deleted');
-       }
+            ->log('update');
+       //}
         return ["result"=>"Success, data is updated"];
     }
 
@@ -107,5 +106,9 @@ class FacultadController extends Controller
             ->log('deleted');
        }
         return response()->json(['message' => 'facultad eliminada']);
+    }
+    public function show($id){
+      $facultad = Facultad::find($id);
+      return response()->json($facultad);
     }
 }

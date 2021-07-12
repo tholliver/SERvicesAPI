@@ -17,7 +17,11 @@ class PresupuestoUnidadController extends Controller
      */
     public function index()
     {
-        return PresupuestoUnidad::all();
+      //  return PresupuestoUnidad::all();
+        $user = DB::table('presupuesto_unidads')
+        ->select('id_unidad','presupuesto','gestion','id')
+        ->where('visible','=','1')->get();
+        return response()->json($user ,201);
     }
 
     /**
@@ -53,11 +57,25 @@ class PresupuestoUnidadController extends Controller
         if (Unidad::where('id', '=', $request->get('id_unidad'))->exists()) {
             // user found
             if($request->has('presupuesto')){
+
+              /*
                  $pres = PresupuestoUnidad::create([
                      'id_unidad' => $request->get('id_unidad'),
                      'presupuesto' => $request->get('presupuesto'),
                      'gestion' => $request->get('gestion'),
-                 ]);
+                      'visible'-> 1,
+                 ]);*/
+
+                 $pres = new PresupuestoUnidad;
+                 $pres->id_unidad= $request->id_unidad;
+                 $pres->presupuesto = $request->presupuesto;
+                 $pres->gestion = $request->gestion;;
+                 $pres->visible ='1';
+                 $pres->save();
+
+
+
+
                  $newdata = $pres;
                  $user = auth()->user();
                  $requestIP = request()->ip();
@@ -97,9 +115,19 @@ class PresupuestoUnidadController extends Controller
         $presupuestos = DB::table('presupuesto_unidads')
             ->select('unidads.nombre','presupuesto_unidads.presupuesto','presupuesto_unidads.gestion','presupuesto_unidads.id')
             ->join('unidads', 'presupuesto_unidads.id_unidad', '=', 'unidads.id')
-            ->get();
+            ->where('presupuesto_unidads.visible','=','1')->get();
         return response()->json($presupuestos);
     }
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -180,8 +208,9 @@ class PresupuestoUnidadController extends Controller
     public function destroy($id)
     {
         $pres = PresupuestoUnidad::find($id);
-        $del = $pres;
-        $pres->delete();
+        //$del = $pres;
+        //$pres->delete();
+        PresupuestoUnidad::where('id','=',$id)->update(['visible' => '0']);
 
 
         $user = auth()->user();
