@@ -208,7 +208,7 @@ class PresupuestoUnidadController extends Controller
     public function destroy($id)
     {
         $pres = PresupuestoUnidad::find($id);
-        //$del = $pres;
+        $del = $pres;
         //$pres->delete();
         PresupuestoUnidad::where('id','=',$id)->update(['visible' => '0']);
 

@@ -81,7 +81,7 @@ class FacultadController extends Controller
                               'user'=> $user,
                               'nuevo'=> $itemUpdated,
                               'anterior'=>$olddata])
-            ->log('update');
+            ->log('updated');
        //}
         return ["result"=>"Success, data is updated"];
     }

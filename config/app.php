@@ -237,7 +237,6 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         // Backups
-        'BackupManager' => Sarfraznawaz2005\BackupManager\Facades\BackupManager::class,
         'Zipper' => Chumper\Zipper\Zipper::class
        
 
