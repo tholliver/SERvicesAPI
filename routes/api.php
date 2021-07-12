@@ -190,4 +190,6 @@ Route::group([
       Route::delete('facultad/{id}', 'FacultadController@destroy');
       //////////////////////////////////
       Route::post('facultadAct', 'FacultadController@update');
+      /////////////////
+      Route::get('/facultadInfo/{id}', 'FacultadController@show');
 });

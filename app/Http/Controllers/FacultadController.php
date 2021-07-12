@@ -94,4 +94,8 @@ class FacultadController extends Controller
        }
         return response()->json(['message' => 'facultad eliminada']);
     }
+    public function show($id){
+      $facultad = Facultad::find($id);
+      return response()->json($facultad);
+    }
 }
