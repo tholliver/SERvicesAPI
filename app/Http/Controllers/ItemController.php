@@ -93,14 +93,20 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-
-        $item = Item::find($id);
+        /*$item = Item::find($id);
 
         if (is_null($item)) {
             return response()->json(['message' => 'item no encontrado']);
         }
 
-        return response()->json($item, 200);
+        return response()->json($item, 200);*/
+
+
+        $items = DB::table('items')
+        ->select('item_superiors.nomitemSup','items.id','items.descrip','items.nomitem')
+        ->join('item_superiors', 'items.item_general_id', '=', 'item_superiors.id')
+        ->where('items.id',$id )->get();
+        return response()->json($items ,201);
     }
 
     /**
