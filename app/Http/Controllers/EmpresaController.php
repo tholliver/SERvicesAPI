@@ -56,7 +56,6 @@ class EmpresaController extends Controller
         }
 
         return response()->json($empresaguardar,201);
-
         }
 
         $returnData = array(
@@ -94,12 +93,14 @@ class EmpresaController extends Controller
         }
 
         $empresa = Empresa::find($id);
+        $olddata = $empresa;
         $empresa->nombreemp = $input['nombreemp'];
         $empresa->repnombre = $input['repnombre'];
         $empresa->telefono = $input['telefono'];
         $empresa->diremp = $input['diremp'];
         $empresa->rubro = $input['rubro'];
         $empresa->nit = $input['nit'];
+        $itemUpdated = $empresa->getDirty();
         $empresa->save();
 
         $user = auth()->user();
@@ -111,7 +112,9 @@ class EmpresaController extends Controller
             ->performedOn($empresa)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olddata])
             ->log('updated');
        }
         return response()->json($empresa, 200);

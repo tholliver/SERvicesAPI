@@ -92,11 +92,13 @@ class EmpresaCotizController extends Controller
          //$request->file("cotizacion_pdf")->move(public_path("pdf/".$nombre));
 
         $empresaCot = EmpresaCotizacion::Find($id);
+        $olddata = $empresaCot;
         $empresaCot->observaciones = $input['observaciones'];
         $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
         $empresaCot->validez_oferta = $input['validez_oferta'];
         $empresaCot->total = $input['total'];
         $empresaCot->cotizacion_pdf = $ruta;
+        $itemUpdated = $empresaCot->getDirty();
         $empresaCot->save();
 
         $user = auth()->user();
@@ -108,7 +110,9 @@ class EmpresaCotizController extends Controller
             ->performedOn($empresaCot)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $itemUpdated,
+                              'anterior'=>$olddata])
             ->log('updated');
        }
         return response([ 'message' => 'actualizado'], 200);
