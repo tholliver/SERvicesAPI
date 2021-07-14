@@ -23,6 +23,14 @@ class PresupuestoUnidadController extends Controller
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
+    public function index22()
+    {
+      //  return PresupuestoUnidad::all();
+        $user = DB::table('presupuesto_unidads')
+        ->select('id_unidad','presupuesto','gestion','id')
+        ->where('visible','=','0')->get();
+        return response()->json($user ,201);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -228,4 +236,10 @@ class PresupuestoUnidadController extends Controller
        }
         return response()->json(['message' => 'item eliminado']);
     }
+    public function restauracion($id)
+    {
+        PresupuestoUnidad::where('id','=',$id)->update(['visible' => '1']);
+        return response()->json(['message' => 'restaurado']);
+      }
+
 }

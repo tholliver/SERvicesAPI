@@ -21,7 +21,23 @@ class RolController extends Controller
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
-    
+    public function index22()
+    {
+        //return Users::all();
+        $user = DB::table('rols')
+        ->select('id','rolnom','descrip','privilegios')
+        ->where('visible','=','0')->get();
+        return response()->json($user ,201);
+    }
+
+
+
+    public function restauracion($id)
+    {
+        Rol::where('id','=',$id)->update(['visible' => '1']);
+      return response()->json(['message' => 'rol recuperado']);
+    }
+
     public function index2()
     {
         //return Users::all();
@@ -64,7 +80,7 @@ class RolController extends Controller
         $rol = new Rol;
         $rol->rolnom = $request->rolnom;
         $rol->descrip = $request->descrip;
-        $rol->visible ='1';        
+        $rol->visible ='1';
         $rol->privilegios =$request->privilegios;
         $nuevos = $rol;
         $rol->save();

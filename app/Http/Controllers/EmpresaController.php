@@ -18,9 +18,19 @@ class EmpresaController extends Controller
     protected $table = 'empresas';
     public function index()
     {
-        return Empresa::all();
-        // $items = Item::latest()->paginate(50);
+      $user = DB::table('empresas')
+      ->select('nombreemp','repnombre','telefono','diremp','rubro','nit','created_at','updated_at','id')
+      ->where('visible','=','1')->get();
+      return response()->json($user ,201);
     }
+    public function index2()
+    {
+      $user = DB::table('empresas')
+      ->select('nombreemp','repnombre','telefono','diremp','rubro','nit','created_at','updated_at','id')
+      ->where('visible','=','0')->get();
+      return response()->json($user ,201);
+    }
+
 
 
     /**
@@ -125,7 +135,7 @@ class EmpresaController extends Controller
     {
         $unidad = Empresa::find($id);
         $itemdl = $unidad;
-        $unidad->delete();
+        Empresa::where('id','=',$id)->update(['visible' => '0']);
 
         $user = auth()->user();
         $requestIP = request()->ip();
@@ -155,53 +165,6 @@ class EmpresaController extends Controller
         $unidad = Empresa::find($nombre);
         return response()->json($nombre, 200);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    public function cotizacion($id)
     {
          $cotizacion = Empresa::all()->cotizaciones->where('id_solicitud',$id);
@@ -228,7 +191,11 @@ class EmpresaController extends Controller
          ->where('nombreemp',$nombre)->get();
          return response()->json($items ,201);
      }
-
+     public function restauracion($id)
+     {
+         Empresa::where('id','=',$id)->update(['visible' => '1']);
+         return response()->json(['message' => 'empresa restaurada']);
+     }
 
 
 }

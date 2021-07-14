@@ -18,7 +18,10 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        return Solicitud::all();
+      $user = DB::table('solicituds')
+      ->select('supera','estado','montoestimado','responsable','tipo','unidad_nombre','id','unidad_id','created_at','updated_at')
+      ->where('visible','=','1')->get();
+      return response()->json($user ,201);
     }
 
     /**
@@ -100,8 +103,8 @@ class SolicitudController extends Controller
          $requestIP = request()->ip();
          //error_log($requestID);
         if($newsolicitud){
-             // Add activity logs   
-             
+             // Add activity logs
+
              activity('solicitudes')
              ->performedOn($newsolicitud)
              ->causedBy($user)
@@ -162,7 +165,7 @@ class SolicitudController extends Controller
         $solicitud->estado = $request->estado;
         $itemUpdated = $solicitud->getDirty();
         $result = $solicitud->save();
-        
+
 
 
         if($result){
@@ -178,7 +181,7 @@ class SolicitudController extends Controller
                               'anterior'=>$olds])
             ->log('updated');
             //$user->name
-       
+
             return ["result"=>"Success, data is updated"];
         } else {
             return ["result"=>"Error, data didnt update"];
@@ -206,6 +209,7 @@ class SolicitudController extends Controller
     {
         $solicitudes = DB::table('solicituds')
                 ->where('estado', '=', 'Aceptada')
+                ->where('visible', '=', '1')
                 ->get();
         return response()->json($solicitudes);
     }
@@ -219,6 +223,7 @@ class SolicitudController extends Controller
     {
         $solicitudes = DB::table('solicituds')
                 ->where('estado', '=', 'Rechazada')
+                ->where('visible', '=', '1')
                 ->get();
         return response()->json($solicitudes);
     }
@@ -227,6 +232,7 @@ class SolicitudController extends Controller
     {
         $solicitudes = DB::table('solicituds')
                 ->where('estado', '=', 'Pendiente')
+                ->where('visible', '=', '1')
                 ->get();
         return response()->json($solicitudes);
     }

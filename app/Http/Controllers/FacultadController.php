@@ -18,6 +18,18 @@ class FacultadController extends Controller
                    ->where('visible','=','1')->get();
                    return response()->json($user ,201);
         }
+        public function getFacultades2()
+        {
+                   $user = DB::table('facultad')
+                   ->select('nombre','decano','telefono','direccion','correo','id')
+                   ->where('visible','=','0')->get();
+                   return response()->json($user ,201);
+        }
+        public function restauracion($id)
+        {
+            Facultad::where('id','=',$id)->update(['visible' => '1']);
+            return response()->json(['message' => 'facultad restaurada']);
+        }
         public function verificar($nombre)
         {
             $items = DB::table('facultad')

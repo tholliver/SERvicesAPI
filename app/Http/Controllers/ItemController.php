@@ -18,17 +18,19 @@ class ItemController extends Controller
      */
     public function index()
     {
-      //  $items = Item::all();
-        // $items = Item::latest()->paginate(50);
-        //Cambiando la respuesta a solo un array
-        //return response()->json($items, 200);
-
-
         $user = DB::table('items')
         ->select('nomitem','descrip','item_general_id','id')
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
+    public function index2()
+    {
+        $user = DB::table('items')
+        ->select('nomitem','descrip','item_general_id','id')
+        ->where('visible','=','0')->get();
+        return response()->json($user ,201);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -167,9 +169,6 @@ class ItemController extends Controller
         $itemdl = $item;
         //$item->delete();
         Item::where('id','=',$id)->update(['visible' => '0']);
-
-
-
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
@@ -192,5 +191,10 @@ class ItemController extends Controller
         ->where('nomitem',$nombre)
         ->where('visible','=','1' )->get();
         return response()->json($items ,201);
+    }
+    public function restauracion($id)
+    {
+        Item::where('id','=',$id)->update(['visible' => '1']);
+        return response()->json('restaurado' ,201);
     }
 }

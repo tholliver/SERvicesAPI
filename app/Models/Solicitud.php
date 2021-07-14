@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Solicitud extends Model
-{    
+{
     //addd
     use Notifiable;
     //LogsActivity;
     //protected static $logAttributes = ['tipo','responsable','unidad_nombre','estado'];
-    
+
     protected $fillable=[
-    'unidad_id','unidad_nombre','tipo','responsable','montoestimado','estado','supera'
+    'unidad_id','unidad_nombre','tipo','responsable','montoestimado','estado','supera','visible'
     ];
     public function items()
     {
         return $this->belongsToMany(Item::class,'item_solicitud','solicitud_id','item_id')->withPivot('nombre','descrip','cantidad','precio');
-        
+
     }
 
     public function cotizacionesEmpresa()

@@ -27,6 +27,13 @@ class UnidadController extends Controller
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
+    public function index22()
+    {
+        $user = DB::table('unidads')
+        ->select('nombre','facultad','telefono','id')
+        ->where('visible','=','0')->get();
+        return response()->json($user ,201);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -204,6 +211,11 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::find($id);
         //$unidad->delete();
+        $prueba = DB::table('presupuesto_unidads')
+        ->select('id')
+        ->where('id_unidad','=',$id)
+        ->update(['visible' => '0']);
+
         Unidad::where('id','=',$id)->update(['visible' => '0']);
 
         $user = auth()->user();
@@ -230,4 +242,19 @@ class UnidadController extends Controller
          ->where('visible','=','1' )->get();
         return response()->json($items ,201);
     }
+    public function restauracion($id)
+    {
+        $unidad = Unidad::find($id);
+        //$unidad->delete();
+        $prueba = DB::table('presupuesto_unidads')
+        ->select('id')
+        ->where('id_unidad','=',$id)
+        ->update(['visible' => '1']);
+
+        Unidad::where('id','=',$id)->update(['visible' => '1']);
+
+
+        return response()->json(['message' => 'unidad restaurada']);
+    }
+
 }

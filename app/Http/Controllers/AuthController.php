@@ -20,8 +20,8 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login']]);
     }
-    
-    
+
+
 
     /**
      * Get a JWT via given credentials.
@@ -37,6 +37,7 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+      ///
     }
 
     /**
@@ -71,7 +72,7 @@ class AuthController extends Controller
         return $this->respondWithToken(auth()->refresh());
     }
 
-    
+
     /**
      * Get the token array structure.
      *

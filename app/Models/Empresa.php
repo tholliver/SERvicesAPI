@@ -18,7 +18,7 @@ class Empresa extends Model
      */
     protected $table = 'empresas';
     protected $fillable = [
-        'nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo',
+        'nombreemp', 'repnombre', 'telefono','diremp','rubro', 'nit','correo','visible',
     ];
 
     public function cots()

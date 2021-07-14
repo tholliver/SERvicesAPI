@@ -41,15 +41,20 @@ Route::group([
     Route::post('empresas', 'EmpresaController@store');
     Route::post('empresas/{id}', 'EmpresaController@update');
     Route::delete('empresas/{id}', 'EmpresaController@destroy');
+    Route::put('empresasRest/{id}', 'EmpresaController@restauracion');
+    Route::get('empresasEliminadas', 'EmpresaController@index2');
 
 
     //POST and Get methods for presupuestos
     Route::get('presupuesto', 'PresupuestoUnidadController@index');
+    Route::get('presupuestosEliminados', 'PresupuestoUnidadController@index22');
     Route::get('presupuestos', 'PresupuestoUnidadController@getDatos');
     Route::get('presupuesto/{id}/{gestion}', 'PresupuestoUnidadController@presupuestoId');
     Route::post('presupuesto', 'PresupuestoUnidadController@nuevoPresupuesto');
     Route::put('presupuesto', 'PresupuestoUnidadController@update');
     Route::delete('presupuesto/{id}', 'PresupuestoUnidadController@destroy');
+    Route::put('presupuestoRest/{id}', 'PresupuestoUnidadController@restauracion');
+
 
 
     //POST and Get methods for roles
@@ -94,10 +99,12 @@ Route::group([
 
     //POST and Get methods for roles
     Route::get('roles', 'RolController@index');
+    Route::get('rolesEliminados', 'RolController@index22');
     Route::post('roles', 'RolController@nuevorol');
     Route::put('roles', 'RolController@update');
     Route::delete('roles/{id}', 'RolController@destroy');
-
+    Route::put('rolesRest/{id}', 'RolController@restauracion');
+/////////////////////////////////////////////
     // Rutas items
     Route::get('items', 'ItemController@index');
     /////////////////////////////////////////////////
@@ -106,8 +113,13 @@ Route::group([
     Route::post('items/{id}', 'ItemController@update');
     Route::get('items/{id}', 'ItemController@show');
     Route::delete('items/{id}', 'ItemController@destroy');
+    Route::put('itemRest/{id}', 'ItemController@restauracion');
+    Route::get('itemsEliminados', 'ItemController@index2');
+
+    //////////////////////////////////////////
     // Rutas ItemSuperior
     Route::get('itemSup', 'ItemSuperiorController@index');
+    Route::get('itemSupEliminadas', 'ItemSuperiorController@index2');
     ///////////////////////////////////////////////////////
     Route::get('itemSuperiorVerificar/{nombre}', 'ItemSuperiorController@verificar');
     Route::get('itemSupItems/{id}', 'ItemSuperiorController@allItemsOnSup');
@@ -115,9 +127,11 @@ Route::group([
     Route::post('itemSup', 'ItemSuperiorController@store');
     Route::post('itemSup/{id}', 'ItemSuperiorController@update');
     Route::delete('itemSup/{id}', 'ItemSuperiorController@destroy');
+    Route::put('itemSupRest/{id}', 'ItemSuperiorController@restauracion');
     //destroy($id)
      // Rutas unidades
     Route::get('unidades', 'UnidadController@index');
+    Route::get('unidadesEliminadas', 'UnidadController@index22');
     /////////////////////////////////////////////////
     Route::get('verificarUnidad/{nombre}', 'UnidadController@verificar');
     Route::post('unidades', 'UnidadController@store');
@@ -125,6 +139,7 @@ Route::group([
     Route::get('unidades/{id}', 'UnidadController@show');
     Route::get('unidades2/{id}', 'UnidadController@show2');
     Route::delete('unidades/{id}', 'UnidadController@destroy');
+    Route::put('unidadesRest/{id}', 'UnidadController@restauracion');
     //Obtener todas las asignaciones de la unidad --> HISTORIAL
     Route::get('/unidaditemsuper/{id}', 'UnidadController@unidadItemsSuperiores');
     //Obtener todas las asignaciones de la unidad --> Del año en curso
@@ -135,6 +150,7 @@ Route::group([
 
      //Autentica cion de usuarios
     Route::get('users', 'UserController@getusers');
+    Route::get('usersEliminados', 'UserController@getusers2');
     /////////////////////////////////////////////////
     Route::get('verificar/{nombre}/{apellido}', 'UserController@verificar');
     Route::post('register', 'UserController@register');
@@ -145,7 +161,7 @@ Route::group([
     Route::get('auth-user', 'UserController@getAuthenticatedUser');
     Route::put('actualizar', 'UserController@update');
     Route::delete('user/{id}', 'UserController@destroy');
-
+    Route::put('userRest/{id}', 'UserController@restauracion');
          // Rutas Item Cotizacion
     Route::get('item_cotizacion', 'ItemCotController@index');
     Route::delete('item_cotizacion/{id}', 'ItemCotController@delete');
@@ -183,7 +199,9 @@ Route::group([
     Route::post('restore','BackupController@testFunc');
     //testFunc
     //Agregando Facultad
+
       Route::get('facultades', 'FacultadController@getFacultades');
+      Route::get('facultadesEliminadas', 'FacultadController@getFacultades2');
       ////////////////////////////////////////////////
       Route::get('verificarFacultad/{nombre}', 'FacultadController@verificar');
       Route::post('facultad', 'FacultadController@register');
@@ -192,4 +210,5 @@ Route::group([
       Route::post('facultadAct', 'FacultadController@update');
       /////////////////
       Route::get('/facultadInfo/{id}', 'FacultadController@show');
+      Route::put('facultadRest/{id}', 'FacultadController@restauracion');
 });

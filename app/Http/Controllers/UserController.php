@@ -36,6 +36,15 @@ class UserController extends Controller
                    ->where('visible','=','1')->get();
                    return response()->json($user ,201);
         }
+        public function getusers2()
+        {
+            #response()->json(compact('token')
+          // return User::all();
+                   $user = DB::table('users')
+                   ->select('name','lastname','rol','email','cellphone','unidaddegasto','id')
+                   ->where('visible','=','0')->get();
+                   return response()->json($user ,201);
+        }
       /*  public function getusersNew()
         {
           $items = DB::table('unidadasignacionitems')
@@ -185,16 +194,22 @@ class UserController extends Controller
             }
     public function destroy($id)
     {
+        User::where('id','=',$id)->update(['visible' => '0']);
         $user = User::find($id);
         $userdel = $user;
-      //  $user->delete();
-    //  $id  = $request->get('id');
+        $nombreCompleto = $user->name.' '.$user->lastname;
+        $unidad=$user->unidad_id;
+        $updateDetails=[
+            'visible' =>'0'
+        ];
+        DB::table('solicituds')
+        ->where('responsable',$nombreCompleto)
+        ->where('unidad_id',$unidad)
+        ->update($updateDetails);
+        //  $user->delete();
+        //  $id  = $request->get('id');
 
-      User::where('id','=',$id)->update(['visible' => '0']);
-
-    /////////////////////////
-
-        $userdetails = auth()->user();
+       $userdetails = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
        if($user){
@@ -207,6 +222,23 @@ class UserController extends Controller
                               'anterior'=>$userdel])
             ->log('deleted');
        }
-        return response()->json(['message' => 'item eliminado']);
+      return response()->json(['message' => 'usuarios eliminado']);
+    }
+    public function restauracion($id)
+    {
+        User::where('id','=',$id)->update(['visible' => '1']);
+        $user = User::find($id);
+        $userdel = $user;
+        $nombreCompleto = $user->name.' '.$user->lastname;
+        $unidad=$user->unidad_id;
+        $updateDetails=[
+            'visible' =>'1'
+        ];
+        DB::table('solicituds')
+        ->where('responsable',$nombreCompleto)
+        ->where('unidad_id',$unidad)
+        ->update($updateDetails);
+
+      return response()->json(['message' => 'usuario recuperado']);
     }
 }

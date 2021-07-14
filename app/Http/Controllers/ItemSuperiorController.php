@@ -25,6 +25,15 @@ class ItemSuperiorController extends Controller
         ->where('visible','=','1')->get();
         return response()->json($user ,201);
     }
+    public function index2()
+    {
+        //return ItemSuperior::all();
+        // $items = Item::latest()->paginate(50);
+        $user = DB::table('item_superiors')
+        ->select('nomitemSup','descripSup','id')
+        ->where('visible','=','0')->get();
+        return response()->json($user ,201);
+    }
 
     public function verificar($nombre)
     {
@@ -168,11 +177,30 @@ class ItemSuperiorController extends Controller
      * @param  \App\ItemSuperior  $item
      * @return \Illuminate\Http\Response
      */
+     public function restauracion($id){
+       $item = ItemSuperior::find($id);
+       //$item->delete();
+       ItemSuperior::where('id','=',$id)->update(['visible' => '1']);
+
+       $prueba = DB::table('items')
+       ->select('nomitem')
+       ->where('item_general_id','=',$id)
+       ->update(['visible' => '1']);
+
+       return response()->json('Se restauro' ,201);
+     }
+
+
     public function destroy($id)
     {
         $item = ItemSuperior::find($id);
         //$item->delete();
         ItemSuperior::where('id','=',$id)->update(['visible' => '0']);
+
+        $prueba = DB::table('items')
+        ->select('nomitem')
+        ->where('item_general_id','=',$id)
+        ->update(['visible' => '0']);
 
 
         $user = auth()->user();
@@ -189,6 +217,7 @@ class ItemSuperiorController extends Controller
        }
 
         return response()->json(['message' => 'item eliminado']);
+        //return response()->json($prueba ,201);
     }
 
 }
