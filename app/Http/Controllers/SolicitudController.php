@@ -86,15 +86,18 @@ class SolicitudController extends Controller
             return response()->json(compact('datas'),201);
         }
 
-        $newsolicitud = Solicitud::create([
-            'unidad_id' => $request->get('unidad_id'),
-            'unidad_nombre' => $request->get('unidad_nombre'),
-            'tipo' => $request->get('tipo'),
-            'responsable' => $request->get('responsable'),
-            'montoestimado' => $request->get('montoestimado'),
-            'estado' => $request->get('estado'),
-            'supera' => $request->get('supera'),
-        ]);
+        $newsolicitud = new Solicitud;
+        $newsolicitud ->unidad_id = $request->unidad_id;
+        $newsolicitud ->unidad_nombre = $request->unidad_nombre;
+        $newsolicitud ->tipo = $request->tipo;
+        $newsolicitud ->responsable = $request->responsable;
+        $newsolicitud ->montoestimado = $request->montoestimado;
+        $newsolicitud ->estado = $request->estado;
+        $newsolicitud ->supera = $request->supera;
+        $newsolicitud ->visible ='1';
+        $newsolicitud ->save();
+
+
 
         $newsolicitud->items()->attach($itemsobs);
 
