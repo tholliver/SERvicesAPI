@@ -28,7 +28,35 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+     public function login(){
+             $credentials = request(['email', 'password']);
+             $userwithO = User::where('email', request(['email']) )->get();
+
+
+             if( $userwithO->count() > 0 ){
+                 $userAf = $userwithO->first();
+                 if(($userAf->visible == 0)){
+
+                     return response()->json(['error' => 'Sin acceso'], 500);
+                 }else{
+
+                     if (! $token = auth()->attempt($credentials)) {
+
+                         return response()->json(['error' => 'Unauthorized'], 401);
+                     }
+                     return $this->respondWithToken($token);
+                     //Si ha sido desactivado
+                     //return response()->json($credentials , 403);
+                 }
+
+             }else{
+                 //Si ha sido desactivado
+                 return response()->json(['error' => 'Sin registros'], 403);
+             }
+         }
+
+
+/*   public function login()
     {
         $credentials = request(['email', 'password']);
 
@@ -39,6 +67,19 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
       ///
     }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Get the authenticated User.
