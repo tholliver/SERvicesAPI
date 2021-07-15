@@ -75,7 +75,7 @@ class EmpresaCotizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+/*    public function update(Request $request, $id)
     {
         $input = $request->all();
         //dump($request);
@@ -117,7 +117,7 @@ class EmpresaCotizController extends Controller
        }
         return response([ 'message' => 'actualizado'], 200);
     }
-
+*/
 
     public function recomendacionUpdate(Request $request)
     {
@@ -154,4 +154,73 @@ class EmpresaCotizController extends Controller
 
          return response()->json($items ,201);
      }
+
+
+     public function update(Request $request, $id){
+        $input = $request->all();
+
+        $empresaCot = EmpresaCotizacion::Find($id);
+            $olddata = $empresaCot;
+            $empresaCot->observaciones = $input['observaciones'];
+            $empresaCot->plazo_de_entrega = $input['plazo_de_entrega'];
+            $empresaCot->validez_oferta = $input['validez_oferta'];
+            $empresaCot->total = $input['total'];
+
+        //Se verifica si existe archivo
+         if($request->hasFile('cotizacion_pdf')){
+            if($request->file('cotizacion_pdf')->getSize() >= 2048000){
+                return response([ 'message' => 'Archivo muy grande', ], 413);
+            }
+             $file = $request->file('cotizacion_pdf');
+             $nombre = "pdf_".time().".".$file->getClientOriginalExtension();
+             $rute1 = $request->file("cotizacion_pdf")->move(public_path()."/pdf", $nombre); //Moving the file to public route
+
+            $ruta = "/".'pdf/'.$nombre;
+
+            $empresaCot->cotizacion_pdf = $ruta;
+            $itemUpdated = $empresaCot->getDirty();
+            $empresaCot->save();
+
+            $user = auth()->user();
+            $requestIP = request()->ip();
+            //error_log($requestID);
+           if($empresaCot){
+                // Add activity logs
+                activity('oferta-empresa')
+                ->performedOn($empresaCot)
+                ->causedBy($user)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $user,
+                                  'nuevo'=> $itemUpdated,
+                                  'anterior'=>$olddata])
+                ->log('updated');
+           }
+            return response([ 'message' => 'actualizado correctamente'], 200);
+
+        }else{
+            //No existe el archivo
+            $rutaOtra = "sin_archivo_pdf";
+
+            $empresaCot->cotizacion_pdf = $rutaOtra;
+            $itemUpdated = $empresaCot->getDirty();
+            $empresaCot->save();
+
+            $user = auth()->user();
+            $requestIP = request()->ip();
+            //error_log($requestID);
+           if($empresaCot){
+                // Add activity logs
+                activity('oferta-empresa')
+                ->performedOn($empresaCot)
+                ->causedBy($user)
+                ->withProperties(['ip' => $requestIP,
+                                  'user'=> $user,
+                                  'nuevo'=> $itemUpdated,
+                                  'anterior'=>$olddata])
+                ->log('updated');
+
+            return response([ 'message' => 'Se ha actualizado sin un pdf', ], 200);
+            }
+        }
+    }
 }
