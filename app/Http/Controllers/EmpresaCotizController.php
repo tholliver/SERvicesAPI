@@ -44,7 +44,7 @@ class EmpresaCotizController extends Controller
              'id_solicitud' => $request->get('id_solicitud'),
              'id_empresa' => $request->get('id_empresa'),
          ]);
-
+       
         $user = auth()->user();
         $requestIP = request()->ip();
         //error_log($requestID);
@@ -54,7 +54,8 @@ class EmpresaCotizController extends Controller
             ->performedOn($empCot)
             ->causedBy($user)
             ->withProperties(['ip' => $requestIP,
-                              'user'=> $user])
+                              'user'=> $user,
+                              'nuevo'=> $empCot])
             ->log('created');
        }
 
